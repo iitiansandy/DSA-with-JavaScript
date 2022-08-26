@@ -346,6 +346,176 @@ var spiralOrder = function(matrix) {
 };
 
 
+/*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+
+/*
+PROB 11 - Jump Game
+You are given an integer array nums. You are initially positioned at the array's first index, and each element 
+in the array represents your maximum jump length at that position.
+Return true if you can reach the last index, or false otherwise.
+Example 1:
+Input: nums = [2,3,1,1,4]
+Output: true
+Explanation: Jump 1 step from index 0 to 1, then 3 steps to the last index.
+*/
+
+var canJump = function(nums) {
+    let reachable = 0;
+    for(let i=0; i<nums.length; i++){
+        if(reachable < i){
+            return false;
+        }
+        reachable = Math.max(reachable, i + nums[i]);
+    }
+    return true;
+};
+
+
+/*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+
+/*
+PROB 12 - Merge Intervals
+Given an array of intervals where intervals[i] = [starti, endi], merge all overlapping intervals, 
+and return an array of the non-overlapping intervals that cover all the intervals in the input.
+
+Example 1:
+Input: intervals = [[1,3],[2,6],[8,10],[15,18]]
+Output: [[1,6],[8,10],[15,18]]
+Explanation: Since intervals [1,3] and [2,6] overlap, merge them into [1,6]. */
+
+var merge = function(intervals) {
+    intervals.sort((a,b) => a[0] - b[0]);
+    const result = [intervals[0]];
+    
+    for (let interval of intervals){
+        let e1 = result[result.length - 1][1];
+        let s2 = interval[0];
+        let e2 = interval[1];
+        
+        if(e1 >= s2){
+            result[result.length - 1][1] = Math.max(e1, e2);
+        } else {
+            result.push(interval);
+        }
+    }
+    return result;
+};
+
+
+/*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+
+/*
+PROB 13 - Given an array nums with n objects colored red, white, or blue, sort them in-place so that objects of the 
+same color are adjacent, with the colors in the order red, white, and blue.
+
+We will use the integers 0, 1, and 2 to represent the color red, white, and blue, respectively.
+You must solve this problem without using the library's sort function.
+
+Example 1:
+Input: nums = [2,0,2,1,1,0]
+Output: [0,0,1,1,2,2]
+*/
+
+var sortColors = function(nums) {
+    let first = 0;
+    let last = nums.length - 1;
+    let temp;
+    for (let i=0; i<=last;){
+        let num = nums[i];
+        if(num === 0){
+            temp = num;
+            nums[i] = nums[first];
+            nums[first] = temp;
+            i++;
+            first++;
+        } else if(num === 2){
+            temp = num;
+            nums[i] = nums[last];
+            nums[last] = temp;
+            last--;
+        } else {
+            i++;
+        }
+    }
+};
+
+
+/*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+
+/*
+PROB 14 - Subsets
+Given an integer array nums of unique elements, return all possible subsets (the power set).
+The solution set must not contain duplicate subsets. Return the solution in any order.
+
+Example 1:
+Input: nums = [1,2,3]
+Output: [[],[1],[2],[1,2],[3],[1,3],[2,3],[1,2,3]]
+*/
+
+var subsets = function(nums) {
+    //global result
+    const ans = [];
+    
+    //dfs recursive helper
+    const dfs = (i, nums, slate) => {
+        //base case
+        if(i === nums.length){
+            ans.push(slate.slice());
+            return;
+        }
+        //dfs recursive case
+        
+        //exclude
+        dfs(i+1, nums, slate);
+        
+        //include
+        slate.push(nums[i]);
+        dfs(i+1, nums, slate);
+        slate.pop();
+    }
+    dfs(0, nums, []);
+    return ans;
+};
+
+
+/*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+
+/*
+PROB 15 - Longest Consecutive Sequence
+Given an unsorted array of integers nums, return the length of the longest consecutive elements sequence.
+You must write an algorithm that runs in O(n) time.
+
+Example 1:
+Input: nums = [100,4,200,1,3,2]
+Output: 4
+Explanation: The longest consecutive elements sequence is [1, 2, 3, 4]. Therefore its length is 4.
+
+*/
+
+var longestConsecutive = function(nums) {
+    if(nums == null || nums.length === 0) return 0;
+    
+    const set = new Set(nums);
+    let max = 0;
+    for(let num of set){
+        if(set.has(num-1)){
+            continue;
+        }
+        let currNum = num;
+        let currMax = 1;
+        
+        while (set.has(currNum + 1)){
+            currNum++;
+            currMax++;
+        }
+        max = Math.max(max, currMax);
+    }
+    return max;
+};
+
+
+
+
 
 
 

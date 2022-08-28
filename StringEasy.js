@@ -277,5 +277,111 @@ var fizzBuzz = function(n) {
 };
 
 
+/*----------------------------------------------------------------------------------------------------------*/
+
+/*
+PROB 10 - Find the K-Beauty of a Number
+The k-beauty of an integer num is defined as the number of substrings of num when it is read as a string that meet the following conditions:
+It has a length of k.
+It is a divisor of num.
+Given integers num and k, return the k-beauty of num.
+
+Example: Input: num = 240, k = 2
+Output: 2
+Explanation: The following are the substrings of num of length k:
+- "24" from "240": 24 is a divisor of 240.
+- "40" from "240": 40 is a divisor of 240.
+Therefore, the k-beauty is 2.
+ */
+
+
+var divisorSubstrings = function(num, k){
+    let start = 0;
+    let count = 0;
+    let strNum = "" + num;
+
+    for(let end = 0; end < strNum.length; end++){
+        if(end >= k-1){
+            const number = Number(strNum.split("").slice(start, end +1).join(""));
+            if(num % number === 0) count++;
+            start++;
+        }
+    }
+    return count;
+}
+
+
+
+/*----------------------------------------------------------------------------------------------------------*/
+
+/*
+PROB 10 - Substrings of Size Three with Distinct Characters
+A string is good if there are no repeated characters.
+Given a string s​​​​​, return the number of good substrings of length three in s​​​​​​.
+Note that if there are multiple occurrences of the same substring, every occurrence should be counted.
+A substring is a contiguous sequence of characters in a string.
+
+Example 1:
+Input: s = "xyzzaz"
+Output: 1
+Explanation: There are 4 substrings of size 3: "xyz", "yzz", "zza", and "zaz". 
+The only good substring of length 3 is "xyz".
+*/
+
+var countGoodSubstrings = function(s) {
+    let goodStrs =0;
+    for (let i=0;i<s.length-2;i++){
+        if (s.at(i+1)===s.at(i+2)) {
+            i++;
+        } else if (s.at(i)!== s.at(i+1) && s.at(i) !== s.at(i+2)) {
+            goodStrs++;
+        }
+    }
+    
+    return goodStrs;
+};
+
+
+/*----------------------------------------------------------------------------------------------------------*/
+
+/*
+PROB 10 - Longest Nice Substring
+A string s is nice if, for every letter of the alphabet that s contains, it appears both in uppercase and lowercase. 
+For example, "abABB" is nice because 'A' and 'a' appear, and 'B' and 'b' appear. However, "abA" is not because 'b' 
+appears, but 'B' does not.
+Given a string s, return the longest substring of s that is nice. If there are multiple, return the substring of the earliest occurrence. 
+If there are none, return an empty string.
+
+Example 1:
+Input: s = "YazaAay"
+Output: "aAa"
+Explanation: "aAa" is a nice string because 'A/a' is the only letter of the alphabet in s, and both 'A' and 'a' appear.
+"aAa" is the longest nice substring.
+*/
+
+var longestNiceSubstring = function(s) {
+    if (s.length <= 1) {
+        return '';
+    }
+    
+    const sArr = s.split(''); // all chars
+    const sSet = new Set(sArr); // unique chars
+    
+    for (let i=0;i<=s.length-1;i++) {
+        if (sSet.has(sArr[i].toLowerCase()) && sSet.has(sArr[i].toUpperCase())) {
+            continue;
+        }
+        
+        const subS1 = longestNiceSubstring(s.slice(0, i));
+        const subS2 = longestNiceSubstring(s.slice(i+1));
+        
+        return subS1.length >= subS2.length ? subS1 : subS2;
+    }
+    
+    return s;
+};
+
+
+
 
 

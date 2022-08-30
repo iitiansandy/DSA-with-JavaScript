@@ -316,7 +316,67 @@ Output: [2,2]
 };
 
 
-/*----------------------------------------------------------------------------------------------------------------------------------------------*/
+/*--------------------------------------------------------------------------------------------------*/
 
+/*
+PROB - Remove Element
+Given an integer array nums and an integer val, remove all occurrences of val in nums in-place. 
+The relative order of the elements may be changed.
+
+Example 1:
+Input: nums = [3,2,2,3], val = 3
+Output: 2, nums = [2,2,_,_]
+Explanation: Your function should return k = 2, with the first two elements of nums being 2.
+It does not matter what you leave beyond the returned k (hence they are underscores).
+*/
+
+var removeElement = function(nums, val) {
+    if(!nums) return 0;
+    for(let i=0; i<nums.length; i++){
+        if(nums[i]===val){
+            nums.splice(i, 1);
+            i--;
+        }
+    }
+    return nums.length;
+};
+
+
+/*--------------------------------------------------------------------------------------------------*/
+
+/*
+PROB - 3Sum Closest
+Given an integer array nums of length n and an integer target, find three integers in nums such 
+hat the sum is closest to target.
+
+Return the sum of the three integers.
+You may assume that each input would have exactly one solution.
+Example 1:
+
+Input: nums = [-1,2,1,-4], target = 1
+Output: 2
+Explanation: The sum that is closest to the target is 2. (-1 + 2 + 1 = 2).
+*/
+
+var threeSumClosest = function(nums, target) {
+    nums.sort((a,b)=>a-b);
+    let ans = nums[0] + nums[1] + nums[2];
+    for(let i=0; i<nums.length-2; i++){
+        let start = i+1; end = nums.length-1;
+        while(start < end){
+            const sum = nums[i] + nums[start] + nums[end];
+            if(sum>target){
+                end--;
+            } else {
+                start++;
+            }
+            
+            if(Math.abs(target - sum) < Math.abs(target - ans)){
+                ans = sum;
+            }
+        }
+    }
+    return ans;
+};
 
 

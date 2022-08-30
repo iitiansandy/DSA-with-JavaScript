@@ -1,7 +1,8 @@
 
 /*
-TWO SUM
-PROB 1 - Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.
+PROB 1 - TWO SUM
+Given an array of integers nums and an integer target, return indices of the two 
+numbers such that they add up to target.
 You may assume that each input would have exactly one solution, and you may not use the same element twice.
 You can return the answer in any order.
 
@@ -24,11 +25,12 @@ Explanation: Because nums[0] + nums[1] == 9, we return [0, 1].
     }
 };
 
-/*----------------------------------------------------------------------------------------------------------------------------------------------*/
+/*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
 /*
-REMOVE DUPLICATES
-PROB 2 - Given an integer array nums sorted in non-decreasing order, remove the duplicates in-place such that each unique element appears only once. The relative order of the elements should be kept the same.
+PROB 2 - REMOVE DUPLICATES
+Given an integer array nums sorted in non-decreasing order, remove the duplicates in-place 
+such that each unique element appears only once. The relative order of the elements should be kept the same.
 Example 1:
 
 Input: nums = [1,1,2]
@@ -47,11 +49,14 @@ It does not matter what you leave beyond the returned k (hence they are undersco
     return index;
 };
 
-/*----------------------------------------------------------------------------------------------------------------------------------------------*/
+
+/*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
 /*
-PLUS ONE
-PROB 3 - You are given a large integer represented as an integer array digits, where each digits[i] is the ith digit of the integer. The digits are ordered from most significant to least significant in left-to-right order. The large integer does not contain any leading 0's.
+PROB 3 - PLUS ONE
+You are given a large integer represented as an integer array digits, where each digits[i] 
+is the ith digit of the integer. The digits are ordered from most significant to least significant in 
+left-to-right order. The large integer does not contain any leading 0's.
 
 Increment the large integer by one and return the resulting array of digits.
 Example 1:
@@ -77,15 +82,18 @@ Thus, the result should be [1,2,4].
     return digits;
 };
 
-/*----------------------------------------------------------------------------------------------------------------------------------------------*/
 
+/*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 /*
-MERGE SORTED ARRAY
-PROB 4 - You are given two integer arrays nums1 and nums2, sorted in non-decreasing order, and two integers m and n, representing the number of elements in nums1 and nums2 respectively.
+PROB 4 - MERGE SORTED ARRAY
+You are given two integer arrays nums1 and nums2, sorted in non-decreasing order, 
+and two integers m and n, representing the number of elements in nums1 and nums2 respectively.
 
 Merge nums1 and nums2 into a single array sorted in non-decreasing order.
 
-The final sorted array should not be returned by the function, but instead be stored inside the array nums1. To accommodate this, nums1 has a length of m + n, where the first m elements denote the elements that should be merged, and the last n elements are set to 0 and should be ignored. nums2 has a length of n.
+The final sorted array should not be returned by the function, but instead be stored inside the array nums1. 
+To accommodate this, nums1 has a length of m + n, where the first m elements denote the elements that should be 
+merged, and the last n elements are set to 0 and should be ignored. nums2 has a length of n.
 Example 1:
 
 Input: nums1 = [1,2,3,0,0,0], m = 3, nums2 = [2,5,6], n = 3
@@ -116,11 +124,11 @@ The result of the merge is [1,2,2,3,5,6] with the underlined elements coming fro
 };
 
 
-/*----------------------------------------------------------------------------------------------------------------------------------------------*/
+/*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
 /*
-PASCAL TRIANGLE
-PROB 5 - Given an integer numRows, return the first numRows of Pascal's triangle.
+PROB 5 - PASCAL TRIANGLE
+Given an integer numRows, return the first numRows of Pascal's triangle.
 In Pascal's triangle, each number is the sum of the two numbers directly above it
 Example 1:
 Input: numRows = 5
@@ -144,11 +152,11 @@ Output: [[1],[1,1],[1,2,1],[1,3,3,1],[1,4,6,4,1]]
 };
 
 
-/*----------------------------------------------------------------------------------------------------------------------------------------------*/
+/*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
 /*
-SINGLE NUMBER
-PROB 6 - Given a non-empty array of integers nums, every element appears twice except for one. Find that single one.
+PROB 6 - SINGLE NUMBER
+Given a non-empty array of integers nums, every element appears twice except for one. Find that single one.
 You must implement a solution with a linear runtime complexity and use only constant extra space.
 Example 1:
 Input: nums = [2,2,1]
@@ -168,12 +176,13 @@ Output: 1
     }
 };
 
-/*----------------------------------------------------------------------------------------------------------------------------------------------*/
 
+/*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 /*
-MAJORITY ELEMENT
-PROB 7 - Given an array nums of size n, return the majority element.
-The majority element is the element that appears more than ⌊n / 2⌋ times. You may assume that the majority element always exists in the array.
+PROB 7 - MAJORITY ELEMENT
+Given an array nums of size n, return the majority element.
+The majority element is the element that appears more than ⌊n / 2⌋ times. You may assume that 
+the majority element always exists in the array.
 Example 1:
 
 Input: nums = [3,2,3]
@@ -215,11 +224,12 @@ Output: 3
 };
 
 
-/*----------------------------------------------------------------------------------------------------------------------------------------------*/
 
+/*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 /*
-CONTAINS DUPLICATES
-PROB 8 - Given an integer array nums, return true if any value appears at least twice in the array, and return false if every element is distinct.
+PROB 8 - CONTAINS DUPLICATES
+Given an integer array nums, return true if any value appears at least twice in the 
+array, and return false if every element is distinct.
 Example 1:
 Input: nums = [1,2,3,1]
 Output: true
@@ -236,16 +246,18 @@ Output: true
 };
 
 
-/*----------------------------------------------------------------------------------------------------------------------------------------------*/
+/*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
 /*
-MISSING NUMBER
-PROB 9 - Given an array nums containing n distinct numbers in the range [0, n], return the only number in the range that is missing from the array.
+PROB 9 - MISSING NUMBER
+Given an array nums containing n distinct numbers in the range [0, n], return the only number 
+in the range that is missing from the array.
 
 Example 1:
 Input: nums = [3,0,1]
 Output: 2
-Explanation: n = 3 since there are 3 numbers, so all numbers are in the range [0,3]. 2 is the missing number in the range since it does not appear in nums.
+Explanation: n = 3 since there are 3 numbers, so all numbers are in the range [0,3]. 2 is the missing 
+number in the range since it does not appear in nums.
 */
 
  var missingNumber = function(nums) {
@@ -259,11 +271,12 @@ Explanation: n = 3 since there are 3 numbers, so all numbers are in the range [0
 };
 
 
-/*----------------------------------------------------------------------------------------------------------------------------------------------*/
+/*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
 /*
-MOVE ZEROS
-PROB 10 - Given an integer array nums, move all 0's to the end of it while maintaining the relative order of the non-zero elements.
+PROB 10 - MOVE ZEROS
+Given an integer array nums, move all 0's to the end of it while maintaining the relative 
+order of the non-zero elements.
 Note that you must do this in-place without making a copy of the array.
 Example 1:
 Input: nums = [0,1,0,3,12]
@@ -285,11 +298,12 @@ Output: [1,3,12,0,0]
     }
 };
 
-/*----------------------------------------------------------------------------------------------------------------------------------------------*/
+/*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
 /*
-INTERSECTION OF TWO ARRAYS
-PROB 11- Given two integer arrays nums1 and nums2, return an array of their intersection. Each element in the result must appear as many times as it shows in both arrays and you may return the result in any order.
+PROB 11- INTERSECTION OF TWO ARRAYS
+Given two integer arrays nums1 and nums2, return an array of their intersection. Each element 
+in the result must appear as many times as it shows in both arrays and you may return the result in any order.
 Example 1:
 Input: nums1 = [1,2,2,1], nums2 = [2,2]
 Output: [2,2]
@@ -316,10 +330,10 @@ Output: [2,2]
 };
 
 
-/*--------------------------------------------------------------------------------------------------*/
+/*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
 /*
-PROB - Remove Element
+PROB 12 - Remove Element
 Given an integer array nums and an integer val, remove all occurrences of val in nums in-place. 
 The relative order of the elements may be changed.
 
@@ -342,10 +356,10 @@ var removeElement = function(nums, val) {
 };
 
 
-/*--------------------------------------------------------------------------------------------------*/
+/*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
 /*
-PROB - 3Sum Closest
+PROB 13 - 3Sum Closest
 Given an integer array nums of length n and an integer target, find three integers in nums such 
 hat the sum is closest to target.
 
@@ -379,4 +393,41 @@ var threeSumClosest = function(nums, target) {
     return ans;
 };
 
+
+/*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+
+/*
+PROB 14 - Push Zeros to end
+You have been given a random integer array/list(ARR) of size N. You have been required to push all the zeros 
+that are present in the array/list to the end of it. Also, make sure to maintain the relative order of the 
+non-zero elements.
+
+Sample Input 1:
+[2 0 0 1 3 0 0]
+Sample Output 1:
+[2 1 3 0 0 0 0]
+*/
+
+function pushZerosToEnd(arr){
+    let count = 0;
+    for(let i=0; i<arr.length; i++){
+        if(arr[i] != 0){
+            arr[count++] = arr[i];
+        }
+    }
+    while(count < arr.length){
+        arr[count++] = 0;
+    }
+    return arr;
+}
+
+console.log(pushZerosToEnd([2, 0, 0, 1, 3, 0, 0]));
+
+
+/*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+
+/*
+PROB 15 - 
+
+*/
 

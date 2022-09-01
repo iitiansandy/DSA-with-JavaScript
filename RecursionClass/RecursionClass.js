@@ -186,6 +186,75 @@ function capitalizeArr(arr){
 // console.log(capitalizeArr(["hi", "hello", "hola"]));
 
 
+/*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+
+/* (CODEZINGER PROBLEM)
+PROB 11 - Write a function that accepts an integer N. The function should return reverse of N using recursion.
+Input: 10348
+Output: 84301
+*/
+
+// ITERATIVE METHOD
+
+function reverse_number(num) {
+    let rev = "";
+    while (num > 0) {
+        rev += Math.floor(num % 10);
+        num = Math.floor(num / 10);
+    }
+    return parseInt(rev);
+}
+
+
+// console.log(reverse_number(32145));
+
+// RECURSIVE METHOD
+
+function reverseNum(N){
+    N = N.toString();
+    if(N.length <= 1)
+        return N;
+    return reverseNum(N.slice(1)) + N[0];
+}
+
+// console.log(reverseNum(2345));
+
+
+/*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+
+/* (CODEZINGER PROBLEM)
+PROB 12 - Given a string S, write a program to reverse the input string without using any built-in function
+Input: hello world
+Output: dlrow olleh     */
+
+function reverseStr(str){
+    if(str.length <= 1) return str;
+
+    return reverseStr(str.slice(1)) + str[0];
+}
+// console.log(reverseStr("hello world"));
+
+
+
+/* (CODEZINGER PROBLEM)
+PROB 13 - Given an integer N, find whether N is a Palindrome using recursion. 
+Write a function that accepts an integer N. The function should return 1 if N is a palindrome else 0. 
+Ex 1 - Input: 121    Output: 1
+Ex 2 - Input: 1234   Output: 0                                   */
+
+function isPelindromeNumber(Num){
+    Num = Num.toString();
+    if(Num.length <= 1) return 1;
+    if(Num[0] == Num.slice(-1))
+        return isPelindromeNumber(Num.slice(1, -1));
+    else
+        return 0;
+}
+console.log(isPelindromeNumber(1234321));
+
+
+
+
 
 
 

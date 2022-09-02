@@ -234,7 +234,7 @@ function reverseStr(str){
 }
 // console.log(reverseStr("hello world"));
 
-
+/*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
 /* (CODEZINGER PROBLEM)
 PROB 13 - Given an integer N, find whether N is a Palindrome using recursion. 
@@ -250,7 +250,34 @@ function isPelindromeNumber(Num){
     else
         return 0;
 }
-console.log(isPelindromeNumber(1234321));
+// console.log(isPelindromeNumber(1234321));
+
+
+/*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+/*
+PROB 14 - Find product of digits of number using recursion
+Given an integer N, find the product of digits of N using recursion. 
+Write a function that accepts an integer N. The function should return the product of digits of N using recursion.
+Input: 1234
+Output: 24
+*/
+
+function getProduct(N){
+    N = N.toString();
+    if(N<=1) return N;
+    return N[0] * getProduct(N.slice(1));
+}
+console.log(getProduct(1234));
+
+
+/*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+/*
+PROB 15 - Find product of digits of number using recursion
+Given an integer N, find the product of digits of N using recursion. 
+Write a function that accepts an integer N. The function should return the product of digits of N using recursion.
+Input: 1234
+Output: 24
+*/
 
 
 

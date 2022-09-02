@@ -382,6 +382,30 @@ var longestNiceSubstring = function(s) {
 };
 
 
+/*----------------------------------------------------------------------------------------------------------*/
 
+/*
+PROB 11 - Remove Consecutive Duplicates
+For a given string(str), remove all the consecutive duplicate characters.
+Example:
+Input String: "aaaa"
+Expected Output: "a"
 
+Input String: "aabbbcc"
+Expected Output: "abc"
+*/
 
+function removeConsecutiveDuplicates(str){
+    let ans = "";
+    let temp = Number.MIN_VALUE;
+    let n = str.length;
+
+    for(let i=0; i<n; i++){
+        if(temp != str.charAt(i)){
+            ans = ans + str.charAt(i);
+            temp = str.charAt(i);
+        }
+    }
+    return ans;
+}
+console.log(removeConsecutiveDuplicates("aaaa"));

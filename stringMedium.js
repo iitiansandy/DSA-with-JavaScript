@@ -183,5 +183,65 @@ var generateParenthesis = (n)=> {
 };
 
 
+/*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+
+/*
+PROB 7 - Check Permutation
+For a given two strings, 'str1' and 'str2', check whether they are a permutation of each other or not.
+Sample Input 1: str1 : abcde,  str2 : baedc
+Sample Output 1: true
+Sample Input 2: str1 : abc , str2 : cbd
+Sample Output 2: false
+*/
+
+// Using Sorting  (Time Complexity - O(nlogn), Auxiliary Space - O(1))
+function checkPermutation(str1, str2){
+    let n1 = str1.length;
+    let n2 = str2.length;
+    
+    if(n1 != n2) return false;
+
+    let ch1 = str1.split("");
+    let ch2 = str2.split("");
+
+    ch1.sort();
+    ch2.sort();
+
+    for(let i=0; i<n1; i++){
+        if(ch1[i] != ch2[i]){
+            return false;
+        }
+    }
+    return true;
+}
+console.log(checkPermutation("nnnn", "nnnn"));
+
+
+// Using Count Characters (Time Complexity - O(n), Auxiliary Space - O(n))
+
+function arePermutation(str1, str2){
+    let count1 = Array[256];
+    let count2 = Array[256];
+
+    count1.fill(0);
+    count2.fill(0);
+
+    for(let i=0; i<str1.length && i<str2.length; i++){
+        count1[str1[i]]++;
+        count2[str2[i]]++;
+    }
+
+    if(str1.length != str2.length) return false;
+
+    for(let i=0; i<256; i++){
+        if(count1[i] != count2[j]){
+            return false;
+        }
+    }
+    return true;
+}
+console.log(checkPermutation("nnnn", "nnnm"));
+
+
 
 

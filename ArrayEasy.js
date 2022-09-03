@@ -13,12 +13,12 @@ Output: [0,1]
 Explanation: Because nums[0] + nums[1] == 9, we return [0, 1].
 */
 
- var twoSum = function(nums, target) {
+var twoSum = function (nums, target) {
     let map = new Map();
-    for(let i=0; i<nums.length; i++){
+    for (let i = 0; i < nums.length; i++) {
         let num1 = nums[i];
         let num2 = target - num1;
-        if(map.has(num2)){
+        if (map.has(num2)) {
             return [i, map.get(num2)];
         }
         map.set(num1, i);
@@ -39,11 +39,11 @@ Explanation: Your function should return k = 2, with the first two elements of n
 It does not matter what you leave beyond the returned k (hence they are underscores).
 */
 
- var removeDuplicates = function(nums) {
+var removeDuplicates = function (nums) {
     let index = 1;
-    for (let i=0; i<nums.length-1; i++){
-        if(nums[i] != nums[i+1]){
-            nums[index++] = nums[i+1];
+    for (let i = 0; i < nums.length - 1; i++) {
+        if (nums[i] != nums[i + 1]) {
+            nums[index++] = nums[i + 1];
         }
     }
     return index;
@@ -68,14 +68,14 @@ Incrementing by one gives 123 + 1 = 124.
 Thus, the result should be [1,2,4].
 */
 
- var plusOne = function(digits) {
-    for(let i=digits.length-1; i>=0; i--){
+var plusOne = function (digits) {
+    for (let i = digits.length - 1; i >= 0; i--) {
         digits[i]++;
-        if(digits[i]<10){
+        if (digits[i] < 10) {
             return digits;
         }
-        else{
-            digits[i]=0;
+        else {
+            digits[i] = 0;
         }
     }
     digits.unshift(1);
@@ -102,16 +102,16 @@ Explanation: The arrays we are merging are [1,2,3] and [2,5,6].
 The result of the merge is [1,2,2,3,5,6] with the underlined elements coming from nums1.
 */
 
- var merge = function(nums1, m, nums2, n) {
-    let first = m-1;
-    let second = n-1;
+var merge = function (nums1, m, nums2, n) {
+    let first = m - 1;
+    let second = n - 1;
     let i = m + n - 1;
-    
-    while (second >= 0){
+
+    while (second >= 0) {
         let fVal = nums1[first];
         let sVal = nums2[second];
-        
-        if(fVal > sVal){
+
+        if (fVal > sVal) {
             nums1[i] = fVal;
             i--;
             first--;
@@ -135,18 +135,18 @@ Input: numRows = 5
 Output: [[1],[1,1],[1,2,1],[1,3,3,1],[1,4,6,4,1]]
 */
 
- var generate = function(numRows) {
+var generate = function (numRows) {
     let pattern = new Array(numRows);
-    for(let i=0; i<numRows; i++){
-        let row = new Array(i+1);
-        row[0]=1;
-        row[row.length-1]=1;
-        
-        for(let j=1; j<row.length-1; j++){
-            let rowAbove = pattern[i-1];
-            row[j]=rowAbove[j] + rowAbove[j-1];
+    for (let i = 0; i < numRows; i++) {
+        let row = new Array(i + 1);
+        row[0] = 1;
+        row[row.length - 1] = 1;
+
+        for (let j = 1; j < row.length - 1; j++) {
+            let rowAbove = pattern[i - 1];
+            row[j] = rowAbove[j] + rowAbove[j - 1];
         }
-        pattern[i]=row;
+        pattern[i] = row;
     }
     return pattern;
 };
@@ -163,14 +163,14 @@ Input: nums = [2,2,1]
 Output: 1
 */
 
- var singleNumber = function(nums) {
+var singleNumber = function (nums) {
     let obj = {};
-    
-    for (let ele of nums){
+
+    for (let ele of nums) {
         obj[ele] = obj[ele] + 1 || 1;
     }
-    for (let key in obj){
-        if(obj[key] === 1){
+    for (let key in obj) {
+        if (obj[key] === 1) {
             return key;
         }
     }
@@ -189,37 +189,37 @@ Input: nums = [3,2,3]
 Output: 3
 */
 
- var majorityElement = function(nums) {
+var majorityElement = function (nums) {
     let ansIndex = 0, //1
-      count = 1,
-      l = nums.length;
+        count = 1,
+        l = nums.length;
     for (let i = 0; i < l; i++) {
-      if (nums[i] == nums[ansIndex]) {
-        count++; //1
-      } else {
-        count--; //0
-      }
+        if (nums[i] == nums[ansIndex]) {
+            count++; //1
+        } else {
+            count--; //0
+        }
 
-      if (count == 0) {
-        ansIndex = i;
-        count = 1;
-      }
+        if (count == 0) {
+            ansIndex = i;
+            count = 1;
+        }
     }
     return nums[ansIndex];
-  }
+}
 
-  function isMijority(nums, candidate) {
+function isMijority(nums, candidate) {
     let count = 0,
-      l = nums.length;
+        l = nums.length;
     for (i = 0; i < l; i++) {
-      if (nums[i] == candidate) {
-        count++;
-      }
+        if (nums[i] == candidate) {
+            count++;
+        }
     }
     if (count > parseInt(l / 2)) {
-      return true;
+        return true;
     } else {
-      return false;
+        return false;
     }
 };
 
@@ -235,12 +235,12 @@ Input: nums = [1,2,3,1]
 Output: true
 */
 
- var containsDuplicate = function(nums) {
+var containsDuplicate = function (nums) {
     let check = [];
-    for(let i=0; i<nums.length; i++){
-        if(check.includes(nums[i])){
+    for (let i = 0; i < nums.length; i++) {
+        if (check.includes(nums[i])) {
             return true;
-        }else check.push(nums[i]); 
+        } else check.push(nums[i]);
     }
     return false;
 };
@@ -260,11 +260,11 @@ Explanation: n = 3 since there are 3 numbers, so all numbers are in the range [0
 number in the range since it does not appear in nums.
 */
 
- var missingNumber = function(nums) {
-    let sum=0;
+var missingNumber = function (nums) {
+    let sum = 0;
     let n = nums.length;
-    let total = (n)*(n+1)/2;
-    for(let i=0; i<nums.length; i++){
+    let total = (n) * (n + 1) / 2;
+    for (let i = 0; i < nums.length; i++) {
         sum += nums[i];
     }
     return (total - sum)
@@ -283,18 +283,18 @@ Input: nums = [0,1,0,3,12]
 Output: [1,3,12,0,0]
 */
 
- var moveZeroes = function(nums) {
-    let index=0;
-    
-    for(let i=0; i<nums.length; i++){
+var moveZeroes = function (nums) {
+    let index = 0;
+
+    for (let i = 0; i < nums.length; i++) {
         const num = nums[i];
-        if(num !==0){
+        if (num !== 0) {
             nums[index] = num;
             index++;
         }
     }
-    for(let i=index; i<nums.length; i++){
-        nums[i]=0;
+    for (let i = index; i < nums.length; i++) {
+        nums[i] = 0;
     }
 };
 
@@ -309,19 +309,19 @@ Input: nums1 = [1,2,2,1], nums2 = [2,2]
 Output: [2,2]
 */
 
- var intersect = function(nums1, nums2) {
+var intersect = function (nums1, nums2) {
     let obj = {};
     let result = [];
-    
-    for(let i of nums1){
-        if(!obj[i]){
-            obj[i]=1;
-        }else{
+
+    for (let i of nums1) {
+        if (!obj[i]) {
+            obj[i] = 1;
+        } else {
             obj[i]++;
         }
     }
-    for(let i of nums2){
-        if(obj[i]>0){
+    for (let i of nums2) {
+        if (obj[i] > 0) {
             result.push(i);
             obj[i]--;
         }
@@ -344,10 +344,10 @@ Explanation: Your function should return k = 2, with the first two elements of n
 It does not matter what you leave beyond the returned k (hence they are underscores).
 */
 
-var removeElement = function(nums, val) {
-    if(!nums) return 0;
-    for(let i=0; i<nums.length; i++){
-        if(nums[i]===val){
+var removeElement = function (nums, val) {
+    if (!nums) return 0;
+    for (let i = 0; i < nums.length; i++) {
+        if (nums[i] === val) {
             nums.splice(i, 1);
             i--;
         }
@@ -372,20 +372,20 @@ Output: 2
 Explanation: The sum that is closest to the target is 2. (-1 + 2 + 1 = 2).
 */
 
-var threeSumClosest = function(nums, target) {
-    nums.sort((a,b)=>a-b);
+var threeSumClosest = function (nums, target) {
+    nums.sort((a, b) => a - b);
     let ans = nums[0] + nums[1] + nums[2];
-    for(let i=0; i<nums.length-2; i++){
-        let start = i+1; end = nums.length-1;
-        while(start < end){
+    for (let i = 0; i < nums.length - 2; i++) {
+        let start = i + 1; end = nums.length - 1;
+        while (start < end) {
             const sum = nums[i] + nums[start] + nums[end];
-            if(sum>target){
+            if (sum > target) {
                 end--;
             } else {
                 start++;
             }
-            
-            if(Math.abs(target - sum) < Math.abs(target - ans)){
+
+            if (Math.abs(target - sum) < Math.abs(target - ans)) {
                 ans = sum;
             }
         }
@@ -406,22 +406,22 @@ Input: nums = [1,3,5,6], target = 5
 Output: 2
 */
 
-var searchInsert = function(nums, target) {
-    if(target < nums[0]) return 0;
-    if(target > nums[nums.length-1]) return nums.length;
+var searchInsert = function (nums, target) {
+    if (target < nums[0]) return 0;
+    if (target > nums[nums.length - 1]) return nums.length;
     let left = 0;
-    let right = nums.length-1;
-    
-    while(left <= right){
-        let mid = Math.floor((left + right)/2);
-        
-        if(nums[mid] === target) return mid;
-        
-        if(nums[mid]>target && nums[mid-1]<target) return mid;
-        
-        if(nums[mid] < target) left = mid+1;
-        
-        else if(nums[mid] > target) right = mid-1;
+    let right = nums.length - 1;
+
+    while (left <= right) {
+        let mid = Math.floor((left + right) / 2);
+
+        if (nums[mid] === target) return mid;
+
+        if (nums[mid] > target && nums[mid - 1] < target) return mid;
+
+        if (nums[mid] < target) left = mid + 1;
+
+        else if (nums[mid] > target) right = mid - 1;
     }
 };
 
@@ -438,10 +438,10 @@ Output: [1,3,6,10]
 Explanation: Running sum is obtained as follows: [1, 1+2, 1+2+3, 1+2+3+4].
 */
 // Method 1
-var runningSum = function(nums) {
+var runningSum = function (nums) {
     let ans = [];
     let sum = 0;
-    for(let i=0; i<nums.length; i++){
+    for (let i = 0; i < nums.length; i++) {
         sum = sum + nums[i];
         ans[i] = sum;
     }
@@ -450,7 +450,7 @@ var runningSum = function(nums) {
 
 
 // Method 2
-const runningSum = nums => {
+const runSum = nums => {
     let currentSum = 0;
     return nums.map(item => currentSum = item + currentSum)
 };
@@ -473,9 +473,9 @@ ans = [nums[nums[0]], nums[nums[1]], nums[nums[2]], nums[nums[3]], nums[nums[4]]
     = [0,1,2,4,5,3]
 */
 
-var buildArray = function(nums) {
+var buildArray = function (nums) {
     let result = [];
-    for(let i = 0; i < nums.length; i++){
+    for (let i = 0; i < nums.length; i++) {
         result.push(nums[nums[i]]);
     }
     return result;
@@ -497,14 +497,86 @@ Explanation: The array ans is formed as follows:
 - ans = [1,2,1,1,2,1]
 */
 
-var getConcatenation = function(nums) {
+var getConcatenation = function (nums) {
     let ans = [];
     let n = nums.length;
-    for(let i=0; i< n; i++){
-        ans[i]=nums[i];
-        ans[i+n] = nums[i];
+    for (let i = 0; i < n; i++) {
+        ans[i] = nums[i];
+        ans[i + n] = nums[i];
     }
     return ans;
 };
+
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+/* 
+PROB 18 - Union of Two Arrays
+Given two sorted arrays, find their union.
+Example:
+Input: arr1[] = {1, 3, 4, 5, 7}
+        arr2[] = {2, 3, 5, 6} 
+Output: Union : {1, 2, 3, 4, 5, 6, 7}
+*/
+
+function getUnion(arr1, arr2) {
+    let unionArr = [...arr1, ...arr2];
+    return [...new Set(unionArr)];
+}
+// console.log(getUnion([4, 9, 5], [9, 4, 9, 8, 4]).sort().reverse());
+
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+/* 
+PROB 19 - Intersection of Two Arrays
+Given two sorted arrays, find their intersection.
+Example:
+Input: arr1[] = {1, 3, 4, 5, 7}
+       arr2[] = {2, 3, 5, 6} 
+Output: Intersection : {3, 5}
+*/
+
+// Method 1
+function getIntersec(arr1, arr2) {
+    const intersectionArr = arr1.filter((currentElement) => {
+        return arr2.includes(currentElement);
+    });
+    return intersectionArr;
+}
+console.log(getIntersec([1, 3, 4, 5, 7], [2, 3, 5, 6]));
+
+// Method 2
+function getIntersection(arr1, arr2) {
+    let n = arr1.length;
+    let m = arr2.length;
+
+    let Intersection = [];
+    let i = j = 0;
+
+    while (i < n && j < m) {
+        if (arr1[i] == arr2[j]) {
+            if (Intersection.length > 0 && Intersection[Intersection.length - 1] == arr1[i]) {
+                i++;
+                j++;
+            }
+            else {
+                Intersection.push(arr1[i]);
+                i++;
+                j++;
+            }
+        }
+        else if (arr1[i] < arr2[i])
+            i++;
+        else
+            j++;
+    }
+    if (!Intersection.length)
+        return -1;
+    return Intersection;
+}
+// console.log(getIntersection([1, 3, 4, 5, 7], [2, 3, 5, 6]));
+
+
 
 

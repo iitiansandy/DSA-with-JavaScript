@@ -192,3 +192,64 @@ function reverseWords(s){
 
 console.log(reverseWords("Welcome to Coding Ninjas "));
 
+
+/*
+PROB 7 - Remove character
+
+For a given a string(str) and a character X, write a function to remove all the occurrences of X from the given string.
+The input string will remain unchanged if the given character(X) doesn't exist in the input string.
+Sample Input 1: aabccbaa, a
+Sample Output 1: bccb
+ */
+
+function removeChar(str, char){
+    let n = str.length;
+    let ans = "";
+    for (let i=0; i<n; i++){
+        if(str.charAt(i) !== char){
+            ans = ans + str.charAt(i);
+        }
+    }
+    return ans;
+}
+// console.log(removeChar("aabccbaa", "c"));
+
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+/*
+PROB 8 - Highest Occuring Character
+For a given a string(str), find and return the highest occurring character.
+Example:
+Input String: "abcdeapapqarr"
+Expected Output: 'a'
+Since 'a' has appeared four times in the string which happens to be the highest frequency character, the answer would be 'a'.
+*/
+
+function getMaxOccuringChar(str){
+    let ASCII_SIZE = 256;
+    let count = new Array(ASCII_SIZE);
+
+    for(let i=0; i < ASCII_SIZE; i++){
+        count[i] = 0;
+    }
+
+    for(let i=0; i < str.length; i++){
+        count[str[i].charCodeAt(0)] += 1;
+    }
+
+    let max = -1;
+    let result = ' ';
+
+    for(let i=0; i<str.length; i++){
+        if(max < count[str[i].charCodeAt(0)]){
+            max = count[str[i].charCodeAt(0)];
+            result = str[i];
+        }
+    }
+    return result;
+}
+console.log(getMaxOccuringChar("aaaabbcbybkbaaa"));
+
+
+

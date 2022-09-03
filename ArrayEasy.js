@@ -426,4 +426,85 @@ var searchInsert = function(nums, target) {
 };
 
 
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+/*
+PROB 15 - Running Sum of 1d Array
+Given an array nums. We define a running sum of an array as runningSum[i] = sum(nums[0]…nums[i]).
+Return the running sum of nums.
+Example :
+Input: nums = [1,2,3,4]
+Output: [1,3,6,10]
+Explanation: Running sum is obtained as follows: [1, 1+2, 1+2+3, 1+2+3+4].
+*/
+// Method 1
+var runningSum = function(nums) {
+    let ans = [];
+    let sum = 0;
+    for(let i=0; i<nums.length; i++){
+        sum = sum + nums[i];
+        ans[i] = sum;
+    }
+    return ans;
+};
+
+
+// Method 2
+const runningSum = nums => {
+    let currentSum = 0;
+    return nums.map(item => currentSum = item + currentSum)
+};
+
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+/*
+PROB 16 - Build Array from Permutation
+Given a zero-based permutation nums (0-indexed), build an array ans of the same length where ans[i] = nums[nums[i]] for each 0 <= i < nums.length 
+and return it.
+
+A zero-based permutation nums is an array of distinct integers from 0 to nums.length - 1 (inclusive).
+Example :
+Input: nums = [0,2,1,5,3,4]
+Output: [0,1,2,4,5,3]
+Explanation: The array ans is built as follows: 
+ans = [nums[nums[0]], nums[nums[1]], nums[nums[2]], nums[nums[3]], nums[nums[4]], nums[nums[5]]]
+    = [nums[0], nums[2], nums[1], nums[5], nums[3], nums[4]]
+    = [0,1,2,4,5,3]
+*/
+
+var buildArray = function(nums) {
+    let result = [];
+    for(let i = 0; i < nums.length; i++){
+        result.push(nums[nums[i]]);
+    }
+    return result;
+};
+
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+/*
+PROB 17 - Concatenation of Array
+Given an integer array nums of length n, you want to create an array ans of length 2n where ans[i] == nums[i] and ans[i + n] == nums[i] for 0 <= i < n (0-indexed).
+Specifically, ans is the concatenation of two nums arrays.
+Return the array ans.
+Example :
+Input: nums = [1,2,1]
+Output: [1,2,1,1,2,1]
+Explanation: The array ans is formed as follows:
+- ans = [nums[0],nums[1],nums[2],nums[0],nums[1],nums[2]]
+- ans = [1,2,1,1,2,1]
+*/
+
+var getConcatenation = function(nums) {
+    let ans = [];
+    let n = nums.length;
+    for(let i=0; i< n; i++){
+        ans[i]=nums[i];
+        ans[i+n] = nums[i];
+    }
+    return ans;
+};
+
 

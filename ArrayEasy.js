@@ -578,5 +578,70 @@ function getIntersection(arr1, arr2) {
 // console.log(getIntersection([1, 3, 4, 5, 7], [2, 3, 5, 6]));
 
 
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+/* 
+PROB 20 - Final Value of Variable After Performing Operations
+There is a programming language with only four operations and one variable X:
+++X and X++ increments the value of the variable X by 1.
+--X and X-- decrements the value of the variable X by 1.
+Initially, the value of X is 0.
+Given an array of strings operations containing a list of operations, return the final value of X after performing all the operations.
+Example:
+
+Input: operations = ["--X","X++","X++"]
+Output: 1
+Explanation: The operations are performed as follows:
+Initially, X = 0.
+--X: X is decremented by 1, X =  0 - 1 = -1.
+X++: X is incremented by 1, X = -1 + 1 =  0.
+X++: X is incremented by 1, X =  0 + 1 =  1.
+*/
+
+var finalValueAfterOperations = function(operations) {
+    let x = 0;
+    for(let i=0; i<operations.length; i++){
+        if(operations[i].includes('+') ){
+            x = x+1;
+        }
+        else {
+            x = x-1;
+        }
+    }
+    return x;
+};
+
+
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+/* 
+PROB 21 - Richest Customer Wealth
+You are given an m x n integer grid accounts where accounts[i][j] is the amount of money the i​​​​​​​​​​​th​​​​ customer has in the j​​​​​​​​​​​th​​​​ bank. Return the wealth 
+that the richest customer has.
+A customer's wealth is the amount of money they have in all their bank accounts. The richest customer is the customer that has the maximum wealth.
+Example:
+Input: accounts = [[1,2,3],[3,2,1]]
+Output: 6
+Explanation:
+1st customer has wealth = 1 + 2 + 3 = 6
+2nd customer has wealth = 3 + 2 + 1 = 6
+Both customers are considered the richest with a wealth of 6 each, so return 6.
+*/
+
+var maximumWealth = function(accounts) {
+    let maxWealth = 0, temp = 0
+    for (i = 0; i<accounts.length; i++, temp = 0) {
+        for (j = 0; j<accounts[i].length; j++) {
+            temp += accounts[i][j]
+        }
+        if(temp > maxWealth) {
+            maxWealth = temp
+        }
+    }
+    
+    return maxWealth
+};
+
 
 

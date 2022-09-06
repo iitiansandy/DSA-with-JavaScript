@@ -790,5 +790,56 @@ var smallerNumbersThanCurrent = function(nums) {
 };
 
 
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+/* 
+PROB 27 - Decompress Run-Length Encoded List
+We are given a list nums of integers representing a list compressed with run-length encoding.
+Consider each adjacent pair of elements [freq, val] = [nums[2*i], nums[2*i+1]] (with i >= 0).  For each such pair, there are freq elements with 
+value val concatenated in a sublist. Concatenate all the sublists from left to right to generate the decompressed list.
+Return the decompressed list.
+Example:
+Input: nums = [1,2,3,4]
+Output: [2,4,4,4]
+Explanation: The first pair [1,2] means we have freq = 1 and val = 2 so we generate the array [2].
+The second pair [3,4] means we have freq = 3 and val = 4 so we generate [4,4,4].
+At the end the concatenation [2] + [4,4,4] is [2,4,4,4].
+*/
+
+var decompressRLElist = function(nums) {
+    let res = [];
+	for (i = 0; i < nums.length - 1; i += 2) {
+		while (nums[i]--) res.push(nums[i+1]);
+	}
+	return res;
+};
+
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+/* 
+PROB 28 - Decode XORed Array
+There is a hidden integer array arr that consists of n non-negative integers.
+It was encoded into another integer array encoded of length n - 1, such that encoded[i] = arr[i] XOR arr[i + 1]. For example, 
+if arr = [1,0,2,1], then encoded = [1,2,3].
+You are given the encoded array. You are also given an integer first, that is the first element of arr, i.e. arr[0].
+Return the original array arr. It can be proved that the answer exists and is unique.
+Example:
+Input: encoded = [1,2,3], first = 1
+Output: [1,0,2,1]
+Explanation: If arr = [1,0,2,1], then first = 1 and encoded = [1 XOR 0, 0 XOR 2, 2 XOR 1] = [1,2,3]
+*/
+
+var decode = function(encoded, first) {
+    let arr = []
+    
+    arr[0]=first
+    
+    for(let i = 0; i < encoded.length; i++) {
+        arr[i+1] = encoded[i] ^ arr[i]
+    }
+    
+    return arr
+};
 
 

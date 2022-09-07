@@ -843,3 +843,97 @@ var decode = function(encoded, first) {
 };
 
 
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+/* 
+PROB 29 - Create Target Array in the Given Order
+Given two arrays of integers nums and index. Your task is to create target array under the following rules:
+Initially target array is empty.
+From left to right read nums[i] and index[i], insert at index index[i] the value nums[i] in target array.
+Repeat the previous step until there are no elements to read in nums and index.
+Return the target array.
+It is guaranteed that the insertion operations will be valid.
+Example:
+Input: nums = [0,1,2,3,4], index = [0,1,2,2,1]
+Output: [0,4,1,3,2]
+Explanation:
+nums       index     target
+0            0        [0]
+1            1        [0,1]
+2            2        [0,1,2]
+3            2        [0,1,3,2]
+4            1        [0,4,1,3,2]
+*/
+
+var createTargetArray = function(nums, index) {
+    let target = [];
+    for(let i=0; i<index.length; i++){
+        let ele = index[i];
+        if(target[ele] !== undefined){
+            target.splice(ele, 0, nums[i]); //insert nums[i] at ele
+        }
+        else {
+            target[ele] = nums[i];
+        }
+    }
+    return target;
+};
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+/* 
+PROB 29 - Integer to Roman
+Roman numerals are represented by seven different symbols: I, V, X, L, C, D and M.
+Symbol       Value
+I             1
+V             5
+X             10
+L             50
+C             100
+D             500
+M             1000
+
+Example 1 : Input: num = 3, Output: "III"
+Example 2 : Input: num = 58, Output: "LVIII"
+*/
+
+const integers = [1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1];
+const romans = ['M', 'CM', 'D', 'CD', 'C', 'XC', 'L', 'XL', 'X', 'IX', 'V', 'IV', 'I'];
+
+var intToRoman = function(num) {
+    let res = '';
+    let i=0;
+    while(num > 0){
+        if(num >= integers[i]){
+            res += romans[i];
+            num -= integers[i];
+        }
+        else {
+            i++;
+        }
+    }
+    return res;
+};
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+/* 
+PROB 30 - Shuffle String
+You are given a string s and an integer array indices of the same length. The string s will be shuffled such that the character at the ith position 
+moves to indices[i] in the shuffled string.
+Return the shuffled string.
+Example: Input: s = "codeleet", indices = [4,5,6,7,0,2,1,3]
+Output: "leetcode"
+Explanation: As shown, "codeleet" becomes "leetcode" after shuffling.
+*/
+
+var restoreString = function(s, indices) {
+    let arr = [];
+    for(let i = 0; i < indices.length; i++)
+        arr[indices[i]] = s[i];
+   return arr.join("")
+};
+
+

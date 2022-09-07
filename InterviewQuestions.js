@@ -214,13 +214,24 @@ console.log(rotateArr([12, 3, 6, 2, 9, 11],4));
 
 
 // Method 2
+function reverseArr(arr, left, right){
+    while(left < right){
+        [arr[left],arr[right]] = [arr[right], arr[left]];
+        left++;
+        right--;
+    }
+}
+
 function optimalKRotation(arr, k){
     // reverse the whole array
-    revArr(arr, 0, arr.length-1);
-    revArr(arr, 0, k-1);
-    revArr(arr, k, arr.length-1);
+    reverseArr(arr, 0, arr.length-1);
+    reverseArr(arr, 0, k-1);
+    reverseArr(arr, k, arr.length-1);
 }
-console.log(optimalKRotation([12, 3, 6, 2, 9, 11], 4))
+const arr = [12, 3, 6, 2, 9, 11];
+optimalKRotation(arr, 4);
+console.log(arr);
+
 
 
 /* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */

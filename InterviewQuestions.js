@@ -299,6 +299,78 @@ function largestTwoNumSum(arr){
 // largestTwoNumSum([1,2,3,4,5,6,7,8]);
 
 
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+/*
+PROB - Given an array of integers, filter out duplicate elements and return unique elements in arr.
+(e.g. Input arr = [1,1,2,3,2,6,7,8]), Output arr = [3,6,7,8];
+*/
+
+function removeDups(arr){
+    const set = new Set(arr);
+    return [...set];
+}
+// console.log(removeDups([1,1,2,3,2,6,7,8]));
+
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+/*
+PROB - Take an input and check whether the input is an integer or not.
+Approach 1: If the input is an int, then every char should be a digit i.e. every char should be among 0-9
+Check if all the chars lie among [0,1,2,3,4,5,6,7,8,9];
+*/
+// Method 1
+function checkInt(input){
+    let pattern = /^-?[0-9]+$/;
+    let result = pattern.test(input);
+    return result;
+}
+
+// Method 2
+function isValidInt(inp = ''){
+    let notANum = true;
+
+    for(let i=0; i<inp.length; i++){
+        if(inp[i] >= '0' && inp[i] <= '9'){
+            continue;
+        }
+        else {
+            notANum = true;
+            break;
+        }
+    }
+    return notANum;
+}
+console.log(isValidInt("123456iop"));
+
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+/*
+PROB - Foo Bar
+*/
+
+function printNum(num){
+    if(num%3==0 && num%5!==0){
+        console.log("Foo");
+    }
+    else if(num%5===0 && num%3 !==0){
+        console.log("Bar");
+    }
+    else if(num%3===0 && num%5===0){
+        console.log("FooBar");
+    }
+    else{
+        console.log("Nothing");
+    }
+}
+// printNum(6);
+// printNum(10);
+// printNum(15);
+// printNum(7);
 
 
 

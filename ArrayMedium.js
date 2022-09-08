@@ -628,3 +628,54 @@ var getRow = function(rowIndex) {
     return result[rowIndex];
 };
 
+
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+/*
+PROB 16 - Kth Largest Element in an Array
+Given an integer array nums and an integer k, return the kth largest element in the array.
+Note that it is the kth largest element in the sorted order, not the kth distinct element.
+You must solve it in O(n) time complexity.
+Example :
+Input: nums = [3,2,1,5,6,4], k = 2
+Output: 5
+*/
+
+var findKthLargest = function(nums, k) {
+    function maxHeap(size, i){
+        let left = 2*i + 1;
+        let right = 2*i + 2;
+        let largestIndex = i;
+        
+        if(left < size && nums[left] > nums[largestIndex]){
+            largestIndex = left;
+        }
+        
+        if(right < size && nums[right] > nums[largestIndex]){
+            largestIndex = right;
+        }
+        
+        if(largestIndex != i){
+            [nums[largestIndex], nums[i]] = [nums[i], nums[largestIndex]];
+            maxHeap(size, largestIndex);
+        }
+    }
+    
+    for(let i=parseInt(nums.length/2); i>=0; i--){
+        maxHeap(nums.length, i);
+    }
+    
+    let ans = [];
+    for(let i=nums.length-1; i>=0; i--){
+        if(ans.length == k){
+            break;
+        }
+        ans.push(nums[0]);
+        [nums[i], nums[0]] = [nums[0], nums[i]];
+        maxHeap(i, 0);
+    }
+    return ans.at(-1);
+};
+
+

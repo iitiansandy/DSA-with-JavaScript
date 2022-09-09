@@ -633,7 +633,7 @@ var getRow = function(rowIndex) {
 /* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 
 /*
-PROB 16 - Kth Largest Element in an Array
+PROB 17 - Kth Largest Element in an Array
 Given an integer array nums and an integer k, return the kth largest element in the array.
 Note that it is the kth largest element in the sorted order, not the kth distinct element.
 You must solve it in O(n) time complexity.
@@ -679,3 +679,99 @@ var findKthLargest = function(nums, k) {
 };
 
 
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+/*
+PROB 18 - Remove Duplicates from Sorted Array II
+Given an integer array nums sorted in non-decreasing order, remove some duplicates in-place such that each unique element appears at most twice. 
+The relative order of the elements should be kept the same.
+
+Example:
+Input: nums = [1,1,1,2,2,3]
+Output: 5, nums = [1,1,2,2,3,_]
+Explanation: Your function should return k = 5, with the first five elements of nums being 1, 1, 2, 2 and 3 respectively.
+It does not matter what you leave beyond the returned k (hence they are underscores).
+*/
+
+var removeDuplicates = function(nums) {
+    let i = nums.length;
+    while(i > 1){
+        if(nums[i] == nums[i-2]){
+            nums.splice(i,1)
+        }
+        else {
+            i--;
+        }
+    }
+    return nums.length;
+};
+
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+/*
+PROB 19 - 4Sum
+Given an array nums of n integers, return an array of all the unique quadruplets [nums[a], nums[b], nums[c], nums[d]] such that:
+0 <= a, b, c, d < n
+a, b, c, and d are distinct.
+nums[a] + nums[b] + nums[c] + nums[d] == target
+You may return the answer in any order.
+Example 1:
+Input: nums = [1,0,-1,0,-2,2], target = 0
+Output: [[-2,-1,1,2],[-2,0,0,2],[-1,0,0,1]]
+*/
+
+const fourSum = function(nums, target) {
+    const outputArray = [];
+    nums = nums.sort((a, b) => a - b);
+    for (let k = 0; k < nums.length - 3; ++k) {
+      const currEleOne = nums[k];
+      if (k > 0 && nums[k] === nums[k - 1]) {
+        continue;
+      }
+      search_triplets(nums, k + 1, target - currEleOne, currEleOne, outputArray);
+    }
+    return outputArray;
+  };
+  
+  // one layer deep
+  const search_triplets = function(nums, startIndexOne, targetOne, eleOne, outputArray) {
+    for (let i = startIndexOne; i < nums.length - 2; ++i) {
+      const currEleTwo = nums[i];
+      if (i > startIndexOne && nums[i] === nums[i - 1]) {
+        continue;
+      }
+      search_doubles(nums, i + 1, targetOne - currEleTwo, eleOne, currEleTwo, outputArray);
+    }
+  }
+  
+  // two layers deep
+  const search_doubles = function(nums, startIndexTwo, targetTwo, eleOne, eleTwo, outputArray) {
+    let left = startIndexTwo,
+      right = nums.length - 1;
+    while (left < right) {
+      if (nums[left] + nums[right] === targetTwo) {
+        outputArray.push([eleOne, eleTwo, nums[left], nums[right]]);
+        ++left;
+        --right;
+        while (left < right && nums[left] === nums[left - 1]) {
+          ++left;
+        }
+        while (left < right && nums[right] === nums[right + 1]) {
+          --right;
+        }
+      } else if (nums[left] + nums[right] < targetTwo) {
+        ++left;
+      } else if (nums[left] + nums[right] > targetTwo) {
+        --right;
+      }
+    }
+  }
+
+
+  /* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+/*
+PROB 19 - 
+
+*/

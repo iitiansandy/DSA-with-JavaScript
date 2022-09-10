@@ -769,7 +769,7 @@ const fourSum = function(nums, target) {
   }
 
 
-  /* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 
 /*
 PROB 19 - Median of Two Sorted Arrays
@@ -791,6 +791,131 @@ var findMedianSortedArrays = function(nums1, nums2) {
     }
     return c[(c.length-1)/2];
 };
+
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+/*
+PROB 20 - Search in Rotated Sorted Array II
+There is an integer array nums sorted in non-decreasing order (not necessarily with distinct values).
+Before being passed to your function, nums is rotated at an unknown pivot index k (0 <= k < nums.length) such that the resulting array is [nums[k], 
+nums[k+1], ..., nums[n-1], nums[0], nums[1], ..., nums[k-1]] (0-indexed). For example, [0,1,2,4,4,4,5,6,6,7] might be rotated at pivot index 5 and 
+become [4,5,6,6,7,0,1,2,4,4].
+Given the array nums after the rotation and an integer target, return true if target is in nums, or false if it is not in nums.
+You must decrease the overall operation steps as much as possible.
+Example 1:
+
+Input: nums = [2,5,6,0,0,1,2], target = 0
+Output: true
+*/
+
+var search = function(nums, target) {
+    let left = 0, right = nums.length -1; 
+    while (left <= right) {
+        if (nums[left] === nums[right]) {
+            const result = nums.indexOf(target);
+            if (result !== -1) return true;
+            return false;
+        }
+        let mid = Math.floor((left+right)/2);
+        if (nums[mid] === target) return true;
+        if (nums[mid] >= nums[left]) {
+            if (target < nums[mid] && target >= nums[left]) {
+                right = mid - 1;
+            } else {
+                left = mid + 1;
+            }
+        } else {
+            if (target > nums[mid] && target <= nums[right]) {
+                left = mid + 1;
+            } else {
+                right = mid - 1;
+            }
+        }
+    }
+    return false;
+};
+
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+/*
+PROB 21 - Insert Interval
+You are given an array of non-overlapping intervals intervals where intervals[i] = [starti, endi] represent the start and the end of the ith interval 
+and intervals is sorted in ascending order by starti. You are also given an interval newInterval = [start, end] that represents the start and end of 
+another interval.
+Insert newInterval into intervals such that intervals is still sorted in ascending order by starti and intervals still does not have any overlapping 
+intervals (merge overlapping intervals if necessary).
+Return intervals after the insertion.
+Example:
+Input: intervals = [[1,3],[6,9]], newInterval = [2,5]
+Output: [[1,5],[6,9]]
+*/
+
+var insert = function(intervals, newInterval) {
+    intervals.push([...newInterval]);
+    intervals.sort((a,b) => a[0] - b[0]);
+    let prev;
+    for (let i=0; i<intervals.length; i++) {
+        if (!prev) {
+            prev = intervals[i];
+            continue;
+        }
+        if (intervals[i][1] <= prev[1]) {
+            intervals.splice(i,1);
+            i--;
+            continue;
+        }
+        if (intervals[i][0] <= prev[1]) {
+            intervals[i-1][1] = intervals[i][1];
+            intervals.splice(i,1);
+            i--;
+            prev = intervals[i];
+            continue;
+        }
+        prev = intervals[i];
+    }
+    return intervals;
+};
+
+
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+/*
+PROB 22 - Set Matrix Zeroes
+Given an m x n integer matrix matrix, if an element is 0, set its entire row and column to 0's.
+You must do it in place.
+Input: matrix = [[1,1,1],[1,0,1],[1,1,1]]
+Output: [[1,0,1],[0,0,0],[1,0,1]]
+*/
+
+var setZeroes = function(matrix) {
+    const xIndexes = new Set();
+    const yIndexes = new Set();
+    const rowLength = matrix.length;
+    const columnLength = matrix[0].length;
+    for(let i=0; i<rowLength; i++) {
+        for(let j=0; j<columnLength; j++){
+            if(matrix[i][j] === 0){
+               xIndexes.add(i);
+               yIndexes.add(j);
+            }   
+        }
+    }
+    
+    for(const value of xIndexes) {
+        for(j=0; j<columnLength; j++){
+            matrix[value][j] = 0;
+        }
+    }
+    for(const value of yIndexes) {
+        for(j=0; j<rowLength; j++){
+            matrix[j][value] = 0;
+        }
+    }
+};
+
 
 
 

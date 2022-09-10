@@ -937,3 +937,71 @@ var restoreString = function(s, indices) {
 };
 
 
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+/* 
+PROB 31 - Number of Arithmetic Triplets
+You are given a 0-indexed, strictly increasing integer array nums and a positive integer diff. A triplet (i, j, k) is an arithmetic triplet if the 
+following conditions are met:
+i < j < k,
+nums[j] - nums[i] == diff, and
+nums[k] - nums[j] == diff.
+Return the number of unique arithmetic triplets.
+Example 1:
+Input: nums = [0,1,4,6,7,10], diff = 3
+Output: 2
+Explanation:
+(1, 2, 4) is an arithmetic triplet because both 7 - 4 == 3 and 4 - 1 == 3.
+(2, 4, 5) is an arithmetic triplet because both 10 - 7 == 3 and 7 - 4 == 3. 
+*/
+
+var arithmeticTriplets = function(nums, diff) {
+    let sum = 0;
+    let hash = new Set();
+    
+    for (let numIndex = 0; numIndex < nums.length; numIndex++) {
+        const currentNum = nums[numIndex];
+        
+        if (hash.has(currentNum - diff) && hash.has(currentNum - diff - diff)) {
+            sum++;
+        }
+        
+        hash.add(currentNum);
+    }
+    
+    return sum;
+};
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+/* 
+PROB 32 - Count Items Matching a Rule
+You are given an array items, where each items[i] = [typei, colori, namei] describes the type, color, and name of the ith item. You are also given a 
+rule represented by two strings, ruleKey and ruleValue.
+The ith item is said to match the rule if one of the following is true:
+ruleKey == "type" and ruleValue == typei.
+ruleKey == "color" and ruleValue == colori.
+ruleKey == "name" and ruleValue == namei.
+Return the number of items that match the given rule.
+Example:
+Input: items = [["phone","blue","pixel"],["computer","silver","lenovo"],["phone","gold","iphone"]], ruleKey = "color", ruleValue = "silver"
+Output: 1
+Explanation: There is only one item matching the given rule, which is ["computer","silver","lenovo"].
+*/
+
+var countMatches = function(items, ruleKey, ruleValue) {
+    const mapObj = { type:0, color:1, name:2 };
+    let count = 0;
+    const index = mapObj[ruleKey];
+    
+    for(let i=0; i<items.length; i++){
+        if(items[i][index] == ruleValue){
+            count++;
+        }
+    }
+    return count;
+};
+
+
+

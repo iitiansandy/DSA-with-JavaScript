@@ -917,5 +917,106 @@ var setZeroes = function(matrix) {
 };
 
 
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+/*
+PROB 23 - Single Number II
+Given an integer array nums where every element appears three times except for one, which appears exactly once. Find the single element and return it.
+You must implement a solution with a linear runtime complexity and use only constant extra space.
+Example :
+Input: nums = [2,2,3,2]
+Output: 3
+*/
+
+var singleNumber = function(nums) {
+    let obj = {};
+    for(let ele of nums){
+        (obj[ele]? obj[ele]++ : obj[ele]=1);
+    }
+    for(let ele in obj){
+        if(obj[ele] === 1){
+            return ele;
+        }
+    }
+    
+};
+
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+/*
+PROB 24 - Spiral Matrix II
+Given a positive integer n, generate an n x n matrix filled with elements from 1 to n2 in spiral order.
+Input: n = 3
+Output: [[1,2,3],[8,9,4],[7,6,5]]
+*/
+
+var generateMatrix = function(n) {
+    let result = [];
+    // creating two dimensional array
+    for (var i = 0; i < n; i++) {
+      result[i] = new Array(n);
+    }
+    let val = 1;
+ 
+    let rowBeg = 0
+    let rowEnd = n - 1
+    let colBeg = 0
+    let colEnd = n - 1
+    
+    while (rowBeg <= rowEnd && colBeg <= colEnd) {
+        for (let i = colBeg; i <= colEnd; i++) {
+            result[rowBeg][i] = val++;
+        }
+        rowBeg++
+        for (let i = rowBeg; i <= rowEnd; i++) {
+             result[i][colEnd] = val++;
+        }
+        colEnd--
+        if (rowBeg <= rowEnd) {
+            for (let i = colEnd; i >= colBeg; i--) {
+                result[rowEnd][i] = val++;
+            }
+            rowEnd--
+        }
+        
+        if (colBeg <= colEnd) {
+            for (let i = rowEnd;i >= rowBeg; i--) {
+                 result[i][colBeg] = val++;
+            }
+            colBeg++
+        }
+    }
+    return result
+};
+
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+/*
+PROB 24 - Subsets II
+Given an integer array nums that may contain duplicates, return all possible subsets (the power set).
+The solution set must not contain duplicate subsets. Return the solution in any order.
+Example:
+Input: nums = [1,2,2]
+Output: [[],[1],[1,2],[1,2,2],[2],[2,2]]
+*/
+
+function findSubSet(nums, result, start){
+    if(start === nums.length) return result;
+    const temp = result;
+    result = [];
+    for(let i=0; i<temp.length; i++){
+        if(temp[i][temp[i].length-1] !== nums[start]){
+            result.push([...temp[i]]);
+        }
+        result.push([...temp[i].concat(nums[start])]);
+    }
+    return findSubSet(nums, result, ++start);
+}
+var subsetsWithDup = function(nums) {
+    return findSubSet(nums.sort((a,b)=>a-b), [[]], 0);
+};
+
 
 

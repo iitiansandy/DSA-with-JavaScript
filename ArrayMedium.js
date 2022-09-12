@@ -1019,4 +1019,176 @@ var subsetsWithDup = function(nums) {
 };
 
 
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+/*
+PROB 25 - Search a 2D Matrix
+Write an efficient algorithm that searches for a value target in an m x n integer matrix matrix.
+Example: Input: matrix = [[1,3,5,7],[10,11,16,20],[23,30,34,60]], target = 3
+Output: true
+*/
+
+var searchMatrix = function(matrix, target) {
+    for (var i = 0; i< matrix.length; i++) {
+        if(matrix[i].includes(target)) {
+            return true
+        }
+    }
+    return false
+};
+
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+// PROB 26 - Sort 0s and 1s in a given array.
+// Method 1
+function sort01(arr){
+    let current = 0;
+    let count0 = 0;
+    for(let i=0; i<arr.length; i++){
+        if(arr[i] === 0){
+            count0++;
+        }
+    }
+    let count1 = arr.length - count0;
+
+    while(count0 > 0){
+        arr[current] = 0;
+        count0--;
+        current++;
+    }
+
+    while(count1 > 0){
+        arr[current] = 1;
+        count1--;
+        current++;
+    }
+    return arr;
+}
+// const arr = [0,1,0,1,1,0,0,1,0,1,0];
+// console.log(sort01(arr));
+
+
+// Method 2
+function sortZerosOnes(arr){
+    let left = 0, right = arr.length-1;
+    while(left < right){
+        // if current value at left is 0 then it is at correct position we don't need to do anything.
+        // this loop break if and only if arr[left] is 1 or left >= right.
+        while(arr[left] === 0){
+            left++;
+        }
+        // if current value at left is 1 then it is at correct position we don't need to do anything.
+        // this loop break if and only if arr[right] is 0 or left >= right.
+        while(arr[right] === 1 && left < right){
+            right--;
+        }
+        // if already sorted do nothing else swap left element with right
+        // if(left < right)
+        if(left < right){
+            [arr[left], arr[right]] = [arr[right], arr[left]];
+        }
+    }
+    return arr;
+}
+// const arr = [0,1,0,1,1,0,0,1,0,1,0];
+// console.log(sort01(arr));
+
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+/* PROB 27 - ELEMENT WITHOUT PAIR 
+In an array, find the elements without pair 
+Example: Input: [1,2,1,3,1,2,3,4,4,5,6,7,8,8]
+Output: []
+*/
+
+function withoutPair(arr){
+    let map = new Map();
+    for(let curr of arr){
+        // if curr element value found in array
+        if(map.get(curr)){
+            // increment the frequency count 1.
+            map.set(curr, map.get(curr) + 1);
+        } else {
+            map.set(curr, 1);
+        }
+    }
+    for(let val  of map){
+        //console.log(val)
+        if(val[1] % 2 === 1){
+            console.log("Element without pair is: ", val[0])
+        }
+    }
+}
+// withoutPair([1,2,1,3,1,2,3,4,4,5,6,7,8,8]);
+
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+/* PROB 28 - MAX SUM OF THREE CONSECUTIVE ELEMENTS
+Write a function to calculate the max sum of three consecutive elements in an array
+*/
+
+// Method 1
+function maxSum(arr){
+    if(arr.length < 3) return;
+
+    let currMax = -Infinity;
+    for(let i=0; i<arr.length; i++){
+        if(arr[i] + arr[i+1] + arr[i+2] > currMax){
+            currMax = arr[i] + arr[i+1] + arr[i+2];
+        }
+    }
+    return currMax;
+}
+// console.log(maxSum([3,5,1,6,7,8,9,7,6,5,4,3,4]));
+
+
+// Method 2
+
+function max3Sum(arr, k){
+    if(arr.length < k) return;
+
+    let currMax = -Infinity;
+    for(let i=0; i<arr.length-k; i++){
+        let sum = 0;
+        for(let j=i; j<k+i; j++){
+            sum += arr[j];
+        }
+        if(sum > currMax){
+            currMax = sum;
+        }
+    }
+    return currMax;
+}
+// console.log(max3Sum([3,5,1,6,7,8,9,7,6,5,4,3,4], 3));
+
+
+// Method 3
+function maxSumOptimized(arr,k){
+    if(arr.length < k) return;
+    let currMax = -Infinity;
+    let totalSum = 0;
+    let leftWindowItemSum = 0;
+
+    for(let i = 0; i<k; i++){
+        totalSum += arr[i];
+    }
+    currMax = totalSum;
+    for(let i=k; i<arr.length; i++){
+        leftWindowItemSum += arr[i-k];
+        totalSum += arr[i];
+        if(totalSum - leftWindowItemSum > currMax){
+            currMax = totalSum - leftWindowItemSum;
+        }
+    }
+    return currMax;
+}
+// console.log(maxSumOptimized([3,5,1,6,7,8,9,7,6,5,4,3,4, 10, 10, 10], 3));
+
+
+
+
 

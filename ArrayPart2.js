@@ -133,3 +133,72 @@ const radius = [3, 1, 2, 4];
 console.log(calculate(radius, area));
 console.log(calculate(radius, circumference));
 console.log(calculate(radius, diameter));
+
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+// Merge two array manually
+// Method 1
+function mergeTwoArr(arr1, arr2){
+    let arr = [];
+    for(let i=0; i<arr1.length; i++){
+        arr[i] = arr1[i];
+    }
+    for(let i=0; i<arr2.length; i++){
+        arr[arr1.length + i] = arr2[i];
+    }
+    return arr;
+}
+// let arr1 = [2,3,4,5,6];
+// let arr2 = [7,8,9,10];
+// console.log(mergeTwoArr(arr1, arr2));
+
+
+// Method 2
+
+function mergeArrays(arr1, arr2){
+    let arr = [...arr1, ...arr2];
+    return arr;
+}
+// let arr1 = [2,3,4,5,6];
+// let arr2 = [7,8,9,10];
+// console.log(mergeTwoArr(arr1, arr2));
+
+
+// Merge two sorted arrays
+
+function mergeTwoSortedArrays(arr1, arr2){
+    let arr = [];
+    let i=0, j=0, k=0;
+    while(i < arr1.length && j < arr2.length){
+        if(arr1[i] < arr2[j]){
+            arr[k] = arr1[i];
+            i++;
+            k++;
+        } else {
+            arr[k] = arr2[j];
+            j++;
+            k++;
+        }
+    }
+
+    while(i < arr1.length){
+        arr[k] = arr1[i];
+        k++;
+        i++;
+    }
+
+    while(j < arr2.length){
+        arr[k] = arr2[j];
+        k++;
+        j++;
+    }
+    return arr;
+}
+let arr1 = [1,3,5,7,11,12,13];
+let arr2 = [2,4,6,8,9,10];
+console.log(mergeTwoSortedArrays(arr1, arr2));
+
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+

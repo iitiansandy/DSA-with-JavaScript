@@ -459,10 +459,39 @@ function getCurrPositionOfPivot2(arr, low, high){
     [arr[left], arr[high]]=[arr[high], arr[left]];
     return left;
 }
-const arr1 = [6,3,4,6,1,7,3,9,2,8];
-quickSort(arr1,0,arr1.length-1);
-console.log(arr1);
+// const arr1 = [6,3,4,6,1,7,3,9,2,8];
+// quickSort(arr1,0,arr1.length-1);
+// console.log(arr1);
 
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+/*
+PROB: Largest Local Values in a Matrix
+You are given an n x n integer matrix grid.
+Generate an integer matrix maxLocal of size (n - 2) x (n - 2) such that:
+maxLocal[i][j] is equal to the largest value of the 3 x 3 matrix in grid centered around row i + 1 and column j + 1.
+In other words, we want to find the largest value in every contiguous 3 x 3 matrix in grid.
+Return the generated matrix.
+*/
+
+var largestLocal = function(grid) {
+    const ans = [];
+        
+    for (let r = 0; r < grid.length - 2; r++) {
+        const row = [];
+        for (let c = 0; c < grid[r].length - 2; c++) {
+            row.push(Math.max(
+                grid[r][c], grid[r][c + 1], grid[r][c + 2],
+                grid[r + 1][c], grid[r + 1][c + 1], grid[r + 1][c + 2],
+                grid[r + 2][c], grid[r + 2][c + 1], grid[r + 2][c + 2]
+            ));
+        }
+        ans.push(row);
+    }
+
+    return ans;
+};
 
 
 

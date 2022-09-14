@@ -494,4 +494,42 @@ var largestLocal = function(grid) {
 };
 
 
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+/*
+PROB: Find all the prime numbers in the array (Codezinger Problem)
+Given an array of integers, find all the prime numbers in the array.
+Input: [2 3 5 7 9]
+Output: [2 3 5 7]
+*/
+
+function getPrimeNum(arr){
+    let maxVal = arr.sort((a,b)=>b-a)[0];
+
+    let prime = new Array(maxVal + 1).fill(true);
+
+    prime[0] = false;
+    prime[1] = false;
+
+    for(let i=2; i*i <= maxVal; i++){
+        if(prime[i] === true){
+            for(let j = i*2; j <= maxVal; j += i){
+                prime[j] = false;
+            }
+        }
+    }
+    let res = [];
+    for(let i=0; i<arr.length; i++){
+        if(prime[arr[i]]){
+            res.push(arr[i]);
+        }
+    }
+    return res.reverse();
+}
+
+let arr = [1,2,3,4,5,6,7,11,13,15,17];
+console.log(getPrimeNum(arr));
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 

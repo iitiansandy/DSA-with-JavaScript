@@ -533,3 +533,267 @@ console.log(getPrimeNum(arr));
 
 /* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 
+// Insertion Sort
+
+function insertionSort(arr){
+    for(let right=1; right < arr.length; right++){
+        let curr = right;
+
+        while(curr >= 1 && arr[curr-1] > arr[curr]){
+            [arr[curr-1], arr[curr]] = [arr[curr], arr[curr-1]];
+            curr--;
+        }
+    }
+}
+// const arr = [9,8,7,5,6,4,1,2,3];
+// insertionSort(arr);
+// console.log(arr);
+
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+/*
+PROB - Palindrome Number
+Given an integer x, return true if x is palindrome integer.
+Example:
+Input: x = 121
+Output: true
+Explanation: 121 reads as 121 from left to right and from right to left.
+*/
+
+// Method 1
+var isPalindrome = function(x) {
+    let oldX = x;
+    let isNotDivisibleByTen = x%10;
+    let mirror = 0;
+    
+    while(x>0){
+        mirror=mirror*10 + x%10;
+        x=Math.floor(x/10);
+        if(isNotDivisibleByTen && x==mirror){
+            return true;
+        }
+    }
+    return mirror === oldX;
+};
+
+
+// Method 2
+var isPalindrome = function (x) {    
+    return x === +[...x.toString()].reverse().join("");
+}
+
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+/*
+PROB - Reverse Integer
+Given a signed 32-bit integer x, return x with its digits reversed. If reversing x causes the value to go outside the signed 32-bit integer 
+range [-231, 231 - 1], then return 0.
+Example:
+Input: x = 123
+Output: 321
+*/
+
+var reverse = function(x) {
+    let sign = x<0?-1:1;
+    let n = Math.abs(x);
+    rev=0;
+    
+    while(n){
+        d=n%10;
+        rev=rev*10+d;
+        n=Math.floor(n/10)
+    }
+    return rev>2**31?0:rev*sign;
+};
+
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+/*
+PROB - Count Number of Pairs With Absolute Difference K
+Given an integer array nums and an integer k, return the number of pairs (i, j) where i < j such that |nums[i] - nums[j]| == k.
+The value of |x| is defined as:
+x if x >= 0.
+-x if x < 0.
+Example 1:
+Input: nums = [1,2,2,1], k = 1
+Output: 4
+Explanation: The pairs with an absolute difference of 1 are:
+- [1,2,2,1]
+- [1,2,2,1]
+- [1,2,2,1]
+- [1,2,2,1]
+*/
+
+var countKDifference = function(nums, k) {
+    let totalPairs=0;
+    for(let i=0; i<nums.length; i++){
+        for(let j=0; j<nums.length; j++){
+            if(nums[i]-nums[j]===k){
+                totalPairs++;
+            }
+        }
+    }
+    return totalPairs;
+};
+
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+/*
+PROB - Minimum Number of Moves to Seat Everyone
+There are n seats and n students in a room. You are given an array seats of length n, where seats[i] is the position of the ith seat. 
+You are also given the array 
+students of length n, where students[j] is the position of the jth student.
+You may perform the following move any number of times:
+Increase or decrease the position of the ith student by 1 (i.e., moving the ith student from position x to x + 1 or x - 1)
+Return the minimum number of moves required to move each student to a seat such that no two students are in the same seat.
+Note that there may be multiple seats or students in the same position at the beginning.
+Example:
+Input: seats = [3,1,5], students = [2,7,4]
+Output: 4
+Explanation: The students are moved as follows:
+- The first student is moved from from position 2 to position 1 using 1 move.
+- The second student is moved from from position 7 to position 5 using 2 moves.
+- The third student is moved from from position 4 to position 3 using 1 move.
+In total, 1 + 2 + 1 = 4 moves were used.
+*/
+
+var minMovesToSeat = function(seats, students) {
+    seats.sort((a,b)=>a-b);
+    students.sort((a,b)=>a-b);
+    let moves=0;
+    
+    seats.forEach(function(item, i){
+        moves += Math.abs(item - students[i]);
+    });
+    return moves;
+};
+
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+/*
+PROB - Merge Sort
+
+*/
+
+function mergeSort(arr){
+    if(arr.length <= 1) return;
+
+    let mid = parseInt(arr.length/2);
+    let part1 = [];
+    let part2 = [];
+
+    for(let i=0; i<mid; i++){
+        part1[i]=arr[i];
+    }
+
+    //let k=0;
+    for(let i=mid; i<arr.length; i++){
+        part2[i-mid]=arr[i];
+        //k++;
+    }
+    mergeSort(part1);
+    mergeSort(part2);
+    merge(part1, part2, arr);
+}
+
+function merge(arr1, arr2, output){
+    let i=0, j=0, k=0;
+    
+    while(i < arr1.length && j < arr2.length){
+        if(arr1[i] <= arr2[j]){
+            output[k] = arr1[i];
+            k++;
+            i++;
+        }
+        else{
+            output[k]=arr2[j];
+            j++;
+            k++;
+        }
+    }
+
+    while(i < arr1.length){
+        output[k] = arr1[i];
+        k++;
+        i++;
+    }
+
+    while(j < arr2.length){
+        output[k]=arr2[j];
+        j++;
+        k++;
+    }
+    return output;
+}
+
+// let arr = [9,8,7,1,5,6,4,2,3];
+// mergeSort(arr);
+// console.log(arr);
+
+
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+/*
+Prob - Search an element in sorted and rotated array
+Given a sorted and rotated array arr[] of size N and a key, the task is to find the key in the array.
+Example:  
+
+Input  : arr[] = {5, 6, 7, 8, 9, 10, 1, 2, 3}, key = 3
+Output : Found at index 8
+
+Input  : arr[] = {5, 6, 7, 8, 9, 10, 1, 2, 3}, key = 30
+Output : Not found
+
+Input : arr[] = {30, 40, 50, 10, 20}, key = 10   
+Output : Found at index 3
+*/
+
+function binarySearch(arr, low, high, key){
+    if(high < low) return -1;
+
+    let mid = Math.floor((low + high)/2);
+    if(key === arr[mid]){
+        return mid;
+    }
+    if(key > arr[mid]){
+        return binarySearch(arr, (mid + 1), high, key);
+    }
+    return binarySearch(arr, low, (mid - 1), key);
+}
+
+function findPivot(arr, low, high){
+    if(high < low) return -1;
+    if(high == low) return low;
+
+    let mid = Math.floor((low + high)/2);
+    if(mid < high && arr[mid] > arr[mid + 1]) return mid;
+
+    if(mid > low && arr[mid] < arr[mid - 1]) return (mid - 1);
+
+    if(arr[low] >= arr[mid]) return findPivot(arr, low, mid-1);
+
+    return findPivot(arr, mid+1, high);
+}
+
+function pivotedBinarySearch(arr, n, key){
+    let pivot = findPivot(arr, 0, n-1);
+
+    if(pivot == -1) return binarySearch(arr, 0, n-1, key);
+
+    if(arr[pivot] == key) return pivot;
+
+    if(arr[0] <= key) return binarySearch(arr, 0, pivot-1, key);
+
+    return binarySearch(arr, pivot+1, n-1, key);
+}
+
+let arr = [ 5, 6, 7, 8, 9, 10, 1, 2, 3 ];
+console.log(pivotedBinarySearch(arr, arr.length, 3));
+
+

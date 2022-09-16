@@ -101,3 +101,96 @@ var mergeSort = function(arr1, arr2){
     return ans;
 }
 console.log(mergeSort([1,3,5,7], [2,4,6]));
+
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+/*
+PROB - Merge Sort Algorithm
+
+*/
+
+function mergeSort(arr){
+    if(arr.length <= 1) return;
+
+    let mid = parseInt(arr.length/2);
+    let part1 = [];
+    let part2 = [];
+
+    for(let i=0; i<mid; i++){
+        part1[i]=arr[i];
+    }
+
+    //let k=0;
+    for(let i=mid; i<arr.length; i++){
+        part2[i-mid]=arr[i];
+        //k++;
+    }
+    mergeSort(part1);
+    mergeSort(part2);
+    merge(part1, part2, arr);
+}
+
+function merge(arr1, arr2, output){
+    let i=0, j=0, k=0;
+    
+    while(i < arr1.length && j < arr2.length){
+        if(arr1[i] <= arr2[j]){
+            output[k] = arr1[i];
+            k++;
+            i++;
+        }
+        else{
+            output[k]=arr2[j];
+            j++;
+            k++;
+        }
+    }
+
+    while(i < arr1.length){
+        output[k] = arr1[i];
+        k++;
+        i++;
+    }
+
+    while(j < arr2.length){
+        output[k]=arr2[j];
+        j++;
+        k++;
+    }
+    return output;
+}
+
+// let arr = [9,8,7,1,5,6,4,2,3];
+// mergeSort(arr);
+// console.log(arr);
+
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+/*
+PROB - Quick Sort
+Given an array of integers. Sort the array using quick sort algorithm in ascending order.
+*/
+
+function quickSort(arr){
+    if(arr.length <= 1) return arr;
+    else {
+        var left = [], right = [], newArr = [], pivot = arr.pop(), length = arr.length;
+        for(var i=0; i<length; i++){
+            if(arr[i] <= pivot){
+                left.push(arr[i]);
+            }
+            else {
+                right.push(arr[i]);
+            }
+        }
+        return newArr.concat(quickSort(left), pivot, quickSort(right));
+    }
+}
+
+let arr = [9,8,7,1,5,6,4,2,3];
+console.log(quickSort(arr));
+
+
+

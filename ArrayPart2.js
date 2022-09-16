@@ -797,3 +797,156 @@ let arr = [ 5, 6, 7, 8, 9, 10, 1, 2, 3 ];
 console.log(pivotedBinarySearch(arr, arr.length, 3));
 
 
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+/*
+Prob - Check If Two String Arrays are Equivalent
+Given two string arrays word1 and word2, return true if the two arrays represent the same string, and false otherwise.
+A string is represented by an array if the array elements concatenated in order forms the string.
+
+Example:
+Input: word1 = ["ab", "c"], word2 = ["a", "bc"]
+Output: true
+Explanation:
+word1 represents string "ab" + "c" -> "abc"
+word2 represents string "a" + "bc" -> "abc"
+The strings are the same, so return true.
+*/
+
+// Method 1
+var arrayStringsAreEqual = function(word1, word2) {
+    let sum1 = "";
+    let sum2 = "";
+for(let i=0; i<word1.length; i++){
+    sum1 = sum1 + word1[i];
+}
+for(let i=0; i<word2.length; i++){
+    sum2 = sum2 + word2[i];
+}
+if(sum1 === sum2){
+    return true;
+}
+return false;
+};
+
+
+// Method 2
+
+var arrayStringsAreEqual = function(word1, word2) {
+    return word1.join('') == word2.join('')
+};
+
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+/*
+Prob - Count the Number of Consistent Strings
+You are given a string allowed consisting of distinct characters and an array of strings words. A string is consistent if all characters in the 
+string appear in the string allowed.
+Return the number of consistent strings in the array words.
+Example:
+Input: allowed = "ab", words = ["ad","bd","aaab","baa","badab"]
+Output: 2
+Explanation: Strings "aaab" and "baa" are consistent since they only contain characters 'a' and 'b'.
+*/
+
+var countConsistentStrings = function(allowed, words) {
+    let count=0;
+    for(let item of words){
+        if(item.split('').every(word => allowed.includes(word))){
+            count++;
+        }
+    }
+    return count;
+};
+
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+/*
+Prob - Truncate Sentence
+You are given a sentence s​​​​​​ and an integer k​​​​​​. You want to truncate s​​​​​​ such that it contains only the first k​​​​​​ words. Return s​​​​​​ after truncating it.
+Example :
+Input: s = "Hello how are you Contestant", k = 4
+Output: "Hello how are you"
+Explanation:
+The words in s are ["Hello", "how" "are", "you", "Contestant"].
+The first 4 words are ["Hello", "how", "are", "you"].
+Hence, you should return "Hello how are you".
+*/
+
+// Method 1
+var truncateSentence = function(s, k) {
+    s = s.split(" ");
+    let ans = [];
+    let n = s.length - k;
+    for(let i=0; i<s.length - n; i++){
+        ans.push(s[i]);
+    }
+    return ans.join(' ');
+};
+
+
+// Method 2
+var truncateSentence = function(s, k) {
+    return s.split(' ').map((e,i)=>i<k?e:'').filter(e=>e!=='').join(' ')
+};
+
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+/*
+Prob - Maximum Product Difference Between Two Pairs
+Given an integer array nums, choose four distinct indices w, x, y, and z such that the product difference between pairs (nums[w], nums[x]) and 
+(nums[y], nums[z]) is maximized.
+Return the maximum such product difference.
+Example:
+Input: nums = [5,6,2,7,4]
+Output: 34
+Explanation: We can choose indices 1 and 3 for the first pair (6, 7) and indices 2 and 4 for the second pair (2, 4).
+The product difference is (6 * 7) - (2 * 4) = 34.
+*/
+
+var maxProductDifference = function(nums) {
+    nums.sort((a,b)=>a-b);
+    return (nums[nums.length-1]*nums[nums.length-2] - nums[0]*nums[1]);
+};
+
+
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+/*
+Prob - Count Good Triplets
+Given an array of integers arr, and three integers a, b and c. You need to find the number of good triplets.
+
+A triplet (arr[i], arr[j], arr[k]) is good if the following conditions are true:
+
+0 <= i < j < k < arr.length
+|arr[i] - arr[j]| <= a
+|arr[j] - arr[k]| <= b
+|arr[i] - arr[k]| <= c
+Where |x| denotes the absolute value of x.
+Return the number of good triplets.
+Example:
+Input: arr = [3,0,1,1,9,7], a = 7, b = 2, c = 3
+Output: 4
+Explanation: There are 4 good triplets: [(3,0,1), (3,0,1), (3,1,1), (0,1,1)].
+*/
+
+var countGoodTriplets = function(arr, a, b, c) {
+    let ans = 0;
+    let n = arr.length;
+    for (let i = 0; i < n; i++)
+        for (let j = i + 1; j < n; j++)
+            for (let k = j + 1; k < n; k++)
+                if (Math.abs(arr[i] - arr[j]) < a + 1)
+                    if (Math.abs(arr[j] - arr[k]) < b + 1)
+                        if (Math.abs(arr[i] - arr[k]) < c + 1)
+                            ans++;
+    
+    return ans;
+};
+
+
+

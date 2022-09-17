@@ -117,3 +117,96 @@ function interLeaving(str1, str2, str3){
 // console.log(interLeaving(str1, str2, str3));
 
 
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+/*
+Prob. Find a string within a string
+
+*/
+
+function findSubstring(str1, str2) {
+  let n = str1.length;
+  let m = str2.length;
+  for (let i = 0; i <= n - m; i++) {
+      var j;
+      for (j = 0; j < m; j++) {
+          if (str1[i + j] != str2[j]) {
+              break;
+          }
+      }
+      if (j == m) {
+          return i;
+      }
+  }
+
+  return -1;
+}
+
+// let str1 = "Code Zinger University";
+// let str2 = "Zinger";
+// console.log(findSubstring(str1, str2));
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+/*
+Prob. Array Balance
+Given an unsorted array A, check whether the array is balanced. 
+Display 1 if the array is balanced otherwise 0. 
+Input: [1  1  1  2  1]
+Output: 1 
+*/
+
+function arrBalance(arr) {
+  for (let i = 1; i < arr.length; i++) {
+      let leftSum = 0;
+      for (let j = i - 1; j >= 0; j--) {
+          leftSum += arr[j];
+      }
+      let rightSum = 0;
+      for (let k = i; k < arr.length; k++) {
+          rightSum += arr[k];
+      }
+      if (leftSum === rightSum) {
+          return 1;
+      }
+  }
+  return 0;
+}
+
+// let arr = [1, 1, 1, 2, 3];
+// console.log(arrBalance(arr));
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+/*
+Prob. Minimum changes required to make a given array an Arithmetic Progression
+Given an array A of N integers and a number D, find the minimum number of change(s) required to make the given array an Arithmetic Progression with the 
+common difference D. You can change any element of the array to any integer.
+Example: Input: [1,2,4,6]
+Output: 1
+*/
+
+function arithmaticProgression(a,arr,d){
+  let maxFreq = -1;
+  let map = new Map();
+  for (let i = 0; i < a; i++) {
+      let k0 = arr[i] - i * d;
+      if (map.has(k0)) {
+          map.set(k0, map.get(k0) + 1);
+      } else {
+          map.set(k0, 1);
+      }
+      if (map.get(k0) > maxFreq) {
+          maxFreq = map.get(k0);
+      }
+  }
+  return (a - maxFreq);
+}
+// let arr = [1,2,4,6];
+// let a = arr.length;
+// let d = 2;
+// console.log(arithmaticProgression(a,arr,d));
+
+

@@ -210,3 +210,82 @@ function arithmaticProgression(a,arr,d){
 // console.log(arithmaticProgression(a,arr,d));
 
 
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+/* Prob - Missing characters to make a string Pangram
+Given a string S, find all characters that are missing from the string S, i.e., the characters that can make the string a Pangram. Display output 
+in alphabetic order.
+Input: The quick brown fox jumps
+where: First line represents string S.
+Output: adglvyz
+*/
+
+function missingChar(str){
+  let alphabetArr = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "k", "l","m", "n", "o","p","q","r","s","t","u","v","w","x","y","z"];
+  let seen = [];
+  let pangArr = [];
+  for(let i=0; i<26; i++){
+      seen.push(false);
+  }
+  let a = "a";
+  for(let i=0; i<str.length; i++){
+      for(let j=0; j<alphabetArr.length; j++){
+          let ch = str[i];
+          let x = str.charCodeAt(i) - a.charCodeAt(0);
+          if(seen[x]){
+              continue;
+          }
+          seen[x]=true;
+      }
+  }
+  for(let i=0; i<26; i++){
+      if(!seen[i]){
+          pangArr.push(alphabetArr[i]);
+      }
+  }
+  return pangArr.join('');
+}
+
+// let str = "The quick brown fox jumps over the";
+// console.log(missingChar(str));
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+/* Prob - Set difference of two sorted arrays
+Given two sorted arrays of distinct elements, find those elements from both arrays that are not common. The output should be displayed in sorted order.
+Example: Input: arr1 --> [10 20 30], arr2 = [20 25 30 40 50]
+Output = [10 25 40 50]
+*/
+
+function uncommonElements(arr1, arr2){
+  let i=0, j=0;
+  let ans = [];
+  while(i < arr1.length && j < arr2.length){
+      if(arr1[i] < arr2[j]){
+          ans.push(arr1[i]);
+          i++;
+      } else if(arr2[j] < arr1[i]){
+          ans.push(arr2[j]);
+          j++;
+      } else {
+          i++;
+          j++;
+      }
+  }
+  while(i < arr1.length){
+      ans.push(arr1[i]);
+      i++;
+  }
+  while(j < arr2.length){
+      ans.push(arr2[j]);
+      j++;
+  }
+  return ans;
+}
+// let arr1 = [10, 20, 30, 40];
+// let arr2 = [20, 25, 30, 40, 50];
+// console.log(uncommonElements(arr1, arr2));
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */

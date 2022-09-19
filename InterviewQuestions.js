@@ -82,7 +82,7 @@ function duplicate(arr){
     }
     return res;
 }
-console.log(duplicate([23, 3, 2,1, 3, 1]));
+console.log(duplicate([3, 4, 3, 2, 1, 3, 1]));
 
 
 /* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
@@ -210,7 +210,7 @@ function rotateArr(arr,k){
     }
     return arr;
 }
-console.log(rotateArr([12, 3, 6, 2, 9, 11],4));
+// console.log(rotateArr([12, 3, 6, 2, 9, 11],4));
 
 
 // Method 2
@@ -228,9 +228,9 @@ function optimalKRotation(arr, k){
     reverseArr(arr, 0, k-1);
     reverseArr(arr, k, arr.length-1);
 }
-const arr = [12, 3, 6, 2, 9, 11];
-optimalKRotation(arr, 4);
-console.log(arr);
+// const arr = [12, 3, 6, 2, 9, 11];
+// optimalKRotation(arr, 4);
+// console.log(arr);
 
 
 
@@ -343,7 +343,7 @@ function isValidInt(inp = ''){
     }
     return notANum;
 }
-console.log(isValidInt("123456iop"));
+// console.log(isValidInt("123456iop"));
 
 
 
@@ -373,4 +373,149 @@ function printNum(num){
 // printNum(7);
 
 
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+/* 
+Prob - Print all subsequences of a string
+Input : abc
+Output : a, b, c, ab, bc, ac, abc
+*/
+
+// Method 1
+function subStrings(input, output){
+    // Base Case
+    // if the input is empty print the output string
+    if(input.length === 0){
+        console.log(output);
+        return;
+    }
+    // output is passed with including
+    // the Ist character of
+    // Input string
+    subStrings(input.substring(1), output + input[0]);
+    subStrings(input.substring(1), output);
+}
+// let input = "abcd";
+// let output = "";
+// subStrings(input, output);
+
+
+// Method 2
+function printSubStrs(str){
+    let set = new Set();
+    for(let i=0; i<str.length; i++){
+        for(let j=str.length; j > i; j--){
+            let subStr = str.substr(i, i+j);
+            set.add(subStr);
+
+            for(let k=1; k<subStr.length; k++){
+                let sub = subStr;
+                sub = sub.replace(sub[k]);
+                printSubStrs(sub);
+            }
+        }
+    }
+}
+// let str = "aabc";
+// printSubStrs(str);
+// console.log(str);
+// Program to check if input is an integer or a string
+
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+// Program to check if input is an integer or a string
+
+function findNum(input){
+    input = input.toString();
+    for(let i=0; i<input.length; i++){
+        if(input[i] < '0' || input[i] > '9'){
+            return "Not an Integer"
+        }
+    }
+    return "Integer"
+}
+
+// let input = "123";
+// console.log(findNum(input));
+
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+// Find Second largest element in an array
+
+// Method 1
+function secondLargestElement(arr){
+    if(arr.length <2){
+        console.log("Plz provide a valid array")
+        return;
+    }
+    arr.sort();
+    for(let i=arr.length - 2; i >= 0; i--){
+        if(arr[i] != arr[arr.length-1]){
+            console.log("Second largest element is ", arr[i]);
+            return;
+        }
+    }
+    console.log("There is no second largest element in array");
+}
+
+// let arr = [12,12];
+// secondLargestElement(arr);
+
+
+// Method 2
+function secondLarEle(arr){
+    let largestEle = 0, secondLargest = 0;
+    if(arr.length < 2){
+        console.log("Invalid Input");
+        return;
+    }
+    for(let i=0; i<arr.length; i++){
+        if(arr[i] > largestEle){
+            largestEle = arr[i];
+        }
+    }
+    for(let i=0; i<arr.length; i++){
+        if(arr[i] > secondLargest && arr[i] < largestEle){
+            secondLargest = arr[i];
+        }
+    }
+    if(secondLargest === 0){
+        console.log("There is no second largest element in the array");
+    }
+    else {
+        console.log("The second largest element is ", secondLargest);
+        return;
+    }
+}
+
+// let arr = [12];
+// secondLarEle(arr);
+
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+// PRINT THE DUPLICATE IN AN ARRAY
+//Ex : INPUT: [23, 3, 2,1, 3, 1],  OUTPUT: 3, 1.
+
+function printDuplicate(arr){
+    let freq = new Map();
+    for(let i=0; i<arr.length; i++){
+        if(freq.get(arr[i])){
+            freq.set(arr[i], freq.get(arr[i]) + 1);
+        } else {
+            freq.set(arr[i], 1);
+        }
+    }
+    let result = [];
+    for(ele of freq){
+        if(ele[1] > 1){
+            result.push(ele[0]);
+        }
+    }
+    return result.sort();
+}
+let arr = [3, 4, 3, 2, 1, 3, 1];
+console.log(printDuplicate(arr));
 

@@ -381,3 +381,284 @@ var targetIndices = function(nums, target) {
 
 
 
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+/* 
+Prob - Counting Words With a Given Prefix
+You are given an array of strings words and a string pref.
+Return the number of strings in words that contain pref as a prefix.
+A prefix of a string s is any leading contiguous substring of s.
+Example:
+Input: words = ["pay","attention","practice","attend"], pref = "at"
+Output: 2
+Explanation: The 2 strings that contain "at" as a prefix are: "attention" and "attend".
+*/
+
+// Method 1
+var prefixCount = function(words, pref) {
+    let count = 0;
+    for(let i=0; i<words.length; i++){
+        if(words[i].length >= pref.length){
+            if(words[i].slice(0, pref.length) == pref){
+                count++;
+            }
+        }
+    }
+    return count;
+};
+
+
+// Method 2
+var prefixCount = function(words, pref) {
+    return words.filter((i) => i.startsWith(pref)).length;
+};
+
+
+// Method 3
+var prefixCount = function(words, pref) {
+    let count = 0;
+    
+    words.forEach(word => {
+        if(word.startsWith(pref)) count++;
+    })
+    
+    return count;
+};
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+/* 
+Prob - Maximum Number of Pairs in Array
+You are given a 0-indexed integer array nums. In one operation, you may do the following:
+Choose two integers in nums that are equal.
+Remove both integers from nums, forming a pair.
+The operation is done on nums as many times as possible.
+Return a 0-indexed integer array answer of size 2 where answer[0] is the number of pairs that are formed and answer[1] is the number of 
+leftover integers in nums after 
+doing the operation as many times as possible.
+
+Example:
+Input: nums = [1,3,2,1,3,2,2]
+Output: [3,1]
+Explanation:
+Form a pair with nums[0] and nums[3] and remove them from nums. Now, nums = [3,2,3,2,2].
+Form a pair with nums[0] and nums[2] and remove them from nums. Now, nums = [2,2,2].
+Form a pair with nums[0] and nums[1] and remove them from nums. Now, nums = [2].
+No more pairs can be formed. A total of 3 pairs have been formed, and there is 1 number leftover in nums.
+*/
+
+// Method 1
+var numberOfPairs = function(nums) {
+    let counts = {};
+    let pairs = 0;
+    for(let num of nums){
+        if(num in counts){
+            delete counts[num];
+            pairs++;
+        } else {
+            counts[num] = 0;
+            counts[num] += 1;
+        }
+    }
+    return [pairs, Object.values(counts).length];
+};
+
+
+// Method 2
+var numberOfPairs = function(nums) {
+    let left= 0
+    let count = 0
+    let i = 0
+    let temp = nums.sort((a,b) => a-b)
+    while(i<nums.length-1) {
+        if (nums[i] === nums[i+1]) {
+            count++
+            nums.shift()
+            nums.shift()
+        }else {
+            i++
+        }
+    }
+    left = nums.length
+    return [count, left]    
+};
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+/* 
+Prob - Find Greatest Common Divisor of Array
+Given an integer array nums, return the greatest common divisor of the smallest number and largest number in nums.
+The greatest common divisor of two numbers is the largest positive integer that evenly divides both numbers.
+Example:
+Input: nums = [2,5,6,9,10]
+Output: 2
+Explanation:
+The smallest number in nums is 2.
+The largest number in nums is 10.
+The greatest common divisor of 2 and 10 is 2.
+*/
+
+// Method 2
+function sorting(arr) {
+    let temp;
+
+    for (let i = 0; i < arr.length; i++) {
+        for (let j = i + 1; j < arr.length; j++) {
+            if (arr[i] > arr[j]) {
+                temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+            }
+        }
+    }
+    return arr;
+}
+
+function getDivisors(n) {
+    let map = new Map();
+
+    for (let i = 1; i <= n; i++) {
+        if ((n % i) == 0) {
+            map.set(i, 1);
+        }
+    }
+    return map;
+}
+
+var findGCD = function (nums) {
+    let arr = sorting(nums);
+    let small = arr[0];
+    let large = arr[arr.length - 1];
+    let map1 = getDivisors(small);
+    let map2 = getDivisors(large);
+    let itr, val, max = 0;
+
+    itr = map1.keys();
+    for (let i = 0; i < map1.size; i++) {
+        val = itr.next().value;
+
+        if (map1.has(val) && map2.has(val)) {
+            if (max < val) {
+                max = val;
+            }
+        }
+    }
+    return max;
+
+};
+
+
+// Method 2
+var findGCD = function(nums) {
+    let min = Math.min(...nums), max = Math.max(...nums), mcd;
+  
+    for (let i = 1; i <= max; i++) {
+      min % i === 0 && max % i === 0 ? mcd = i : null
+    }
+  
+    return mcd
+  };
+
+
+  // Method 3
+  var findGCD = function(nums) {
+  
+    let smallItem = Math.min(...nums);
+    let largeItem = Math.max(...nums)
+    let result = 1;
+    let i = 2;
+  
+    while (smallItem >= 2 && i <= largeItem) {
+      if (smallItem % i === 0 && largeItem % i === 0) {
+        result = i;
+      }
+      i++;
+    }
+    return result;
+};
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+/* 
+Prob - Find Numbers with Even Number of Digits
+Given an array nums of integers, return how many of them contain an even number of digits.
+Example:
+Input: nums = [12,345,2,6,7896]
+Output: 2
+*/
+
+// Method 2
+var findNumbers = function(nums) {
+    let count = 0;
+    for(let i=0; i<nums.length; i++){
+        nums[i] = nums[i].toString();
+        if(nums[i].length % 2 === 0){
+            count++;
+        }
+    }
+    return count;
+};
+
+
+// Method 2
+var findNumbers = function(nums) {
+    let count = 0;
+    for (const num of nums) String(num).length % 2 === 0 && count++;
+    return count;
+};
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+/* 
+Prob - Number of Students Doing Homework at a Given Time
+Given two integer arrays startTime and endTime and given an integer queryTime.
+The ith student started doing their homework at the time startTime[i] and finished it at time endTime[i].
+Return the number of students doing their homework at time queryTime. More formally, return the number of students where queryTime lays in the interval 
+[startTime[i], endTime[i]] inclusive.
+
+Example 1:
+Input: startTime = [1,2,3], endTime = [3,2,7], queryTime = 4
+Output: 1
+Explanation: We have 3 students where:
+The first student started doing homework at time 1 and finished at time 3 and wasn't doing anything at time 4.
+The second student started doing homework at time 2 and finished at time 2 and also wasn't doing anything at time 4.
+The third student started doing homework at time 3 and finished at time 7 and was the only student doing homework at time 4.
+*/
+
+// Method 1
+var busyStudent = function(startTime, endTime, queryTime) {
+    return startTime.filter((val,i)=> queryTime>=val && queryTime<=endTime[i]).length;
+};
+
+
+// Method 2
+var busyStudent = function(startTime, endTime, queryTime) {
+    let countStudent= 0
+     for(let i = 0; i < startTime.length; i++ )(startTime[i] <= queryTime && endTime[i] >= queryTime) ? countStudent++ : "";
+     return countStudent;
+ };
+
+
+ // Method 3
+ var busyStudent = function(startTime, endTime, queryTime) {
+    let count = 0;
+    var ans=0;
+    while(count != startTime.length){
+        startTime[count] <= queryTime && endTime[count] >= queryTime ? ans++:""
+        count++
+    }
+    return ans;
+};
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+/* 
+Prob - 
+
+*/

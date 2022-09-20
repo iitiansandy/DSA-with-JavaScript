@@ -658,7 +658,187 @@ var busyStudent = function(startTime, endTime, queryTime) {
 
 /* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 
-/* 
-Prob - 
+/*
+PROB - N-Repeated Element in Size 2N Array
+You are given an integer array nums with the following properties:
+nums.length == 2 * n.
+nums contains n + 1 unique elements.
+Exactly one element of nums is repeated n times.
+Return the element that is repeated n times.
 
+Example:
+Input: nums = [1,2,3,3]
+Output: 3
 */
+
+// Method 1
+const repeatedNTimes = nums =>
+    nums.find((n, i) => nums.indexOf(n) !== i);
+
+
+// Method 2
+var repeatedEle = function(nums){
+    const set = new Set();
+    for(let item of nums){
+        if(set.has(item)){
+            return item;
+        }
+        set.add(item);
+    } 
+}
+
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+/*
+PROB - Sort Array By Parity
+Given an integer array nums, move all the even integers at the beginning of the array followed by all the odd integers.
+Return any array that satisfies this condition.
+
+Example:
+Input: nums = [3,1,2,4]
+Output: [2,4,3,1]
+Explanation: The outputs [4,2,3,1], [2,4,1,3], and [4,2,1,3] would also be accepted.
+*/
+
+var sortArrayByParity = function(nums) {
+    let k = 0;
+    for(let i=0; i<nums.length; i++){
+        if(nums[i] % 2 == 0){
+            let temp = nums[k];
+            nums[k] = nums[i];
+            nums[i] = temp;
+            k++;
+        }
+    }
+    return nums;
+};
+
+
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+/*
+PROB - Sum of Unique Elements
+You are given an integer array nums. The unique elements of an array are the elements that appear exactly once in the array.
+Return the sum of all the unique elements of nums.
+
+Example:
+Input: nums = [1,2,3,2]
+Output: 4
+Explanation: The unique elements are [1,3], and the sum is 4.
+*/
+
+var sumOfUnique = function(nums) {
+    let obj = {};
+    let sum = 0;
+    for(let num of nums){
+        if(obj[num] === undefined){
+            sum += num;
+            obj[num] = 1;
+        } else if(obj[num] === 1){
+            sum -= num;
+            obj[num] = -1;
+        }
+    }
+    return sum;
+};
+
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+/*
+PROB - Count Negative Numbers in a Sorted Matrix
+Given a m x n matrix grid which is sorted in non-increasing order both row-wise and column-wise, return the number of negative numbers in grid.
+Example:
+Input: grid = [[4,3,2,-1],[3,2,1,-1],[1,1,-1,-2],[-1,-1,-2,-3]]
+Output: 8
+Explanation: There are 8 negatives number in the matrix.
+*/
+
+// Method 1
+var countNegatives = function(grid) {
+    let i = grid.length;
+    let n = grid[0].length;
+    let res = 0;
+    while(--i >= 0){
+        let j=n;
+        while(--j >= 0){
+            if(grid[i][j] >= 0){
+                break;
+            }
+        }
+        res += n-j;
+    }
+    return res - grid.length;
+};
+
+// Method 2
+var countNegatives = function(grid) {
+    let m = grid.length;
+    let n = grid[0].length;
+    let left = 0, right = n-1, count = 0;
+    
+    while (left < m && right >= 0){
+        if(grid[left][right] < 0){
+            count += m-left;
+            right--;
+        } else {
+            left++;
+        }
+    }
+    return count;
+};
+
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+/*
+PROB - Merge Similar Items
+You are given two 2D integer arrays, items1 and items2, representing two sets of items. Each array items has the following properties:
+items[i] = [valuei, weighti] where valuei represents the value and weighti represents the weight of the ith item.
+The value of each item in items is unique.
+Return a 2D integer array ret where ret[i] = [valuei, weighti], with weighti being the sum of weights of all items with value valuei.
+Note: ret should be returned in ascending order by value.
+
+Example 1:
+Input: items1 = [[1,1],[4,5],[3,8]], items2 = [[3,1],[1,5]]
+Output: [[1,6],[3,9],[4,5]]
+Explanation: 
+The item with value = 1 occurs in items1 with weight = 1 and in items2 with weight = 5, total weight = 1 + 5 = 6.
+The item with value = 3 occurs in items1 with weight = 8 and in items2 with weight = 1, total weight = 8 + 1 = 9.
+The item with value = 4 occurs in items1 with weight = 5, total weight = 5.  
+Therefore, we return [[1,6],[3,9],[4,5]].
+*/
+
+// Method 1
+var mergeSimilarItems = function(items1, items2) {
+    const obj = {};
+    const arr = items1.concat(items2);
+    for(let i=0; i < arr.length; i++){
+        if(!obj[arr[i][0]]){
+            obj[arr[i][0]] = arr[i][1];
+        } else {
+            obj[arr[i][0]] += +arr[i][1];
+        }
+    }
+    return Object.entries(obj);
+};
+
+
+// Method 2
+var mergeSimilarItems = function(items1, items2) {
+    let map = {};
+     const items = [...items1, ...items2];
+     for(let [val, weight] of items){
+         if(map[val]){
+             map[val] += weight;
+         } else {
+             map[val] = weight;
+         }
+     }
+     return Object.entries(map);
+ };
+
+
+ 

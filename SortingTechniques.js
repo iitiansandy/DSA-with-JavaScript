@@ -100,7 +100,7 @@ var mergeSort = function(arr1, arr2){
     }
     return ans;
 }
-console.log(mergeSort([1,3,5,7], [2,4,6]));
+// console.log(mergeSort([1,3,5,7], [2,4,6]));
 
 
 /* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
@@ -189,8 +189,8 @@ function quickSort(arr){
     }
 }
 
-let arr = [9,8,7,1,5,6,4,2,3];
-console.log(quickSort(arr));
+// let arr = [9,8,7,1,5,6,4,2,3];
+// console.log(quickSort(arr));
 
 
 

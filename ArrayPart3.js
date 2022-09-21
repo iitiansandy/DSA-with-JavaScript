@@ -841,4 +841,254 @@ var mergeSimilarItems = function(items1, items2) {
  };
 
 
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+/*
+PROB - Height Checker
+A school is trying to take an annual photo of all the students. The students are asked to stand in a single file line in non-decreasing order by height.
+Let this ordering be represented by the integer array expected where expected[i] is the expected height of the ith student in line.
+You are given an integer array heights representing the current order that the students are standing in. Each heights[i] is the height of the ith 
+student in line (0-indexed).
+Return the number of indices where heights[i] != expected[i].
+
+Example:
+Input: heights = [1,1,4,2,1,3]
+Output: 3
+Explanation: 
+heights:  [1,1,4,2,1,3]
+expected: [1,1,1,2,3,4]
+Indices 2, 4, and 5 do not match.
+*/
+
+
+// Method 1
+var heightChecker = function(heights) {
+    let count = 0;
+    const sorted = [...heights].sort((a,b)=>a-b);
+    sorted.map((item, i) => (sorted[i] != heights[i]) ? count++ : '');
+    return count;
+};
+
+
+// Method 2
+var heightChecker = function(heights) {
+    let expected = heights.slice().sort((a,b) => a-b);
+    let noMatch = 0;
+    
+    for(let i=0; i<heights.length; i++){
+        if(heights[i] != expected[i]){
+            noMatch++;
+        }
+    }
+    return noMatch;
+};
+
+
+// Method 3
+var heightChecker = function (heights) {
+    let counter = 0;
+    let arrSort = [...heights].sort((a, b) => a - b);
+    for (let i = 0; i < heights.length; i++) {
+      if (heights[i] !== arrSort[i]) {
+        counter++;
+      }
+    }
+    return counter;
+  };
+
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+/*
+PROB - Divide Array Into Equal Pairs
+You are given an integer array nums consisting of 2 * n integers.
+You need to divide nums into n pairs such that:
+Each element belongs to exactly one pair.
+The elements present in a pair are equal.
+Return true if nums can be divided into n pairs, otherwise return false.
+
+Example:
+
+Input: nums = [3,2,3,2,2,2]
+Output: true
+Explanation: 
+There are 6 elements in nums, so they should be divided into 6 / 2 = 3 pairs.
+If nums is divided into the pairs (2, 2), (3, 3), and (2, 2), it will satisfy all the conditions.
+*/
+
+// Method 1
+var divideArray = function(nums) {
+    let map = {};
+    let count = 0;
+    nums.map((num, i) => {
+        if(!map[num]){
+            map[num] = 1;
+        } else if(map[num]%2 == 0) {
+            map[num] += 1;
+        } else if(map[num]%2 == 1){
+            map[num] += 1;
+            ++count;
+        }
+    })
+    return nums.length/2 == count;
+};
+
+
+// Method 2
+var divideArray = function(nums) {
+    let map = {};
+    let i = nums.length;
+    
+    while(--i >= 0){
+        map[nums[i]] = (map[nums[i]] || 0) + 1;
+    }
+    
+    let vals = Object.values(map);
+    let j = vals.length;
+    
+    while(--j >= 0){
+        if(vals[j] % 2 !== 0){
+            return false;
+        }
+    }
+    return true;
+};
+
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+/*
+PROB - Replace Elements with Greatest Element on Right Side
+Given an array arr, replace every element in that array with the greatest element among the elements to its right, and replace the last element with -1.
+After doing so, return the array.
+
+Example :
+Input: arr = [17,18,5,4,6,1]
+Output: [18,6,6,6,1,-1]
+Explanation: 
+- index 0 --> the greatest element to the right of index 0 is index 1 (18).
+- index 1 --> the greatest element to the right of index 1 is index 4 (6).
+- index 2 --> the greatest element to the right of index 2 is index 4 (6).
+- index 3 --> the greatest element to the right of index 3 is index 4 (6).
+- index 4 --> the greatest element to the right of index 4 is index 5 (1).
+- index 5 --> there are no elements to the right of index 5, so we put -1.
+*/
+
+var replaceElements = function(arr) {
+    let currMax = arr[arr.length-1];
+    arr[arr.length-1] = -1;
+    
+    for(let i=arr.length-2; i>=0; i--){
+        let curr = arr[i];
+        arr[i] = currMax;
+        if(curr > currMax){
+            currMax = curr;
+        }
+    }
+    return arr;
+};
+
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+/*
+PROB - Count Prefixes of a Given String
+You are given a string array words and a string s, where words[i] and s comprise only of lowercase English letters.
+Return the number of strings in words that are a prefix of s.
+A prefix of a string is a substring that occurs at the beginning of the string. A substring is a contiguous sequence of characters within a string.
+
+Example:
+Input: words = ["a","b","c","ab","bc","abc"], s = "abc"
+Output: 3
+Explanation:
+The strings in words which are a prefix of s = "abc" are:
+"a", "ab", and "abc".
+Thus the number of strings in words which are a prefix of s is 3.
+*/
+
+var countPrefixes = function(words, s) {
+    let counter = 0;
+    for(let i=0; i<words.length; i++){
+        if(words[i] === s.slice(0, words[i].length)){
+            counter++;
+        }
+    }
+    return counter;
+};
+
+
+// one liner approach - 2
+var countPrefixes = function(words, s) {
+    return words.filter((word) => word === s.slice(0,word.length)).length;
+};
+
+
+// approach 3
+var countPrefixes = function(words, s) {
+    return words.filter(data=> s.indexOf(data) == 0).length;
+};
+
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+/*
+PROB - Two Out of Three
+Given three integer arrays nums1, nums2, and nums3, return a distinct array containing all the values that are present in at least two out of the 
+three arrays. You may return the values in any order.
  
+Example:
+Input: nums1 = [1,1,3,2], nums2 = [2,3], nums3 = [3]
+Output: [3,2]
+Explanation: The values that are present in at least two arrays are:
+- 3, in all three arrays.
+- 2, in nums1 and nums2.
+*/
+
+// Method 1
+var twoOutOfThree = function(nums1, nums2, nums3) {
+    const nums1Set = new Set(nums1)
+	const nums2Set = new Set(nums2)
+	const nums3Set = new Set(nums3)
+
+	let res = []
+
+	for (let num of nums1Set) {
+		if (nums2Set.has(num) || nums3Set.has(num)) {
+			res.push(num)
+		}
+	}
+
+	for (let num of nums2Set) {
+		if (nums1Set.has(num) || nums3Set.has(num)) {
+			res.push(num)
+		}
+	}
+
+	return Array.from(new Set(res))
+};
+
+// Method 2
+var twoOutOfThree = function(nums1, nums2, nums3) {
+    let result = new Set()
+
+	for(let el of nums1){
+		if( nums2.includes(el) || nums3.includes(el))
+			result.add(el)
+	}
+	 for(let el of nums2){
+		if( nums1.includes(el) || nums3.includes(el))
+			result.add(el)
+	}
+
+	return [...result]
+};
+
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+/*
+PROB - 
+
+*/
+
+

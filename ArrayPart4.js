@@ -1,6 +1,6 @@
 
 /*
-Prob - Squares of a Sorted Array
+Prob 1 - Squares of a Sorted Array
 Given an integer array nums sorted in non-decreasing order, return an array of the squares of each number sorted in non-decreasing order.
 
 Example:
@@ -59,7 +59,7 @@ var sortedSquares = function(nums) {
 
 
 /*
-Prob - Sort Integers by The Number of 1 Bits
+Prob 2 - Sort Integers by The Number of 1 Bits
 You are given an integer array arr. Sort the integers in the array in ascending order by the number of 1's in their binary representation and in case 
 of two or more integers have the same number of 1's you have to sort them in ascending order.
 Return the array after sorting it.
@@ -100,7 +100,7 @@ var sortByBits = function(arr) {
 
 
 /*
-Prob - Shortest Distance to a Character
+Prob 3 - Shortest Distance to a Character
 Given a string s and a character c that occurs in s, return an array of integers answer where answer.length == s.length and answer[i] is the distance 
 from index i to the closest occurrence of character c in s.
 The distance between two indices i and j is abs(i - j), where abs is the absolute value function.
@@ -145,7 +145,7 @@ var shortestToChar = function(s, c) {
 
 
 /*
-Prob - Kth Distinct String in an Array
+Prob 4 - Kth Distinct String in an Array
 A distinct string is a string that is present only once in an array.
 Given an array of strings arr, and an integer k, return the kth distinct string present in arr. If there are fewer than k distinct strings, return an 
 empty string "".

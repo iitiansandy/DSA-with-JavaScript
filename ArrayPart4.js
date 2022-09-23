@@ -197,6 +197,203 @@ var kthDistinct = function(arr, k) {
 
 
 /*
+Prob - Minimum Absolute Difference
+Given an array of distinct integers arr, find all pairs of elements with the minimum absolute difference of any two elements.
+Return a list of pairs in ascending order(with respect to pairs), each pair [a, b] follows
+a, b are from arr
+a < b
+b - a equals to the minimum absolute difference of any two elements in arr
+
+Example :
+Input: arr = [4,2,1,3]
+Output: [[1,2],[2,3],[3,4]]
+Explanation: The minimum absolute difference is 1. List all pairs with difference equal to 1 in ascending order.
+*/
+
+var minimumAbsDifference = function(arr) {
+    arr.sort((a,b)=> a-b);
+    let result = [];
+    let min = Infinity;
+    
+    for(let i=1; i<arr.length; i++){
+        let diff = Math.abs(arr[i-1] - arr[i]);
+        if(!result[diff]){
+            result[diff] = [];
+        }
+        result[diff].push([arr[i-1], arr[i]]);
+        min = Math.min(min, diff);
+    }
+    return result[min];
+};
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
+Prob - Smallest Index With Equal Value
+Given a 0-indexed integer array nums, return the smallest index i of nums such that i mod 10 == nums[i], or -1 if such index does not exist.
+x mod y denotes the remainder when x is divided by y.
+
+Example 1:
+
+Input: nums = [0,1,2]
+Output: 0
+Explanation: 
+i=0: 0 mod 10 = 0 == nums[0].
+i=1: 1 mod 10 = 1 == nums[1].
+i=2: 2 mod 10 = 2 == nums[2].
+All indices have i mod 10 == nums[i], so we return the smallest index 0.
+*/
+
+var smallestEqual = function(nums) {
+    let minNumber = Number.MAX_SAFE_INTEGER;
+    for(let i=0; i<nums.length; i++){
+        let calc = Math.floor(i/10) * 10;
+        let sum = i - calc;
+        
+        if(nums[i] === sum){
+            if(minNumber > i){
+                minNumber = i;
+            }
+        }
+    }
+    if(minNumber === 9007199254740991){
+        return -1;
+    } else {
+        return minNumber;
+    }
+};
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
+Prob - Unique Number of Occurrences
+Given an array of integers arr, return true if the number of occurrences of each value in the array is unique, or false otherwise.
+
+Example:
+Input: arr = [1,2,2,1,1,3]
+Output: true
+Explanation: The value 1 has 3 occurrences, 2 has 2 and 3 has 1. No two values have the same number of occurrences.
+*/
+
+var uniqueOccurrences = function(arr) {
+    let count = new Map();
+    for(let i=0; i<arr.length; i++){
+        if(!count.has(arr[i])){
+            count.set(arr[i], 1);
+        } else {
+            let cnt = count.get(arr[i]);
+            count.set(arr[i], cnt + 1);
+        }
+    }
+    let values = Array.from(count.values());
+    let set = new Set(values);
+    return set.size === values.length;
+};
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
+Prob - Sort Array By Parity II
+Given an array of integers nums, half of the integers in nums are odd, and the other half are even.
+Sort the array so that whenever nums[i] is odd, i is odd, and whenever nums[i] is even, i is even.
+Return any answer array that satisfies this condition.
+
+Example:
+Input: nums = [4,2,5,7]
+Output: [4,5,2,7]
+Explanation: [4,7,2,5], [2,5,4,7], [2,7,4,5] would also have been accepted.
+*/
+
+var sortArrayByParityII = function(nums) {
+    const output = new Array(nums.length);
+    let cursorOdd = 1;
+    let cursorEven = 0;
+    for (let i = 0; i < nums.length; i++) {
+        if (nums[i]%2) {
+            output[cursorOdd] = nums[i];
+            cursorOdd+=2;
+        } else {
+            output[cursorEven] = nums[i];
+            cursorEven+=2;
+        }
+    }
+    return output;
+};
+
+
+// Method 2
+var sortArrayByParityII = function(nums) {
+    let i = 0;
+    let j = nums.length - 1;
+  
+    while (i < nums.length) {
+      const wantedValue = i % 2;
+  
+      if (nums[i] % 2 === wantedValue) i++;
+      else {
+        if (nums[j] % 2 === wantedValue) {
+          let temp = nums[i];
+          nums[i] = nums[j];
+          nums[j] = temp;
+          i++;
+          j = nums.length - 1;
+        } else j--;
+      }
+    }
+  
+    return nums;
+  };
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
+Prob - Check Distances Between Same Letters
+You are given a 0-indexed string s consisting of only lowercase English letters, where each letter in s appears exactly twice. You are also given a 
+0-indexed integer array distance of length 26.
+Each letter in the alphabet is numbered from 0 to 25 (i.e. 'a' -> 0, 'b' -> 1, 'c' -> 2, ... , 'z' -> 25).
+In a well-spaced string, the number of letters between the two occurrences of the ith letter is distance[i]. If the ith letter does not appear in s, 
+then distance[i] can be ignored.
+Return true if s is a well-spaced string, otherwise return false.
+
+Example:
+Input: s = "abaccb", distance = [1,3,0,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+Output: true
+Explanation:
+- 'a' appears at indices 0 and 2 so it satisfies distance[0] = 1.
+- 'b' appears at indices 1 and 5 so it satisfies distance[1] = 3.
+- 'c' appears at indices 3 and 4 so it satisfies distance[2] = 0.
+Note that distance[3] = 5, but since 'd' does not appear in s, it can be ignored.
+Return true because s is a well-spaced string.
+*/
+
+var checkDistances = function(s, distance) {
+    let map = new Map()
+    
+    for(let i = 0; i < s.length; i++){
+        map.has(s[i]) === false ? map.set(s[i], [i]) : map.get(s[i]).push(i) 
+    }
+  
+    for(let [char,[a,b]] of map){
+        if (!(b-a-1 === distance[char.charCodeAt() - 97]))  return false 
+    }
+    
+    return true
+};
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
 Prob - 
 
 */
+

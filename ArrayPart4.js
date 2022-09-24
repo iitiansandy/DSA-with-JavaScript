@@ -393,9 +393,226 @@ var checkDistances = function(s, distance) {
 
 
 /*
-Prob - 
+Prob - Delete Columns to Make Sorted
+You are given an array of n strings strs, all of the same length.
+The strings can be arranged such that there is one on each line, making a grid. For example, strs = ["abc", "bce", "cae"] can be arranged as:
 
+abc
+bce
+cae
+Example 1:
+
+Input: strs = ["cba","daf","ghi"]
+Output: 1
+Explanation: The grid looks as follows:
+  cba
+  daf
+  ghi
+Columns 0 and 2 are sorted, but column 1 is not, so you only need to delete 1 column.
 */
 
+var minDeletionSize = function(strs) {
+    let count = 0;
+    for(let i=0; i<strs[0].length; i++){
+        for(let j=0; j<strs.length-1; j++){
+            if(strs[j].charAt(i) > strs[j+1].charAt(i)){
+                count++;
+                break;
+            }
+        }
+    }
+    return count;
+};
 
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
+Prob - Intersection of Multiple Arrays
+Given a 2D integer array nums where nums[i] is a non-empty array of distinct positive integers, return the list of integers that are present in each 
+array of nums sorted in ascending order.
+
+Example 1:
+Input: nums = [[3,1,2,4,5],[1,2,3,4],[3,4,5,6]]
+Output: [3,4]
+Explanation: 
+The only integers present in each of nums[0] = [3,1,2,4,5], nums[1] = [1,2,3,4], and nums[2] = [3,4,5,6] are 3 and 4, so we return [3,4].
+*/
+
+// Method 1
+var check = function(p,q){
+    let output = [];
+    for(let i=0; i<p.length; i++){
+        if(q.includes(p[i])){
+            output.push(p[i]);
+        }
+    }
+    return output;
+};
+
+var intersection = function(nums) {
+    let arr = [];
+    let k = nums[0];
+    
+    for(i=1; i<nums.length; i++){
+        let arr = (check(k,nums[i]))
+        if(arr.length > 0){
+            k = arr;
+        } else {
+            return [];
+        }
+    }
+    return k.sort((a,b)=>{
+        return a-b;
+    });
+};
+
+
+// Method 2
+var intersection = function(nums) {
+    let result = nums.reduce((acc, current)=>{
+        let inter = [];
+        for(let i=0; i<current.length; i++){
+            if(acc.includes(current[i])){
+                inter.push(current[i]);
+            }
+        }
+        return inter;
+    });
+    
+    return result.sort((a,b) => {
+        return a-b;
+    });
+};
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
+Prob - Find the Difference of Two Arrays
+Given two 0-indexed integer arrays nums1 and nums2, return a list answer of size 2 where:
+answer[0] is a list of all distinct integers in nums1 which are not present in nums2.
+answer[1] is a list of all distinct integers in nums2 which are not present in nums1.
+Note that the integers in the lists may be returned in any order.
+
+Example:
+
+Input: nums1 = [1,2,3], nums2 = [2,4,6]
+Output: [[1,3],[4,6]]
+Explanation:
+For nums1, nums1[1] = 2 is present at index 0 of nums2, whereas nums1[0] = 1 and nums1[2] = 3 are not present in nums2. Therefore, answer[0] = [1,3].
+For nums2, nums2[0] = 2 is present at index 1 of nums1, whereas nums2[1] = 4 and nums2[2] = 6 are not present in nums2. Therefore, answer[1] = [4,6].
+*/
+
+// Method 1
+var findDifference = function(nums1, nums2) {
+    let set1 = new Set(nums1.filter(num => !nums2.includes(num)))
+    let set2 = new Set(nums2.filter(num => !nums1.includes(num)));
+    
+    return [[...set1], [...set2]]
+};
+
+
+// Method 2
+var findDifference = function(nums1, nums2) {
+    var first=[];
+    var second=[];
+    for(var i=0;i<nums1.length;i++){
+        if(nums2.includes(nums1[i])){
+            continue;
+        }else{
+            if(first.includes(nums1[i])){
+                continue;
+            }else{
+                first.push(nums1[i])
+            }
+        }
+    }
+    for(var i=0;i<nums2.length;i++){
+        if(nums1.includes(nums2[i])){
+            continue;
+        }else{
+            if(second.includes(nums2[i])){
+                continue;
+            }else{
+                second.push(nums2[i])
+            }
+        }
+    }
+    return [first,second]
+};
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
+Prob - Sum of Two Integers
+Given two integers a and b, return the sum of the two integers without using the operators + and -.
+
+Example 1:
+Input: a = 1, b = 2
+Output: 3
+*/
+
+// Solution 1: Iterative
+
+var getSum = function(a, b) {
+    while(b) {
+        const carry = a & b;
+        a = a ^ b;
+        b = carry << 1;
+    }
+    return a;
+}
+
+
+// Solution 2: Recursive
+
+var getSum = function(a, b) {
+    if(b === 0) {
+        return a;
+    }
+    return getSum(a ^ b, (a & b) << 1);
+};
+
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
+Prob 2 - Count Common Words With One Occurrence
+Given two string arrays words1 and words2, return the number of strings that appear exactly once in each of the two arrays.
+Input: words1 = ["leetcode","is","amazing","as","is"], words2 = ["amazing","leetcode","is"]
+Output: 2
+Explaination: there are 2 strings that appear exactly once in each of the two arrays.
+*/
+
+var countWords = function(words1, words2) {
+    let count = 0;
+    let obj = {};
+    words2.forEach((data) => {
+        if(obj[data]){
+            obj[data] = obj[data] + 1;
+        } else {
+            obj[data] = 1;
+        }
+    });
+    
+    words1.forEach((item) => {
+        if(obj[item] === 1){
+            obj[item] =0;
+            count++;
+        } else if(obj[item] === 0){
+            obj[item] = -1;
+            count--;
+        }
+    })
+    return count;
+};
+
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 

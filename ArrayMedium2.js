@@ -261,4 +261,198 @@ var pivotArray = function(nums, pivot) {
 };
 
 
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
+Prob - Minimum Number of Operations to Move All Balls to Each Box
+You have n boxes. You are given a binary string boxes of length n, where boxes[i] is '0' if the ith box is empty, and '1' if it contains one ball.
+In one operation, you can move one ball from a box to an adjacent box. Box i is adjacent to box j if abs(i - j) == 1. Note that after doing so, there 
+may be more than one ball in some boxes.
+Return an array answer of size n, where answer[i] is the minimum number of operations needed to move all the balls to the ith box.
+Each answer[i] is calculated considering the initial state of the boxes.
+
+Example 1:
+
+Input: boxes = "110"
+Output: [1,1,3]
+Explanation: The answer for each box is as follows:
+1) First box: you will have to move one ball from the second box to the first box in one operation.
+2) Second box: you will have to move one ball from the first box to the second box in one operation.
+3) Third box: you will have to move one ball from the first box to the third box in two operations, and move one ball from the second box to the third 
+box in one operation.
+*/
+
+var minOperations = function(boxes) {
+    let output = [];
+    // left to right
+    let oneCount = 0, total = 0;
+    for(let l=0; l<boxes.length; l++){
+        output[l] = total;
+        if(boxes[l] === '1'){
+            oneCount++;
+        }
+        total += oneCount;
+    }
+    
+    // right to left
+    oneCount = 0, total = 0;
+    for(let r=boxes.length - 1; r >= 0; r--){
+        output[r] += total;
+        if(boxes[r] === '1'){
+            oneCount++;
+        }
+        total += oneCount;
+    }
+    return output;
+};
+
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
+Prob - Sort the Matrix Diagonally
+A matrix diagonal is a diagonal line of cells starting from some cell in either the topmost row or leftmost column and going in the bottom-right direction 
+until reaching the matrix's end. For example, the matrix diagonal starting from mat[2][0], where mat is a 6 x 3 matrix, includes cells mat[2][0], mat[3][1], 
+and mat[4][2].
+Given an m x n matrix mat of integers, sort each matrix diagonal in ascending order and return the resulting matrix.
+Example: Input: mat = [[3,3,1,1],[2,2,1,2],[1,1,1,2]]
+Output: [[1,1,1,1],[1,2,2,2],[1,2,3,3]]
+*/
+
+var sortDiag = function(i, j, mat){
+    const temp = [];
+    let i1 = i;
+    let j1 = j;
+    while(i1<mat.length && j1<mat[0].length){
+        temp.push(mat[i1][j1]);
+        i1++;
+        j1++;
+    }
+    temp.sort((a,b) => a-b);
+    i1=i;
+    j1=j;
+    let d = 0;
+    while(i1<mat.length && j1<mat[0].length){
+        mat[i1][j1] = temp[d];
+        i1++;
+        j1++;
+        d++;
+    }
+};
+
+var diagonalSort = function(mat) {
+    let j=0;
+    while(j<mat[0].length){
+        sortDiag(0,j,mat);
+        j++;
+    }
+    let i=1;
+    while(i<mat.length){
+        sortDiag(i,0,mat);
+        i++;
+    }
+    return mat;
+};
+
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
+Prob - Number of Laser Beams in a Bank
+Anti-theft security devices are activated inside a bank. You are given a 0-indexed binary string array bank representing the floor plan of the bank, 
+which is an m x n 2D matrix. bank[i] represents the ith row, consisting of '0's and '1's. '0' means the cell is empty, while'1' means the cell has a 
+security device.
+
+There is one laser beam between any two security devices if both conditions are met:
+
+The two devices are located on two different rows: r1 and r2, where r1 < r2.
+For each row i where r1 < i < r2, there are no security devices in the ith row.
+Laser beams are independent, i.e., one beam does not interfere nor join with another.
+
+Return the total number of laser beams in the bank.
+
+Example:
+Input: bank = ["011001","000000","010100","001000"]
+Output: 8
+Explanation: Between each of the following device pairs, there is one beam. In total, there are 8 beams:
+ * bank[0][1] -- bank[2][1]
+ * bank[0][1] -- bank[2][3]
+ * bank[0][2] -- bank[2][1]
+ * bank[0][2] -- bank[2][3]
+ * bank[0][5] -- bank[2][1]
+ * bank[0][5] -- bank[2][3]
+ * bank[2][1] -- bank[3][2]
+ * bank[2][3] -- bank[3][2]
+Note that there is no beam between any device on the 0th row with any on the 3rd row.
+This is because the 2nd row contains security devices, which breaks the second condition.
+*/
+
+var numberOfBeams = function(bank) {
+    let sum = [];
+    let count, beams = 0;
+    for(let row of bank){
+        count = 0;
+        for(let n of row){
+            if(n === "1"){
+                count++;
+            }
+        }
+        if(count !== 0){
+            sum.push(count);
+        }
+    }
+    for(let n=0; n<sum.length-1; n++){
+        beams = beams + (sum[n] * sum[n+1]);
+    }
+    return beams;
+};
+
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
+Prob - Finding the Users Active Minutes
+You are given the logs for users' actions on LeetCode, and an integer k. The logs are represented by a 2D integer array logs where each logs[i] = [IDi, 
+timei] indicates that the user with IDi performed an action at the minute timei.
+Multiple users can perform actions simultaneously, and a single user can perform multiple actions in the same minute.
+The user active minutes (UAM) for a given user is defined as the number of unique minutes in which the user performed an action on LeetCode. A minute can 
+only be counted once, even if multiple actions occur during it.
+You are to calculate a 1-indexed array answer of size k such that, for each j (1 <= j <= k), answer[j] is the number of users whose UAM equals j.
+Return the array answer as described above.
+
+Example:
+
+Input: logs = [[0,5],[1,2],[0,2],[0,5],[1,3]], k = 5
+Output: [0,2,0,0,0]
+Explanation:
+The user with ID=0 performed actions at minutes 5, 2, and 5 again. Hence, they have a UAM of 2 (minute 5 is only counted once).
+The user with ID=1 performed actions at minutes 2 and 3. Hence, they have a UAM of 2.
+Since both users have a UAM of 2, answer[2] is 2, and the remaining answer[j] values are 0.
+*/
+
+var findingUsersActiveMinutes = function(logs, k) {
+    const uniqueMinByUserId = logs.reduce((map, [id, min]) => {
+        if(!map.has(id)) map.set(id, new Set());
+        map.get(id).add(min);
+        return map;
+    }, new Map());
+    const ans = Array.from({length: k}, () => 0);
+    for(const uniqueMinSet of uniqueMinByUserId.values()){
+        ans[uniqueMinSet.size - 1]++;
+    }
+    return ans;
+};
+
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
+Prob - 
+
+*/
 

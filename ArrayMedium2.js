@@ -452,7 +452,85 @@ var findingUsersActiveMinutes = function(logs, k) {
 
 
 /*
-Prob - 
+Prob - Minimize Maximum Pair Sum in Array
+The pair sum of a pair (a,b) is equal to a + b. The maximum pair sum is the largest pair sum in a list of pairs.
 
+For example, if we have pairs (1,5), (2,3), and (4,4), the maximum pair sum would be max(1+5, 2+3, 4+4) = max(6, 5, 8) = 8.
+Given an array nums of even length n, pair up the elements of nums into n / 2 pairs such that:
+
+Each element of nums is in exactly one pair, and
+The maximum pair sum is minimized.
+Return the minimized maximum pair sum after optimally pairing up the elements.
+
+Example:
+Input: nums = [3,5,2,3]
+Output: 7
+Explanation: The elements can be paired up into pairs (3,3) and (5,2).
+The maximum pair sum is max(3+3, 5+2) = max(6, 7) = 7.
 */
+
+var minPairSum = function(nums) {
+    nums.sort((a,b)=>a-b);
+    let max=0;
+    let i=0;
+    let j=nums.length-1;
+    
+    while(i<j){
+        max = Math.max(max, nums[i++] + nums[j--]);
+    }
+    return max;
+};
+
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
+Prob - Watering Plants
+ou want to water n plants in your garden with a watering can. The plants are arranged in a row and are labeled from 0 to n - 1 from left to right where the 
+ith plant is located at x = i. There is a river at x = -1 that you can refill your watering can at.
+
+Each plant needs a specific amount of water. You will water the plants in the following way:
+
+Water the plants in order from left to right.
+After watering the current plant, if you do not have enough water to completely water the next plant, return to the river to fully refill the watering can.
+You cannot refill the watering can early.
+You are initially at the river (i.e., x = -1). It takes one step to move one unit on the x-axis.
+
+Given a 0-indexed integer array plants of n integers, where plants[i] is the amount of water the ith plant needs, and an integer capacity representing 
+the watering can 
+capacity, return the number of steps needed to water all the plants.
+
+Example:
+
+Input: plants = [2,2,3,3], capacity = 5
+Output: 14
+Explanation: Start at the river with a full watering can:
+- Walk to plant 0 (1 step) and water it. Watering can has 3 units of water.
+- Walk to plant 1 (1 step) and water it. Watering can has 1 unit of water.
+- Since you cannot completely water plant 2, walk back to the river to refill (2 steps).
+- Walk to plant 2 (3 steps) and water it. Watering can has 2 units of water.
+- Since you cannot completely water plant 3, walk back to the river to refill (3 steps).
+- Walk to plant 3 (4 steps) and water it.
+Steps needed = 1 + 1 + 2 + 3 + 3 + 4 = 14.
+*/
+
+var wateringPlants = function(plants, capacity) {
+    let ans=0     
+     let tmp=capacity     
+     for(let i=0;i<plants.length;i++){
+         
+           if(plants[i]>tmp){
+               ans+=(2*i)
+               
+               tmp=capacity
+           }
+         ans+=1
+         tmp-=plants[i]
+     }
+    return ans;
+};
+
+
+
 

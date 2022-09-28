@@ -690,3 +690,38 @@ function findSubStr(str1, str2){
 // let str2 = "Zinger";
 // let res = findSubStr(str1, str2);
 // console.log("substring", str2, "starts from the index", res, "in the string", str1);
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
+Prob - Array Balance
+Given an unsorted array A, check whether the array is [info message="If an array can be split into two parts such that the sum of elements on both the 
+sides is equal. 
+Display 1 if the array is balanced otherwise 0.
+Example: Input: str1 = [1  1  1  2  1];
+Output: 1
+*/
+
+function arrBalance(arr){
+    for(let i=1; i<arr.length; i++){
+        let leftSum = 0;
+        for(let j=i-1; j>=0; j--){
+            leftSum += arr[j];
+        }
+        let rightSum = 0;
+        for(let k=i; k<arr.length; k++){
+            rightSum += arr[k];
+        }
+        if(leftSum === rightSum){
+            return 1;
+        }
+    }
+    return 0;
+}
+// let arr = [1,1,1,2,1];
+// let res = arrBalance(arr);
+// console.log(res);
+
+

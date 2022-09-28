@@ -519,3 +519,174 @@ function printDuplicate(arr){
 let arr = [3, 4, 3, 2, 1, 3, 1];
 console.log(printDuplicate(arr));
 
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+// Checking Sum Zero Problem
+// Example: Input Array: [-5,-4,-3,-2,0,2,4,6,8];
+// Output: first zero sum pair: [-4,4]
+
+
+// Brute Force Method
+function getSumZeroPair(arr){
+    for(let number of arr){
+        for(let j=1; j<arr.length; j++){
+            if(number + arr[j] === 0){
+                return [number, arr[j]]
+            }
+        }
+    }
+}
+
+// let arr = [-5,-4,-3,-2,0,2,4,6,8];
+// console.log(getSumZeroPair(arr));
+// Time Complexity (T.C.) --> O(n^2)
+
+// Optimized Method
+
+function pairSumZero(arr){
+    let left = 0, right = arr.length - 1;
+
+    while(left < right){
+        sum = arr[left] + arr[right];
+        if(sum === 0){
+            return [arr[left], arr[right]];
+        } else if(sum > 0){
+            right--;
+        } else {
+            left++;
+        }
+    }
+}
+// let arr = [-5,-4,-3,-2,0,2,4,6,8];
+// console.log(pairSumZero(arr));
+//T.C. --> O(n)
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
+Prob - String Anagram problem
+Example: Input: str1: "hello", str2: "llheo"
+*/
+
+function isAnagram(str1, str2){
+    if(str1.length !== str2.length){
+        return false;
+    }
+
+    let counter = {};
+    for(let letter of str1){
+        counter[letter] = (counter[letter] || 0) + 1;
+    }
+
+    for(let item of str2){
+        if(!counter[item]){
+            return false;
+        }
+        counter[item] -= 1;
+    }
+    return true;
+}
+
+// let str1 = "hello";
+// let str2 = "llheo";
+// let check = isAnagram(str1, str2);
+// console.log(check);
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
+Prob - Count unique numbers in an sorted array
+Example: Input: arr = [1,1,2,2,3,4,45,6,7,8,8];
+Output: 8
+*/
+
+function countUnique(arr){
+    if(arr.length > 1){
+        let i=0;
+        for(let j=1; j<arr.length; j++){
+            if(arr[i] !== arr[j]){
+                i++;
+                arr[i] = arr[j];
+            }
+        }
+        return i+1;
+    } else {
+        return "Array is Empty";
+    }
+}
+// let arr = [1,1,2,2,3,4,4,5,6,7,8,8,90];
+// let res = countUnique(arr);
+// console.log(res);
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
+Prob - Largest sum of consecutive digits
+Example: Input: arr = [1,2,3,4,5,6,7,8,9]; num = 4;
+Output: 30
+*/
+
+function largestSumOfConsecuitveDigits(arr, num){
+    if(num > arr){
+        return "number should not be greater than array"
+    }
+
+    let maxSum = 0;
+    for(let i=0; i<arr.length - num + 1; i++){
+        let temp = 0;
+        for(let j=0; j<num; j++){
+            temp = temp + arr[i + j];
+        }
+        if(temp > maxSum){
+            maxSum = temp;
+        }
+    }
+    return maxSum;
+}
+
+// let arr = [1,2,3,4,5,6,7,8,9];
+// let num = 4;
+// let res = largestSumOfConsecuitveDigits(arr, num);
+// console.log("largest sum of consecutive", num, "digits is:", res);
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
+Prob - Find string within a string
+Example: Input: str1 = "Code Zinger University"; str2 = "Zinger";
+Output: 5
+*/
+
+function findSubStr(str1, str2){
+    let n = str1.length;
+    let m = str2.length;
+    /* A loop to slide pat[] one by one */
+    for(let i=0; i<=n-m; i++){
+        var j;
+        /* For current index i, check for pattern match */
+        for(j=0; j<m; j++){
+            if(str1[i+j] !== str2[j]){
+                break;
+            }
+        }
+        if(j === m){
+            return i;
+        }
+    }
+    return -1;
+}
+
+// let str1 = "Code Zinger University";
+// let str2 = "Zinger";
+// let res = findSubStr(str1, str2);
+// console.log("substring", str2, "starts from the index", res, "in the string", str1);

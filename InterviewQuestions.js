@@ -725,3 +725,208 @@ function arrBalance(arr){
 // console.log(res);
 
 
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
+Prob: Maximum and minimum of an array using minimum number of comparisons
+Given an array of size N. The task is to find the maximum and the minimum element of the array using the minimum number of comparisons.
+
+Example:
+Input: arr[] = {3, 5, 4, 1, 9}
+Output: Minimum element is: 1
+Maximum element is: 9
+*/
+
+function getMinMax(arr){
+    let minMax = new Array();
+    var i;
+    var min;
+    var max;
+    let n = arr.length;
+
+    /*If there is only one element then return it as min and max both*/
+    if(n === 1){
+        minMax.max = arr[0];
+        minMax.min = arr[0];
+        return minMax;
+    }
+
+    /* If there are more than one elements, then initialize min
+    and max*/
+
+    if(arr[0] > arr[1]){
+        minMax.max = arr[0];
+        minMax.min = arr[1];
+    } else {
+        minMax.max = arr[1];
+        minMax.min = arr[0];
+    }
+
+    for(let i=2; i<n; i++){
+        if(arr[i] > minMax.max){
+            minMax.max = arr[i];
+        } else if(arr[i] < minMax.min){
+            minMax.min = arr[i];
+        }
+    }
+    return minMax;
+}
+// var arr = [1000, 11, 445, 4, 330, 1234];
+// minMax = getMinMax(arr);
+// console.log("Minimum element:", minMax.min);
+// console.log("Maximum element:", minMax.max);
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
+Prob: K’th Smallest/Largest Element in Unsorted Array
+Given an array and a number K where K is smaller than the size of the array. Find the K’th smallest element in the given array. Given that all array elements are distinct.
+
+Example:  
+Input: arr[] = {7, 10, 4, 3, 20, 15}, K = 3 
+Output: 7
+*/
+
+// Method 1
+function kthSmallest(arr, k){
+    arr.sort((a,b)=>a-b);
+    return arr[k-1];
+}
+// let arr = [12, 3, 5, 7, 19];
+// let k = 2;
+// console.log(kthSmallest(arr,k));
+// Time Complexity: O(NlogN)
+
+
+// Method 2
+function count(nums, mid){
+    var cnt=0;
+    for(var i=0; i<nums.length; i++){
+        if(nums[i] <= mid){
+            cnt++;
+        }
+    }
+    return cnt;
+};
+
+function kthSmallEle(nums,k){
+    var low = Number.MAX_VALUE;
+    var high = Number.MIN_VALUE;
+
+    // calculate minimum and maximum the array.
+    for(var i=0; i<nums.length; i++){
+        low = Math.min(low, nums[i]);
+        high = Math.max(high, nums[i]);
+    }
+
+    // Our answer range lies between minimum and
+    // maximum element of the array on which Binary Search is Applied
+    while(low < high){
+        var mid = Math.floor(low + (high - low)/2);
+        if(count(nums, mid) < k){
+            low = mid + 1;
+        } else {
+            high = mid;
+        }
+    }
+    return low;
+}
+// var k = 3;
+// var nums = [10, 12, 13, 14, 15, 16, 17];
+// console.log(kthSmallEle(nums,k));
+//Time complexity: O((mx-mn) * log (mx-mn));
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
+Prob: Sort an array of 0s, 1s and 2s | Dutch National Flag problem
+Given an array A[] consisting of only 0s, 1s, and 2s. The task is to write a function that sorts the given array. The functions should put all 0s first, then all 1s and all 2s in last.
+
+This problem is also the same as the famous “Dutch National Flag problem”. The problem was proposed by Edsger Dijkstra. The problem is as follows:
+
+Given N balls of colour red, white or blue arranged in a line in random order. You have to arrange all the balls such that the balls with the same colours are adjacent with the order of 
+the balls, with the order of the colours being red, white and blue (i.e., all red coloured balls come first then the white coloured balls and then the blue coloured balls). 
+Example:  
+Input: {0, 1, 2, 0, 1, 2}
+Output: 0, 0, 1, 1, 2, 2}
+*/
+
+function sort012(arr){
+    let lo=0;
+    let hi=arr.length-1;
+    let mid=0;
+    let temp=0;
+
+    while(mid <= hi){
+        if(arr[mid] == 0){
+            temp = arr[lo];
+            arr[lo] = arr[mid];
+            arr[mid] = temp;
+            lo++;
+            mid++;
+        }
+        // if the element is 1
+        else if(arr[mid] == 1){
+            mid++;
+        }
+        else{
+            temp = arr[mid];
+            arr[mid] = arr[hi];
+            arr[hi] = temp;
+            hi--;
+        }
+    }
+}
+
+/* Utility function to print array arr[] */
+function printArray(arr){
+    let i;
+    let res = [];
+    for(let i=0; i<arr.length; i++){
+        res.push(arr[i]);
+    }
+    return arr;
+}
+
+/*Driver function to check for above functions*/
+// let arr = [0, 1, 1, 0, 1, 2, 1, 2, 0, 0, 0, 1 ];
+// sort012(arr);
+// console.log(printArray(arr));
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
+Prob: Move all negative numbers to beginning and positive to end with constant extra space
+An array contains both positive and negative numbers in random order. Rearrange the array elements so that all negative numbers appear before all positive numbers.
+
+Example: 
+Input: -12, 11, -13, -5, 6, -7, 5, -3, -6
+Output: -12 -13 -5 -7 -3 -6 11 6 5
+*/
+
+function rearrange(arr){
+    let j=0;
+    let n = arr.length;
+    for(let i=0; i<n; i++){
+        if(arr[i] < 0){
+            if(i != j){
+                let temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+            }
+            j++;
+        }
+    }
+};
+// let arr = [ -1, 2, -3, 4, 5, 6, -7, 8, 9 ];
+// rearrange(arr);
+// console.log(arr);
+
+

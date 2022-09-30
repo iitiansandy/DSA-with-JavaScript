@@ -930,3 +930,28 @@ function rearrange(arr){
 // console.log(arr);
 
 
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/* Write a javascript function which will accept a string and count the frequency of each alphabets. then print them in descending order
+Example: Input String: "geeksforgeeks"
+Output: {'e': 4, }
+*/
+
+function getFrequency(string) {
+    string = string.toLowerCase();
+    var freq = {};
+    for (var i=0; i<string.length;i++) {
+        var character = string.charAt(i);
+        if (freq[character]) {
+           freq[character]++;
+        } else {
+           freq[character] = 1;
+        }
+    }
+
+    return freq;
+};
+console.log(getFrequency("geeksforgeeks"));
+
+

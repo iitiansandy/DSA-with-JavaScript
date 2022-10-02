@@ -691,5 +691,85 @@ var compareVersion = function(version1, version2) {
 /* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 
 
+/*
+Prob: Best Time to Buy and Sell Stock
+You are given an array prices where prices[i] is the price of a given stock on the ith day.
+You want to maximize your profit by choosing a single day to buy one stock and choosing a different day in the future to sell that stock.
+Return the maximum profit you can achieve from this transaction. If you cannot achieve any profit, return 0.
+
+Example 1:
+Input: prices = [7,1,5,3,6,4]
+Output: 5
+Explanation: Buy on day 2 (price = 1) and sell on day 5 (price = 6), profit = 6-1 = 5.
+Note that buying on day 2 and selling on day 1 is not allowed because you must buy before you sell.
+*/
+
+// Method 1
+var maxProfit = function(prices) {
+    var min = Number.MAX_VALUE;
+    var max = 0;
+
+    for(var i=0; i<prices.length; i++){
+        min = Math.min(min, prices[i]);
+        max = Math.max(max, prices[i] - min);
+    }
+    return max;
+};
+
+
+// Method 2
+var maxProfit = function(prices) {
+    var len = prices.length;
+    var curr = prices[0];
+    var res = 0;
+    
+    for (var i=0; i< prices.length; i++){
+      if (prices[i] > curr && (prices[i]-curr > res) ){
+        res = prices[i] - curr;
+      }
+      if (prices[i] < curr){
+        curr = prices[i];
+      }
+    }
+    
+    return res;
+  };
+
+  
+  // Method 3
+  const maxProfit = (prices) => {
+    const pricesLen = prices.length;
+    if (pricesLen === 0) return 0;
+
+    let ans = 0, i = 0, j = 1, currentMin = prices[0];
+    while(j < pricesLen) {
+        ans = Math.max(prices[j] - currentMin, ans);
+        currentMin = Math.min(prices[j], currentMin);
+        ++j;
+    }
+    return ans;
+};
+
+
+// Method 4
+var maxProfit = function(prices) {
+    maxAmount = 0
+    first = prices[0]
+    for (let i=1; i<prices.length; i++) {
+      let diff = prices[i] - first
+      if (diff <= 0) {
+        first = prices[i]
+      }
+      else if (diff > maxAmount) {
+        maxAmount = diff
+      }
+      }
+      return maxAmount
+    };
+
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
 
 

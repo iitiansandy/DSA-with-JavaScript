@@ -771,5 +771,24 @@ var maxProfit = function(prices) {
 /* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 
 
+/*
+Prob: Construct Binary Tree from Inorder and Postorder Traversal
+Given two integer arrays inorder and postorder where inorder is the inorder traversal of a binary tree and postorder is the postorder traversal of the same 
+tree, construct and return the binary tree.
+Example:
+Input: inorder = [9,3,15,20,7], postorder = [9,15,7,20,3]
+Output: [3,9,20,null,null,15,7]
+*/
 
+var buildTree = function(inorder, postorder) {
+    if(inorder.length){
+        let last = postorder.pop();
+        let index = inorder.indexOf(last);
+        let root = new TreeNode(last);
+        root.right = buildTree(inorder.slice(index+1), postorder);
+        root.left = buildTree(inorder.slice(0,index), postorder);
+        return root;
+    }
+    return null;
+};
 

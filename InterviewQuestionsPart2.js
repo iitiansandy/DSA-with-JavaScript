@@ -138,15 +138,88 @@ function invertTree(root) {
     return root;
   }
 
+
 /* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 
 
 /*
-Prob: 
+Prob: Check Square Elements of Another Array
 
-Example: Input:
-Output: 
+Example: Input: arr1 = [1,2,3,4], arr2 = [1,4,9,16];
+Output: true;
 */
+
+// Brute Force
+function isSquare(arr1, arr2){
+    for(let i=0; i<arr1.length; i++){
+        let isSquare = false;
+        for(let j=0; j<arr2.length; j++){
+            if((arr1[i]*arr1[i] === arr2[j])){
+                isSquare = true;
+            }
+            if(j === arr2.length-1){
+                if(!isSquare){
+                    return false;
+                }
+            }
+        }
+    }
+    return true;
+}
+// let arr1 = [1,2,3,4];
+// let arr2 = [1,4,9,16];
+// let res = isSquare(arr1, arr2);
+// console.log(res);
+
+
+// Optimized Approach
+function checkSquare(arr1, arr2){
+    let map1 = {};
+    let map2 = {};
+
+    for(let item1 of arr1){
+        map1[item1] = (map1[item1] || 0) + 1;
+    };
+
+    for(let item2 of arr2){
+        map2[item2] = (map2[item2] || 0) + 1;
+    };
+
+    for(let key in map1){
+        if(!map2[key * key]){
+            return false;
+        }
+        if(map1[key] !== map2[key * key]){
+            return false;
+        }
+    }
+    return true;
+}
+
+// let arr1 = [1,2,2,4];
+// let arr2 = [1,4,16,4];
+// let res = checkSquare(arr1, arr2);
+// console.log(res);
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
+Prob: Get the sum of n numbers using recursion.
+
+Example: Input: N=100
+Output: 5050
+*/
+
+function printSum(num){
+    return num===0? 0 : num + printSum(num-1);
+}
+// console.log(printSum(100));
+
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 
 
 

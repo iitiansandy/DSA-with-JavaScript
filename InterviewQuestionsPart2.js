@@ -93,9 +93,85 @@ function isAnagram(str1, str2){
 
 
 /*
+Prob: Invert Binary Tree
+Given the root of a binary tree, invert the tree, and return its root.
+Example: Input: root = [4,2,7,1,3,6,9]
+Output: [4,7,2,9,6,3,1]
+*/
+
+// Method 1 (Recursion)
+var invertTree = function(root) {
+    if(root) {
+        [root.left, root.right] = [invertTree(root.right), invertTree(root.left)];
+    }
+    return root;
+};
+
+
+// Method 2 (DFS)
+function invertTree(root) {
+    const stack = [root];
+  
+    while (stack.length) {
+      const n = stack.pop();
+      if (n != null) {
+        [n.left, n.right] = [n.right, n.left];
+        stack.push(n.left, n.right);
+      }
+    }
+  
+    return root;
+  }
+  
+  // Method 3 (BFS)
+  function invertTree(root) {
+    const queue = [root];
+  
+    while (queue.length) {
+      const n = queue.shift();
+      if (n != null) {
+        [n.left, n.right] = [n.right, n.left];
+        queue.push(n.left, n.right);
+      }
+    }
+  
+    return root;
+  }
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
 Prob: 
-Example: Input array: [5,7,3,8,1,9,2,6];
-Ouput: [];
+
+Example: Input:
+Output: 
+*/
+
+
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
+Prob: 
+
+Example: Input:
+Output: 
+*/
+
+
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
+Prob: 
+
+Example: Input:
+Output: 
 */
 
 

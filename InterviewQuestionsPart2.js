@@ -222,6 +222,46 @@ function printSum(num){
 /* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 
 
+/*
+Prob: Remove all consecutive duplicates from the string using recursion:
+Example: Input: “aaaaabbbbbb”;
+Output: ab;
+*/
+
+// Iterative
+function removeDuplicates(str){
+    let n = str.length;
+    let str1 = "";
+
+    if(n == 0){
+        return str1;
+    }
+
+    for(let i=0; i<n-1; i++){
+        if(str[i] !== str[i+1]){
+            str1 += str[i];
+        }
+    }
+    str1 += str[n-1];
+    return str1;
+}
+// let str = "geeksforgeeks";
+// console.log(removeDuplicates(str));
+
+
+// Recursive
+function removeConsecutive(str){
+    if(str.length <= 1){
+        return str;
+    }
+    if(str[0] === str[1]){
+        return removeConsecutive(str.substring(1));
+    } else {
+        return str[0] + removeConsecutive(str.substring(1));
+    }
+}
+// let str = "aaabbb";
+// console.log(removeConsecutive(str));
 
 
 /* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
@@ -233,8 +273,6 @@ Prob:
 Example: Input:
 Output: 
 */
-
-
 
 
 /* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */

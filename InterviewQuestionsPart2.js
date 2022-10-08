@@ -268,11 +268,62 @@ function removeConsecutive(str){
 
 
 /*
-Prob: 
+Prob: Flood Fill
+An image is represented by an m x n integer grid image where image[i][j] represents the pixel value of the image.
 
-Example: Input:
-Output: 
+You are also given three integers sr, sc, and color. You should perform a flood fill on the image starting from the pixel image[sr][sc].
+
+To perform a flood fill, consider the starting pixel, plus any pixels connected 4-directionally to the starting pixel of the same color as the starting 
+pixel, plus any pixels connected 4-directionally to those pixels (also with the same color), and so on. Replace the color of all of the aforementioned 
+pixels with color.
+
+Return the modified image after performing the flood fill.
+Example: image = [[1,1,1],[1,1,0],[1,0,1]], sr = 1, sc = 1, color = 2
+Output: [[2,2,2],[2,2,0],[2,0,1]]
 */
+
+// Method 1
+var floodFill = function(image, sr, sc, color) {
+    let val = image[sr][sc];
+    if(val === color){
+        return image;
+    }
+    let row = image.length;
+    let col = image[0].length;
+    fill(sr, sc);
+    return image;
+    function fill(i,j){
+        if(i<0 || j<0 || i===row || j ===col || image[i][j] !==val){
+            return;
+        }
+        image[i][j] = color;
+        fill(i+1, j);
+        fill(i-1,j);
+        fill(i, j+1);
+        fill(i, j-1);
+    }
+};
+
+
+// Method 2
+var floodFill = function(image, sr, sc, color) {
+    const currColor = image[sr][sc];
+    if(color === currColor){
+        return image;
+    }
+    function callDFS(img, row, col){
+        if(row >= img.length || row <0 || col >= img[0].length || col < 0 || img[row][col] !== currColor){
+            return;
+        }
+        img[row][col] = color;
+	    callDFS(img, row-1, col);  //up
+        callDFS(img, row+1, col);  //down
+        callDFS(img, row, col+1);  //right 
+        callDFS(img, row, col-1);  //left
+        return img;
+    }
+    return callDFS(image, sr, sc);
+};
 
 
 /* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */

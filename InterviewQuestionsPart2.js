@@ -330,10 +330,46 @@ var floodFill = function(image, sr, sc, color) {
 
 
 /*
-Prob: 
-
-Example: Input:
-Output: 
+Prob: Lowest Common Ancestor of a Binary Search Tree
+Given a binary search tree (BST), find the lowest common ancestor (LCA) node of two given nodes in the BST.
+Input: root = [6,2,8,0,4,7,9,null,null,3,5], p = 2, q = 8
+Output: 6
+Explanation: The LCA of nodes 2 and 8 is 6.
 */
+
+// Iterative Method
+//Time Complexity: O(H)
+//Space Complexity: O(1)
+
+var lowestCommonAncestor = function(root, p, q) {
+    while(root){
+        if(root.val < p.val && root.val < q.val){
+            root = root.right;
+        } else if(root.val > p.val && root.val > q.val){
+            root = root.left;
+        } else {
+            break;
+        }
+    }
+    return root;
+};
+
+
+// Recursive Method
+//Time Complexity: O(H)
+//Space Complexity: O(1)
+
+var lowestCommonAncestor = function(root, p, q) {
+    if(root.val < p.val && root.val < q.val){
+        return lowestCommonAncestor(root.right, p, q);
+    }
+    if(root.val > p.val && root.val > q.val){
+        return lowestCommonAncestor(root.left, p, q);
+    }
+    return root;
+};
+
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 
 

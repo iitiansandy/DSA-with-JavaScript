@@ -74,13 +74,14 @@ printArr(arr, size);
 
 /*
 PROB 6 - Pow(x, n) using recursion
-Implement pow(x, n), which calculates x raised to the power n (i.e., xn).
+Implement pow(x, n), which calculates x raised to the power n (i.e., x^n).
 
 Example 1:
 Input: x = 2.00000, n = 10
 Output: 1024.00000
 */
 
+// Method 1
 var myPow = function(x, n) {
     var recur = function(y,i){
         if(i===0) return 1;
@@ -101,6 +102,38 @@ var myPow = function(x, n) {
     }
     return recur(y,n)
 };
+
+
+// Method 2
+
+function power(x,n){
+    if(n === 0) return 1;
+    if(x === 0) return 0;
+
+    return x * power(x, n-1);
+}
+// let x = 2;
+// let y = 3;
+// console.log(power(x,n));
+// Time Complexity: O(n)
+// Auxiliary Space: O(n)
+
+
+// Method 3
+function pow(x, n){
+    if(n === 0){
+        return 1;
+    } else if(n % 2 === 0) {
+        return pow(x, parseInt(n/2, 10)) * pow(x, parseInt(n/2, 10));
+    } else {
+        return x * pow(x, parseInt(n/2, 10)) * pow(x, parseInt(n/2, 10));
+    }
+}
+// let x = 3;
+// let n = 4;
+// console.log(power(x,n));
+// Time Complexity: O(logn)
+// Auxiliary Space: O(n)
 
 
 /*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/

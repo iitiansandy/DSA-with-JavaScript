@@ -214,6 +214,7 @@ function rotateArr(arr,k){
 
 
 // Method 2
+// Utility function to reverse an array
 function reverseArr(arr, left, right){
     while(left < right){
         [arr[left],arr[right]] = [arr[right], arr[left]];
@@ -222,10 +223,13 @@ function reverseArr(arr, left, right){
     }
 }
 
+// main recursive function for rotation
 function optimalKRotation(arr, k){
     // reverse the whole array
     reverseArr(arr, 0, arr.length-1);
+    // reverse first (k-1) elements of the array
     reverseArr(arr, 0, k-1);
+    // reverse the remaining elements of the array
     reverseArr(arr, k, arr.length-1);
 }
 // const arr = [12, 3, 6, 2, 9, 11];

@@ -630,3 +630,76 @@ function checkPelindrome(arr){
 // console.log(checkPelindrome(arr));
 
 
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
+Prob: Write a program to cyclically rotate an array by 'd' elements
+Example: Input arr = [3,4,5,6,7,8]; d = 2;
+Output: [5,6,7,8,3,4];
+*/
+
+function rotateArray(arr, d){
+    let temp = [];
+    let k=0;
+
+    // Storing the n - d elements of
+    // array arr[] to the front of temp[]
+    for(let i=d; i<arr.length; i++){
+        temp[k] = arr[i];
+        k++;
+    }
+
+    // Storing the first d elements of array arr[]
+    //  into temp
+    for(let i=0; i<d; i++){
+        temp[k] = arr[i];
+        k++;
+    }
+
+    // Copying the elements of temp[] in arr[]
+    // to get the final rotated array
+    for(let i=0; i<arr.length; i++){
+        arr[i] = temp[i];
+    }
+    return arr;
+}
+// let arr = [3,4,5,6,7,8];
+// let d = 2;
+// let res = rotateArray(arr,d);
+// console.log(res);
+
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
+Prob: Given an array of repeated elements, return the most repeated element.
+Example: Input arr = [3,5,7,9,5,4,5,3,7,5]
+Output: 5
+*/
+
+function maxFreqChar(arr){
+    let map = new Map();
+    for(let i=0; i<arr.length; i++){
+        if(map.has(arr[i])){
+            map.set(arr[i], map.get(arr[i]) + 1);
+        } else {
+            map.set(arr[i], 1);
+        }
+    }
+    let maxCount = 0;
+    let res = -1;
+    for(let pairs of map){
+        if(pairs[1] > maxCount){
+            res = pairs[0];
+            maxCount = pairs[1];
+        }
+    }
+    return res;
+}
+// let arr = [40,50,30,40,50,30,30];
+// console.log(maxFreqChar(arr));
+
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */

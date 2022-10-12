@@ -703,3 +703,43 @@ function maxFreqChar(arr){
 
 
 /* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
+Prob: Check if max occurring character of one string appears same number of times in other
+Given two strings S1 and S2, write a program to find the character which has the maximum occurrence in the first string S1 and check whether 
+that particular character is present in the second string S2 the same number of times as it is present in the first string S1.
+
+Example: Input: str1 = "hello world", str2 = "albcllsyaaaaaaaa"
+Output: Yes
+*/
+
+function checkMaxCharInBothStrs(str1, str2){
+    let map1 = new Map();
+    let map2 = new Map();
+    let maxChar;
+    let maxFreq = 0;
+
+    for(let ele of str1){
+        map1.set(ele, map1.get(ele) + 1 || 1);
+        if(map1.get(ele) > maxFreq){
+            maxFreq = map1.get(ele);
+            maxChar = ele;
+        }
+    }
+
+    for(let ele of str2){
+        map2.set(ele, map2.get(ele) + 1 || 1);
+    }
+
+    if(map1.get(maxChar) == map2.get(maxChar)){
+        return "Yes";
+    } else {
+        return "No"
+    }
+}
+
+// let str1 = "hello world";
+// let str2 = "albcllsyaaaaaaaa";
+// let res = checkMaxCharInBothStrs(str1, str2);
+// console.log(res);

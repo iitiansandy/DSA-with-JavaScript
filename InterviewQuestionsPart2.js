@@ -795,3 +795,158 @@ var longestPalindrome = function(s) {
 /* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 
 
+/* 
+Prob: Given an array, find the elements without a pair
+Ex: Input arr = [3,7,11,8,11,8,7];
+Output: 3;
+*/
+
+function findNonPairElement(arr){
+    let map = new Map();
+
+    for(let curr of arr){
+        if(map.get(curr)){
+            map.set(curr, map.get(curr) + 1);
+        } else {
+            map.set(curr, 1);
+        }
+    }
+
+    for(let val of map){
+        if(val[1]%2 === 1){
+            return val[0];
+        }
+    }
+}
+
+// let arr = [3,7,11,8,11,8,7];
+// let res = findNonPairElement(arr);
+// console.log(res);
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
+Prob: Find the Rotation Count in Rotated Sorted array
+Given an array arr[] of size N having distinct numbers sorted in increasing order and the array has been right rotated (i.e, the last element 
+will be cyclically shifted to the starting position of the array) k number of times, the task is to find the value of k.
+
+Examples: 
+Input: arr[] = {15, 18, 2, 3, 6, 12}
+Output: 2
+Explanation: Initial array must be {2, 3, 6, 12, 15, 18}. 
+We get the given array after rotating the initial array twice.
+
+Input: arr[] = {7, 9, 11, 12, 5}
+Output: 4
+*/
+function countRotations(arr, low, high){
+    // This condition is needed to handle the case
+    // when the array is not rotated at all
+    if(high < low){
+        return 0;
+    }
+    // If there is only one element left
+    if(high == low){
+        return low;
+    }
+    let mid = Math.floor(low + (high-low)/2);
+    // Check if element (mid+1) is minimum element.
+    // Consider the cases like {3, 4, 5, 1, 2}
+    if(mid < high && arr[mid+1] < arr[mid]){
+        return (mid+1);
+    }
+    // Check if mid itself is minimum element
+    if(mid > low && arr[mid] < arr[mid-1]){
+        return mid;
+    }
+    // Decide whether we need to go to left half or
+    // right half
+    if(arr[high] > arr[mid]){
+        return countRotations(arr, low, mid-1);
+    }
+    return countRotations(arr, mid+1, high);
+}
+// let arr = [15, 18, 20, 23, 2, 3, 6, 12];
+// let low = 0;
+// let high = arr.length - 1;
+// let res = countRotations(arr,low,high);
+// console.log(res);
+
+
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/* 
+Prob: Write a function to calculate the max sum of three consecutive elements of an array.
+
+*/
+
+function simpleMaxSumOfThreeConsequtive(arr){
+    if(arr.length < 3) return;
+
+    let currMax = -Infinity;
+    for(let i = 0; i<arr.length-3; i++){
+        if(arr[i] + arr[i+1] + arr[i+2] > currMax){
+            currMax = arr[i] + arr[i+1] + arr[i+2];
+        }
+    }
+    return currMax;
+}
+//console.log(simpleMaxSumOfThreeConsequtive([4,7,6,2,3,9,7,8]));
+
+
+
+/* 
+Prob: Write a function to calculate the max sum of k consecutive elements of an array.
+
+*/
+
+function maxSumOfKElements(arr, k){
+    if(arr.length < k) return;
+
+    let currMax = -Infinity;
+    for(let i = 0; i<arr.length-k; i++){
+        let sum = 0;
+        for(let j=i; j<k+i; j++){
+            sum += arr[j];
+        }
+        if(sum > currMax){
+            currMax = sum;
+        }
+    }
+    return currMax;
+};
+//console.log(maxSumOfKElements([4,7,6,2,3,9,7,8], 3));
+// Time Complexity: O(n*k)
+
+
+// OPTIMIZED Approach
+function optimizedMaxSum(arr, k){
+    if(arr.length < k) return;
+
+    let currMax = -Infinity;
+    let totalSum = 0, leftWindowSum = 0;
+    
+    for(let i=0; i<k; i++){
+        totalSum += arr[i];
+    }
+    currMax = totalSum;
+
+    for(let i=k; i<arr.length; i++){
+        leftWindowSum += arr[i-k];
+        totalSum += arr[i];
+
+        if(totalSum - leftWindowSum > currMax){
+            currMax = totalSum - leftWindowSum;
+        }
+    }
+    return currMax;
+}
+
+//console.log(optimizedMaxSum([4,7,6,2,3,9,7,8], 3));
+
+
+

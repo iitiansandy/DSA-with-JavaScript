@@ -743,3 +743,55 @@ function checkMaxCharInBothStrs(str1, str2){
 // let str2 = "albcllsyaaaaaaaa";
 // let res = checkMaxCharInBothStrs(str1, str2);
 // console.log(res);
+
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
+Prob: Longest Palindrome
+Given a string s which consists of lowercase or uppercase letters, return the length of the longest palindrome that can be built with those 
+letters.
+Letters are case sensitive, for example, "Aa" is not considered a palindrome here.
+Example :
+
+Input: s = "abccccdd"
+Output: 7
+Explanation: One longest palindrome that can be built is "dccaccd", whose length is 7.
+*/
+
+// Method 1 (using objects)
+var longestPalindrome = function(s) {
+    let ans = 0;
+    let keys = {};
+
+    for(let char of s){
+        keys[char] = (keys[char] || 0) + 1;
+        if(keys[char] % 2 == 0){
+            ans += 2;
+        }
+    }
+    return s.length > ans? ans + 1 : ans;
+};
+
+
+// Method 2 (using maps)
+var longestPalindrome = function(s) {
+    let map = new Map();
+    for(let i=0; i<s.length; i++){
+        map.set(s[i], map.get(s[i]) + 1 || 1);
+    }
+    let numOfOdds = 0;
+
+    for(let value of map.values()){
+        if(value % 2 === 1){
+            numOfOdds += 1;
+        }
+    }
+    return numOfOdds > 0 ? s.length - numOfOdds + 1 : s.length;
+};
+
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+

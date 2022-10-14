@@ -950,3 +950,140 @@ function optimizedMaxSum(arr, k){
 
 
 
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
+Prob: Convert an array of nums to array of str in such a way that if num was 1,2,3,4, then strings would have values like following:
+1: a in 2: ab in 3 : abc e.g [2,5] => ["ab", "abcde"];
+*/
+
+function generateStr(num){
+    let alphabet = "abcdefghijklmnopqrstuvwxyz";
+    let finalStr = "";
+    let currIndex = 0;
+
+    while(currIndex < num){
+        finalStr += alphabet[currIndex % 26];
+        currIndex++;
+    }
+    return finalStr;
+}
+
+//console.log(generateStr(27));
+function encodeNumberWithChar(arr){
+    for(let i=0; i<arr.length; i++){
+        arr[i] = generateStr(arr[i]);
+    }
+}
+
+// const arr = [2,5,3,4,5,6];
+// encodeNumberWithChar(arr);
+// console.log(arr);
+
+
+function encodeNumberWithCharOptimal(arr){
+    let maxNum = Math.max(...arr);
+    let encodeArr = [''];
+    
+    for(let i=1; i<=maxNum; i++){
+        encodeArr.push(generateStr(i));
+    }
+
+    for(let i=0; i<arr.length; i++){
+        arr[i] = encodeArr[arr[i]];
+    }
+}
+// const arr = [2,5,3,4,5,6];
+// encodeNumberWithCharOptimal(arr);
+// console.log(arr);
+
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
+Prob: Add Binary
+Given two binary strings a and b, return their sum as a binary string.
+
+Example:
+
+Input: a = "11", b = "1"
+Output: "100"
+*/
+
+// Method 1 (using BigInt)
+var addBinary = function(a, b) {
+    const aBin = `0b${a}`;
+    const bBin = `0b${b}`;
+    const sum = BigInt(aBin) + BigInt(bBin);
+    return sum.toString(2);
+};
+
+
+// Method 2
+var addBinary = function(a, b) {
+    return (BigInt("0b"+a) + BigInt("0b"+b)).toString(2);
+ };
+
+
+ // Method 3
+ var addBinary = function(a, b) {
+    // Truth Table
+   // 1st + 2nd + carry = sum, new carry, decimal sum
+   //   0 +  0  + 0 = 0, 0 (0)
+   //   0 +  0  + 1 = 1, 0 (1)
+   //   0 +  1  + 1 = 0, 1 (2)
+   //   1 +  1  + 1 = 1, 1 (3)
+ 
+   let carry = 0;
+   let res = '';
+ 
+   let len1 = a.length - 1;
+   let len2 = b.length - 1;
+ 
+   for(; len1 >= 0 || len2 >= 0 || carry > 0; len1--, len2--){
+       let sum = (+a[len1] || 0) + (+b[len2] || 0) + carry;
+       if(sum > 1){
+           sum = sum % 2;
+           carry = 1;
+       } else {
+           carry = 0;
+       }
+       res = `${sum}${res}`;
+   }
+   return res;
+ };
+
+
+ // Method 4
+ var addBinary = function(a, b) {
+    a = a.split("").reverse().join("");
+    b = b.split("").reverse().join("");
+ 
+    let len = a.length > b.length ? a.length : b.length;
+    let res = [];
+ 
+    for(let i=0; i<len; i++){
+        let num1 = Number(a[i] || 0);
+        let num2 = Number(b[i] || 0);
+        let curr = Number(res[i] || 0) + num1 + num2;
+ 
+        if(curr >= 2){
+            res[i] = curr%2;
+            res.push(1);
+        } else {
+            res[i] = curr;
+        }
+    }
+    return res.reverse().join("");
+ };
+
+
+ /* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
+Prob: 
+
+*/

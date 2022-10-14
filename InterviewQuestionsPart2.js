@@ -1084,6 +1084,50 @@ var addBinary = function(a, b) {
 
 
 /*
-Prob: 
-
+Prob: Insertion Sort Algorithm
 */
+
+function insertionSort(arr){
+    for(let right = 1; right < arr.length; right++){
+        let currIndex = right;
+        while(currIndex >= 1 && arr[currIndex - 1] > arr[currIndex]){
+            [arr[currIndex-1], arr[currIndex]] = [arr[currIndex], arr[currIndex-1]];
+            currIndex--;
+        }
+    }
+    return arr;
+};
+// const arr = [6,7,3,5,4,9,8,2,1];
+// insertionSort(arr);
+// console.log(arr);
+
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
+Prob: Selection Sort Algorithm
+*/
+
+function selectionSort(arr){
+    for(let i=0; i<arr.length; i++){
+        let min = i;
+        for(let j=i+1; j<arr.length; j++){
+            if(arr[j] < arr[min]){
+                min = j;
+            }
+        }
+        if(i !== min){
+            let temp = arr[i];
+            arr[i] = arr[min];
+            arr[min] = temp;
+        }
+    }
+    return arr;
+}
+// const arr = [6,7,3,5,4,9,8,2,1];
+// selectionSort(arr);
+// console.log(arr);
+
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */

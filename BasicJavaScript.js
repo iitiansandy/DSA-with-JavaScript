@@ -46,7 +46,7 @@ Perform the following operations by using only one method:
 4. Delete swati from the array. (DELETE)
 */
 
-let names = ['sandeep', 'kumar', 'swati'];
+// let names = ['sandeep', 'kumar', 'swati'];
 // 1. const newNamee = names.splice(3,0,"thangariyal")
 //console.log(names)
 // OR

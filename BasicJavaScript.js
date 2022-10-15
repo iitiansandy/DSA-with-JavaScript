@@ -59,4 +59,54 @@ Perform the following operations by using only one method:
 // console.log(names)
 
 // 4. const newNames = names.splice(2,1)
-// console.log(names)
+// console.log(names);
+
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
+Prob: Async/Await, Promises, Callbacks
+*/
+
+const datas = [
+    {name: "Sandeep", Profession: "Software Engineer"},
+    {name: "Ajay", Profession: "Software Engineer"}
+];
+
+function getDatas(){
+    setTimeout(() => {
+        let output = "";
+        datas.forEach((data, index) =>{
+            output += '<li>${data.name}</li>';
+        })
+        document.body.innerHTML = output;
+    }, 1000);
+};
+
+// function createData(newdata, callback){
+//     setTimeout(() => {
+//         datas.push(newdata);
+//         callback();
+//     }, 2000)
+// }
+// createData({name: "Vivek", Profession: "Software Engineer"},getDatas());
+
+
+// If we don't want callback() function, then we can use promise which is a better choice
+
+// function createData(newdata){
+//     return new Promise((resolve, reject) => {
+//         setTimeout(() => {
+//             datas.push(newdata);
+//             let error = false;
+//             if(!error){
+//                 resolve();
+//             } else {
+//                 reject("There is an error");
+//             }
+//             getDatas()}, 2000)
+//     });
+    
+// }
+// createData({name: "Vivek", Profession: "Software Engineer"}).then(getData).catch(err => console.log("Error"));

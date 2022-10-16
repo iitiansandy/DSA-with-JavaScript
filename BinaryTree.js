@@ -76,3 +76,43 @@ var diameterOfBinaryTree = function(root) {
 
 
 /* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
+Prob: Maximum Depth of Binary Tree
+Given the root of a binary tree, return its maximum depth.
+A binary tree's maximum depth is the number of nodes along the longest path from the root node down to the farthest leaf node.
+Ex: Input: root = [3,9,20,null,null,15,7]
+Output: 3
+*/
+
+// Iterative Solution
+var maxDepth = function(root) {
+    if(!root) return 0;
+    const queue = [root];
+    let depth = 0;
+    
+    while(queue.length !== 0){
+        depth++;
+        const len = queue.length;
+        for(let i=0; i<len; i++){
+            if(queue[i].left) queue.push(queue[i].left);
+            if(queue[i].right) queue.push(queue[i].right);
+        }
+        queue.splice(0,len);
+    }
+    return depth;
+};
+
+
+// Recursive Solution
+var maxDepth = function(root) {
+    if(root === undefined || root === null) return 0;
+
+    return Math.max(maxDepth(root.left), maxDepth(root.right)) + 1;
+};
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+

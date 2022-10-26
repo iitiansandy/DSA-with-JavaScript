@@ -653,3 +653,58 @@ var maximumUnits = function(boxTypes, truckSize) {
     }
     return units;
 };
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/* 
+Prob: Number of Pairs of Strings With Concatenation Equal to Target
+Given an array of digit strings nums and a digit string target, return the number of pairs of indices (i, j) (where i != j) such that the 
+concatenation of nums[i] + nums[j] equals target.
+
+Example:
+
+Input: nums = ["777","7","77","77"], target = "7777"
+Output: 4
+Explanation: Valid pairs are:
+- (0, 1): "777" + "7"
+- (1, 0): "7" + "777"
+- (2, 3): "77" + "77"
+- (3, 2): "77" + "77"
+*/
+
+var numOfPairs = function(nums, target) {
+    let count = 0, i = 0;
+    while(i < nums.length){
+        for(let j=0; j<nums.length; j++){
+            if(nums[i] + nums[j] === target){
+                count++;
+                if(i === j){
+                    count--;
+                }
+            }
+        }
+        i++;
+    }
+    return count;
+};
+
+
+// Method 2
+var numOfPairs = function(nums, target) {
+    let pairs = 0;
+    for(let i=0; i<nums.length; i++){
+        for(let j=0; j<nums.length; j++){
+            if(i == j) continue;
+            if(nums[i] + nums[j] == target) pairs++;
+        }
+    }
+    return pairs;
+};
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+

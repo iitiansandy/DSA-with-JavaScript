@@ -138,3 +138,76 @@ while (curr.next.next !== null){
 
 */
 
+
+// REVERSE A SINGLY LINKED LIST
+
+/*
+    next = curr.next;
+    curr.next = prev;
+    prev = curr;
+    curr = next;
+
+*/
+
+
+
+
+/* ++++++++++++++++++++++++++++++++++++++ */
+
+
+// DOUBLY LINKED LIST (27 OCTOBER 2022)
+
+/*
+1. Add a new node at the front
+    1. n.next = head;
+    2. head.prev = n;
+    3. head = n;
+
+
+*/
+
+/*
+1. Add a new node at the middle of DLL
+    1. n.next = curr.next
+    2. n.prev = curr;
+    3. curr.next.prev = n;
+    4. curr.next = n;
+
+*/
+
+/*
+1. Add a new node at the end of a DLL
+    1. while(curr.next != null)
+        n.prev = curr;
+        curr.next = n;
+
+*/
+
+/*
+1. Delete head node from the front of a DLL
+    head = head.next;
+    head.prev = null;
+    
+*/
+
+/*
+Delete a node from the middle of a DLL
+    curr.next = p;
+    p.prev = curr;
+
+*/
+
+/*
+Delete the last node from a DLL
+    while(curr.next.next !== null){
+        curr = curr.next;
+        curr.next = null;
+    }
+
+*/
+
+/*
+ of a DLL
+
+
+*/

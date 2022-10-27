@@ -1,5 +1,43 @@
 // LINKED LIST CLASS
 
+
+
+/*
+
+DEFINITION: Like arrays, Linked List is a linear data structure. Unlike arrays, linked list elements are not stored at a contiguous location; 
+the elements are linked using pointers. They include a series of connected nodes. Here, each node stores the data and the address of the next 
+node.
+
+Types of Linked Lists:
+Simple Linked List – In this type of linked list, one can move or traverse the linked list in only one direction
+Doubly Linked List – In this type of linked list, one can move or traverse the linked list in both directions (Forward and Backward)
+Circular Linked List – In this type of linked list, the last node of the linked list contains the link of the first/head node of the linked 
+list in its next pointer and the first/head node contains the link of the last node of the linked list in its prev pointer
+Basic operations on Linked Lists:
+
+1. Deletion
+2. Insertion
+3. Search
+4. Display
+
+
+Representation of Linked Lists: 
+A linked list is represented by a pointer to the first node of the linked list. The first node is called the head of the linked list. If the linked list 
+is empty, then the value of the head points to NULL. 
+
+Each node in a list consists of at least two parts: 
+
+A Data Item (we can store integer, strings, or any type of data).
+Pointer (Or Reference) to the next node (connects one node to another) or An address of another node
+In C, we can represent a node using structures. Below is an example of a linked list node with integer data. 
+In Java or C#, LinkedList can be represented as a class and a Node as a separate class. The LinkedList class contains a reference of Node class 
+type. 
+
+
+*/
+
+
+
 // User defined class node
 class Node{
     // constructor (element)

@@ -1172,4 +1172,58 @@ var canCompleteCircuit = function(gas, cost) {
 };
 
 
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
+Prob : Substring with Concatenation of All Words
+You are given a string s and an array of strings words. All the strings of words are of the same length.
+
+A concatenated substring in s is a substring that contains all the strings of any permutation of words concatenated.
+
+For example, if words = ["ab","cd","ef"], then "abcdef", "abefcd", "cdabef", "cdefab", "efabcd", and "efcdab" are all concatenated strings. 
+"acdbef" is not a concatenated substring because it is not the concatenation of any permutation of words.
+Return the starting indices of all the concatenated substrings in s. You can return the answer in any order.
+
+Example 1:
+
+Input: s = "barfoothefoobarman", words = ["foo","bar"]
+Output: [0,9]
+Explanation: Since words.length == 2 and words[i].length == 3, the concatenated substring has to be of length 6.
+The substring starting at 0 is "barfoo". It is the concatenation of ["bar","foo"] which is a permutation of words.
+The substring starting at 9 is "foobar". It is the concatenation of ["foo","bar"] which is a permutation of words.
+The output order does not matter. Returning [9,0] is fine too.
+*/
+
+var findSubstring = function(s, words) {
+    let res = [];
+    let wordLength = words[0].length;
+    let wordCount = words.length;
+    let len = wordCount * wordLength;
+
+    let map = {};
+
+    for(let word of words) map[word] = map[word] + 1 || 1;
+
+    for(let i=0; i<s.length - len + 1; i++){
+        let sub = s.slice(i, i+len);
+        if(isConcat(sub, map, wordLength)) res.push(i);
+    }
+    return res;
+};
+
+function isConcat(sub, map, wordLength){
+    let seen = {};
+    for(let i=0; i<sub.length; i += wordLength){
+        let word = sub.slice(i, i + wordLength);
+        seen[word] = seen[word] + 1 || 1;
+    }
+    for(let key in map){
+        if(map[key] !== seen[key]) return false;
+    }
+    return true;
+}
+
+
+
 

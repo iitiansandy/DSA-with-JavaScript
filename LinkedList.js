@@ -206,8 +206,132 @@ Delete the last node from a DLL
 
 */
 
-/*
- of a DLL
 
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/* 
+Prob: CREATE A LINKEDLIST and APPEND A NODE IN IT
+let LinkedList = {
+     head: {
+         value: 10,
+//         next: {
+//             value: 16,
+//             next: {
+//                 value: 20,
+//                 next: null
+//             }
+//         }
+//     }
+// };
 
 */
+
+// class LinkedList{
+//     constructor(data){
+//         this.head = {
+//             value: data,
+//             next: null
+//         }
+//         this.tail = this.head;
+//         this.length = 1;
+//     }
+
+//     append(data){
+//         const newNode = {
+//             value: data,
+//             next: null
+//         }
+//         this.tail.next = newNode;
+//         this.tail = newNode;
+//         this.length++;
+//     }
+
+//     prepend(data){
+//         const newNode = {
+//             value: data,
+//             next: null
+//         }
+//         newNode.next = this.head;
+//         this.head = newNode;
+//     }
+// }
+
+// const myLinkedList = new LinkedList(10);
+// myLinkedList.append(16);
+// myLinkedList.append(20);
+// myLinkedList.prepend(2);
+// console.log(myLinkedList);
+
+
+
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/* 
+Prob: How to insert a node at a given position in a LL
+*/
+class LinkedList{
+    constructor(data){
+        this.head = {
+            value: data,
+            next: null
+        }
+        this.tail = this.head;
+        this.length = 1;
+    }
+
+    append(data){
+        const newNode = {
+            value: data,
+            next: null
+        }
+        this.tail.next = newNode;
+        this.tail = newNode;
+        this.length++;
+    }
+
+    prepend(data){
+        const newNode = {
+            value: data,
+            next: null
+        }
+        newNode.next = this.head;
+        this.head = newNode;
+    }
+
+    traversing(requiredIndex){
+        let counter = 0;
+        let currNode = this.head;
+
+        while(counter !== requiredIndex){
+            counter++;
+            currNode = currNode.next;
+        }
+        return currNode;
+    }
+
+    insert(index, data){
+        const newNode = {
+            value: data,
+            next: null
+        }
+        const leaderNode = this.traversing(index-1);
+        const nextNode = leaderNode.next;
+        leaderNode.next = newNode;
+        newNode.next = nextNode;
+    }
+}
+
+const myLinkedList = new LinkedList(10);
+myLinkedList.append(16);
+myLinkedList.append(20);
+myLinkedList.prepend(2);
+myLinkedList.insert(1,4);
+console.log(myLinkedList);
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+

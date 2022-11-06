@@ -708,3 +708,145 @@ var numOfPairs = function(nums, target) {
 
 
 
+/*
+Prob: Ransom Note
+Given two strings ransomNote and magazine, return true if ransomNote can be constructed by using the letters from magazine and false otherwise.
+
+Each letter in magazine can only be used once in ransomNote.
+
+Example:
+
+Input: ransomNote = "a", magazine = "b"
+Output: false
+*/
+
+// Method 1
+var canConstruct = function(ransomNote, magazine) {
+    const map = {};
+    for(let letters of magazine) {
+        if(!map[letters]) {
+            map[letters] = 0;
+        }
+        map[letters]++;
+    }
+
+    for(let letters of ransomNote) {
+        if(!map[letters]) {
+            return false;
+        }
+        map[letters]--;
+    }
+    return true;
+};
+
+
+// Method 2
+var canConstruct = function(ransomNote, magazine) {
+    let vocab = {};
+
+    for(let letter of magazine) {
+        vocab[letter] = ++vocab[letter] || 1;
+    }
+
+    for(let letter of ransomNote) {
+        if(vocab[letter] === 0 || !vocab[letter]) {
+            return false;
+        }
+        vocab[letter]--;
+    }
+    return true;
+};
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
+Prob: First Bad Version
+You are a product manager and currently leading a team to develop a new product. Unfortunately, the latest version of your product fails the 
+quality check. Since each version is developed based on the previous version, all the versions after a bad version are also bad.
+
+Suppose you have n versions [1, 2, ..., n] and you want to find out the first bad one, which causes all the following ones to be bad.
+
+You are given an API bool isBadVersion(version) which returns whether version is bad. Implement a function to find the first bad version. You 
+should minimize the number of calls to the API.
+
+Example:
+
+Input: n = 5, bad = 4
+Output: 4
+Explanation:
+call isBadVersion(3) -> false
+call isBadVersion(5) -> true
+call isBadVersion(4) -> true
+Then 4 is the first bad version.
+*/
+
+var solution = function(isBadVersion) {
+    /**
+     * @param {integer} n Total versions
+     * @return {integer} The first bad version
+     */
+    return function(n) {
+        let start = 1, end = n;
+        while(start < end) {
+            let mid = Math.floor(start + (end - start) / 2);
+            if(isBadVersion(mid)) {
+                end = mid;   // look on left side of mid
+            } else {
+                start = mid + 1; // look on the right side of mid
+            }
+        }
+        return start;
+    };
+};
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
+Prob: Unique Paths
+There is a robot on an m x n grid. The robot is initially located at the top-left corner (i.e., grid[0][0]). The robot tries to move to the bottom-right 
+corner (i.e., grid[m - 1][n - 1]). The robot can only move either down or right at any point in time.
+
+Given the two integers m and n, return the number of possible unique paths that the robot can take to reach the bottom-right corner.
+
+The test cases are generated so that the answer will be less than or equal to 2 * 109.
+
+Example 1: Input: m = 3, n = 7
+Output: 28
+*/
+
+
+// Method 1 (DP Bottom up tabular)
+var uniquePaths = function(m, n) {
+    const dp = new Array(m+1).fill(0);
+    for(let i=0; i<dp.length; i++){
+        dp[i] = new Array(n+1).fill(1);
+    }
+
+    dp[m][n] = 1;
+    for(let row = m-1; row > 0; row--){
+        for(let col = n-1; col > 0; col--){
+            dp[row][col] = dp[row+1][col] + dp[row][col+1];
+        }
+    }
+    return dp[1][1];
+};
+
+
+// Method 2 (DP space optimized (there might be even further space optimization!!))
+var uniquePaths = function(m, n) {
+    const dp = new Array(n+1).fill(1);
+    for(let row = m-1; row > 0; row--){
+        for(let col = n-1; col > 0; col--){
+            dp[col] = dp[col] + dp[col+1];
+        }
+    }
+    return dp[1];
+};
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+

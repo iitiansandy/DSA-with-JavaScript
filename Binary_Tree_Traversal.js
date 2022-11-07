@@ -50,3 +50,20 @@ function printCurrentLevel(node, level){
     if (node == null) return;
     if(level == 1) print(node.data);
 }
+
+
+// LEVEL ORDER TRAVERSAL
+
+function levelOrder(root){
+    const queue = [];
+    queue.push(root);
+
+    while(queue.length){
+        let front = queue.shift();
+        print(front.data);
+
+        if(front.left) queue.push(front.left);
+
+        if(front.right) queue.push(front.right);
+    }
+}

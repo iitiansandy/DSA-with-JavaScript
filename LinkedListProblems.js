@@ -306,6 +306,60 @@ var addTwoNumbers = function(l1, l2) {
 /* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 
 
+/*
+Prob: Swap Nodes in Pairs
+Given a linked list, swap every two adjacent nodes and return its head. You must solve the problem without modifying the values in the list's 
+nodes (i.e., only nodes themselves may be changed.)
+
+Example: Input: head = [1,2,3,4]
+Output: [2,1,4,3]
+*/
+
+// Method 1 (recursive)
+var swapPairs = function(head) {
+    if(!head || !head.next) return head;
+    var v1 = head, v2 = head.next, v3 = v2.next;
+    v2.next = v1;
+    v1.next = swapPairs(v3);
+    return v2;
+};
+
+
+// Method 2 (iterative)
+var swapPairs = function(head) {
+    let dummy = new ListNode(-1);
+    dummy.next = head;
+
+    let prev = dummy;
+
+    while(head && head.next) {
+        let n1 = head;
+        let n2 = head.next;
+
+        // swap
+        prev.next = n2;
+        n1.next = n2.next;
+        n2.next = n1;
+
+        // Assign
+        prev = n1;
+        head = n1.next;
+    }
+    return dummy.next;
+};
+
+
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
+Prob: 
+*/
+
+
+
+
 
 
 

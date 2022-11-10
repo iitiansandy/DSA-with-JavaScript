@@ -354,8 +354,146 @@ var swapPairs = function(head) {
 
 
 /*
-Prob: 
+Prob: Rotate LinkedList
+Given the head of a linked list, rotate the list to the right by k places.
+
+Example: Input: head = [1,2,3,4,5], k = 2
+Output: [4,5,1,2,3]
 */
+
+// Method 1
+var rotateRight = function(head, k) {
+    if(!head) return head;
+    let count = 0, ptr = head;
+
+    // Step-1 of the algo, count list nodes
+    while(ptr) {
+        count++;
+        ptr = ptr.next;
+    }
+
+    // Step-2 Number of rotations are now restricted within limit
+    k = k%count;
+    let prev = head;
+    ptr = head;
+
+    // Step-3 Moving one pointer k positions ahead
+    while(k--){
+        ptr = ptr.next;
+    }
+
+    // Step-4 The actual magic, axplained above
+    while(ptr.next) {
+        prev = prev.next;
+        ptr = ptr.next;
+    }
+
+    // Step-5 Simply modifying the head and last node
+    ptr.next = head;
+    head = prev.next;
+    prev.next = null;
+    return head;
+};
+
+
+// Method 2
+var rotateRight = function(head, k) {
+    if(!head || !head.next) return head;
+    let dummy = head, depth = 0;
+    while(dummy){
+        depth++;
+        dummy = dummy.next;
+    }
+    k = k % depth;
+    while(k > 0) {
+        node = head;
+        while (node.next.next !== null) {
+            node=node.next;
+        }
+        temp = node.next;
+        node.next = null;
+        temp.next = head;
+        head = temp;
+        k--;
+    }
+    return head;
+};
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
+Prob: Remove Duplicates from Sorted List
+Given the head of a sorted linked list, delete all duplicates such that each element appears only once. Return the linked list sorted as well.
+
+Example: Input: head = [1,1,2]
+Output: [1,2]
+*/
+
+var deleteDuplicates = function(head) {
+    let dummy = new ListNode(-Infinity, head);
+    let cur = head;
+    let prev = dummy;
+
+    while (cur) {
+        if(cur.val === prev.val) {
+            while(cur && cur.val === prev.val) {
+                cur = cur.next;
+            }
+            prev.next = cur;
+        } else {
+            prev = cur;
+            cur = cur.next;
+        }
+    }
+    return dummy.next;
+};
+
+
+// Method 2
+var deleteDuplicates = function(head) {
+    var curr = head;
+
+    while (curr) {
+        if(curr.next !== null && curr.val == curr.next.val) {
+            curr.next = curr.next.next;
+        } else {
+            curr = curr.next;
+        }
+    }
+    return head;
+};
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
+Prob: 
+
+*/
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
+Prob: 
+
+*/
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
+Prob: 
+
+*/
+
+
+
 
 
 

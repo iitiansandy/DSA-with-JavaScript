@@ -470,9 +470,108 @@ var deleteDuplicates = function(head) {
 
 
 /*
-Prob: 
+Prob: Remove Duplicates from Sorted List II
+Given the head of a sorted linked list, delete all nodes that have duplicate numbers, leaving only distinct numbers from the original list. 
+Return the linked list sorted as well.
 
+Example: Input: head = [1,2,3,3,4,4,5]
+Output: [1,2,5]
 */
+
+// Method 1
+var deleteDuplicates = function(head) {
+    const dummy = new ListNode(head);
+        dummy.next = head;
+        let node = dummy;
+
+        while (node.next) {
+            if (node.next.next && node.next.val === node.next.next.val) {
+                let nonValNode = node.next.next.next;
+                while (nonValNode && nonValNode.val === node.next.val) {
+                    nonValNode = nonValNode.next;
+                }
+                node.next = nonValNode;
+            } else {
+                node = node.next;
+            }
+        }
+        return dummy.next;
+};
+
+
+// Method 2
+var deleteDuplicates = function(head) {
+    const count = {};
+    const dummy = { next: head};
+    for(let cur = head; cur; cur = cur.next) {
+        count[cur.val] = (count[cur.val] || 0) + 1;
+    }
+    for(let cur = dummy; cur.next;) {
+        count[cur.next.val] > 1 ? (cur.next = cur.next.next) : (cur = cur.next);
+    }
+    return dummy.next;
+};
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
+Prob: Reverse Linked List II
+Given the head of a singly linked list and two integers left and right where left <= right, reverse the nodes of the list from position left 
+to position right, and return the reversed list.
+
+Example: Input: head = [1,2,3,4,5], left = 2, right = 4
+Output: [1,4,3,2,5]
+*/
+
+// Method 1
+var reverseBetween = function(head, left, right) {
+    let start = head, curr = head;
+    let i = 1;
+    while (i < left) {
+        start = curr;
+        curr = curr.next;
+        i++;
+    }
+    let prev = null, tail = curr;
+    while(i <= right) {
+        let next = curr.next;
+        curr.next = prev;
+        prev = curr;
+        curr = next;
+        i++;
+    }
+    start.next = prev;
+    tail.next = curr;
+    return left == 1 ? prev : head;
+};
+
+
+// Method 2
+var reverseBetween = function(head, left, right) {
+    let curr = head, start = head, position = 1;
+
+    while(position < left) {
+        start = curr;
+        curr = curr.next;
+        position++;
+    }
+
+    let reversedList = null, tail = curr;
+
+    while (position >= left && position <= right) {
+        const next = curr.next;
+        curr.next = reversedList;
+        reversedList = curr;
+        curr = next;
+        position++;
+    }
+    start.next = reversedList;
+    tail.next = curr;
+
+    return left > 1 ? head : reversedList;
+};
 
 
 /* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
@@ -482,22 +581,5 @@ Prob:
 Prob: 
 
 */
-
-
-/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
-
-
-/*
-Prob: 
-
-*/
-
-
-
-
-
-
-
-
 
 

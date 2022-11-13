@@ -626,3 +626,165 @@ var partition = function(head, x) {
 /* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 
 
+/*
+Prob: Palindrome Linked List
+Given the head of a singly linked list, return true if it is a 
+palindrome or false otherwise.
+
+Example: Input: head = [1,2,2,1]
+Output: true
+*/
+
+
+// Method 1
+var isPalindrome = function(head) {
+    let slow = head, fast = head, prev, temp;
+    while(fast && fast.next) {
+        slow = slow.next, fast = fast.next.next;
+    }
+    prev = slow, slow = slow.next, prev.next = null;
+    while (slow){
+        temp = slow.next, slow.next = prev, prev = slow, slow = temp;
+    }
+    fast = head, slow = prev;
+    while (slow) {
+        if(fast.val !== slow.val) return false;
+        else fast = fast.next, slow = slow.next;
+    }
+    return true;
+};
+
+
+// Method 2
+var isPalindrome = function(head) {
+    let stack = [];
+    let curr = head;
+    
+    while (curr) {
+        stack.push(curr.val);
+        curr = curr.next;
+    }
+
+    let res = head;
+    while (res) {
+        if(res.val !== stack.pop()) {
+            return false;
+        }
+        res = res.next;
+    }
+    return true;
+};
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
+Prob: Delete Node in a Linked List
+There is a singly-linked list head and we want to delete a node node in it.
+
+You are given the node to be deleted node. You will not be given access to the first node of head.
+
+Example:
+Input: head = [4,5,1,9], node = 5
+Output: [4,1,9]
+Explanation: You are given the second node with value 5, the linked list should become 4 -> 1 -> 9 after calling your function.
+*/
+
+// Method 1
+var deleteNode = function(node) {
+    let next = node.next.next;
+    node.val = node.next.val;
+    node.next = next;
+};
+
+
+// Mehod 2
+var deleteNode = function(node) {
+    node.val = node.next.val;
+    node.next = node.next.next;
+};
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
+Prob: Print LinkedList elements
+Input:
+N=2
+LinkedList={1 , 2}
+Output:
+1 2
+Explanation:
+The linked list contains two 
+elements 1 and 2.The elements 
+are printed in a single line.
+*/
+
+class Node {
+  constructor(x){
+    this.data = x;
+    this.next = null;
+  }
+}
+
+
+class solution {
+    display(head) {
+        if(!head) return null;
+        let curr = head;
+        let str = "";
+    
+        while (curr) {
+            str += curr.data + " ";
+            curr = curr.next;
+        }
+        console.log(str);
+    }
+}
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
+Prob: Linked List Insertion
+Create a link list of size N according to the given input literals. Each integer input is accompanied by an indicator which can either be 0 or 1. 
+If it is 0, insert the integer in the beginning of the link list. If it is 1, insert the integer at the end of the link list. 
+*/
+
+class Node {
+    constructor (data) {
+        this.data = data;
+        this.next = null;
+    }
+}
+
+class solution {
+    //Function to insert a node at the beginning of the linked list.
+    insertAtBegining (head, newData) {
+        let node = new Node (newData);
+        if(!head) return node;
+        else node.next = head;
+        return node;
+    }
+
+    //Function to insert a node at the end of the linked list.
+    insertAtEnd (head, newData) {
+        let newNode = new Node (newData);
+        if(!head) return newNode;
+        let curr = head;
+        while (curr.next != null) {
+            curr = curr.next;
+        }
+        curr.next = newNode;
+        return head;
+    }
+}
+
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+

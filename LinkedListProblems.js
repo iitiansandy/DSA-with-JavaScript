@@ -788,3 +788,58 @@ class solution {
 /* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 
 
+/*
+Prob: Sort List
+Given the head of a linked list, return the list after sorting it in ascending order.
+Example: Input: head = [4,2,1,3]
+Output: [1,2,3,4]
+ */
+
+var sortList = function (head) {
+    var merge = function (a, b) {
+        if (a == null) {
+            return b;
+        } else if (b == null) {
+            return a;
+        }
+
+        if (a.val < b.val) {
+            a.next = merge(a.next, b);
+            return a;
+        } else {
+            b.next = merge(a, b.next);
+            return b;
+        }
+    }
+
+    // Base case
+    if (head == null) {
+        return null;
+    } else if (head.next == null) {
+        return head;
+    }
+
+    // General cases
+    let [prev, slow, fast] = [null, head, head];
+    while ((fast != null) && (fast.next != null)) {
+        prev = slow;
+        slow = slow.next;
+        fast = fast.next.next;
+    }
+
+    // Cut the linkage on midpoint
+    if (prev != null) {
+        prev.next = null;
+    }
+
+    // sort by divide and conquer
+    let firstHalf = sortList(head);
+    let secHalf = sortList(slow);
+
+    result = merge(firstHalf, secHalf);
+    return result;
+};
+
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/

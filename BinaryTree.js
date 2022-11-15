@@ -376,3 +376,128 @@ var inorderTraversal = function (root) {
 
 /* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
+
+/*
+Prob: Binary Tree Level Order Traversal II
+Given the root of a binary tree, return the bottom-up level order traversal of its nodes' values. (i.e., from left to right, level by level from leaf to root).
+
+Example: Input: root = [3,9,20,null,null,15,7]
+Output: [[15,7],[9,20],[3]]
+*/
+
+// Recursive solution
+var levelOrderBottom = function(root) {
+    let h = height(root);
+    let results = [];
+    let depth = 1;
+    for(depth; depth <= h; depth++){
+        results.push(levelOrder(root, depth));
+    }
+    return results.reverse();
+};
+
+function levelOrder(node, d, level = []) {
+    if (node == null) {
+        return level;
+    }
+    if (d === 1) {
+        level.push(node.val);
+    } else if (d > 1) {
+        levelOrder(node.left, d-1, level);
+        levelOrder(node.right, d-1, level);
+    }
+    return level;
+}
+
+function height(node) {
+    if (node == null) {
+        return 0;
+    }
+    let left = height (node.left);
+    let right = height(node.right);
+    return Math.max(left, right) + 1;
+}
+
+
+// Iterative solution
+var levelOrderBottom = function(root) {
+    if(root == null) return [];
+
+    let queue = [];
+    let results = [];
+    queue.push(root);
+
+    while (queue.length > 0) {
+        let level = [];
+        let size = queue.length;
+
+        while (size > 0) {
+            let curr = queue.shift();
+            level.push([curr.val]);
+
+            if(curr.left != null) {
+                queue.push(curr.left);
+            }
+
+            if(curr.right != null) {
+                queue.push(curr.right);
+            }
+            size--;
+        }
+        results.push(level);
+    }
+    return results.reverse();
+};
+
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+
+
+/*
+Prob: Search in a Binary Search Tree
+You are given the root of a binary search tree (BST) and an integer val.
+
+Find the node in the BST that the node's value equals val and return the subtree rooted with that node. If such a node does not exist, return 
+null.
+
+Example: Input: root = [4,2,7,1,3], val = 2
+Output: [2,1,3]
+*/
+
+// Recursion with helper function:
+var searchBST = function(root, val) {
+    let res = null;
+    const helper = (node) => {
+        if(!node) return;
+        if(node.val === val) {
+            res = node;
+            return;
+        }
+        if(val < node.val) helper(node.left);
+        if(val > node.val) helper(node.right);
+    }
+    helper(root);
+    return res;
+};
+
+
+// Pure Recursion
+var searchBST = function(root, val) {
+    if(!root) return null;
+    if(root.val === val) return root;
+    if(val < root.val) return searchBST(root.left, val);
+    if(val > root.val) return searchBST(root.right, val);
+};
+
+
+// Iterative solution
+var searchBST = function(root, val) {
+    while(root !== null && root.val !== val) {
+        root = val < root.val ? root.left : root.right;
+    }
+    return root;
+};
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */

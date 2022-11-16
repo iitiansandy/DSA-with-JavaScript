@@ -501,3 +501,143 @@ var searchBST = function(root, val) {
 
 
 /* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+
+
+/*
+PORB: Binary Tree Preorder Traversal
+Given the root of a binary tree, return the preorder traversal of its nodes' values.
+
+Example: Input: root = [1,null,2,3]
+Output: [1,2,3]
+*/
+
+// ITERATIVE SOLUTION
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number[]}
+ */
+ var preorderTraversal = function(root) {
+    if(!root) return [];
+    var result = [];
+    var stack = [root];
+
+    while (stack.length) {
+        var node = stack.pop();
+        result.push(node.val);
+        if(node.right) stack.push(node.right);
+        if(node.left) stack.push(node.left);
+    }
+    return result;
+};
+
+
+// RECURSIVE SOLUTION
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number[]}
+ */
+ var preorderTraversal = function(root, res = []) {
+    if (!root) return [];
+    res.push(root.val);
+    if(root.left) preorderTraversal(root.left, res);
+    if(root.right) preorderTraversal(root.right, res);
+    return res;
+};
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+
+
+/*
+PROB: Binary Tree Postorder Traversal
+Given the root of a binary tree, return the postorder traversal of its nodes' values.
+
+Example: Input: root = [1,null,2,3]
+Output: [3,2,1]
+*/
+
+// ITERATIVE SOLUTION
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number[]}
+ */
+ var postorderTraversal = function(root) {
+    if (!root) return [];
+    let stack = [];
+    let res = [];
+    stack.push(root);
+
+    while (stack.length) {
+        let node = stack[stack.length-1];
+        if (node.left) {
+            stack.push(node.left);
+            node.left = null;
+        } else if (node.right) {
+            stack.push(node.right);
+            node.right = null;
+        } else {
+            res.push(stack.pop().val);
+        }
+    }
+    return res;
+};
+
+
+// RECURSIVE SOLUTION
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number[]}
+ */
+ var postorderTraversal = function(root) {
+    let res =[];
+    traverse(root);
+    return res;
+
+    function traverse (node) {
+         if (!node) return;
+         traverse(node.left);
+         traverse(node.right);
+         res.push(node.val);
+    }
+};
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+
+
+

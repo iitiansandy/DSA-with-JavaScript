@@ -41,27 +41,75 @@ class Queue {
     }
 }
 
-let queue = new Queue();
-queue.enqueue(1);
-queue.enqueue(2);
-queue.enqueue(3);
-queue.enqueue(4);
-queue.enqueue(5);
-console.log(queue.items);
+// let queue = new Queue();
+// queue.enqueue(1);
+// queue.enqueue(2);
+// queue.enqueue(3);
+// queue.enqueue(4);
+// queue.enqueue(5);
+// console.log(queue.items);
 
-queue.dequeue();
-console.log(queue.items);
+// queue.dequeue();
+// console.log(queue.items);
 
-console.log(queue.peek());
-console.log(queue.isEmpty());
-console.log(queue.size());
+// console.log(queue.peek());
+// console.log(queue.isEmpty());
+// console.log(queue.size());
 
-queue.clear();
-console.log(queue.items);
-console.log(queue.isEmpty());
+// queue.clear();
+// console.log(queue.items);
+// console.log(queue.isEmpty());
 
 
 /* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 
 
+// QUEUE IMPLEMENTATION
+
+let queue = [];
+let curSize = queue.length;
+let maxSize = 5;
+
+function enqueue(newVal) {
+    if(curSize >= maxSize) {
+        console.log("Queue is already full");
+    } else {
+        queue[curSize] = newVal;
+        curSize++;
+    }
+}
+
+function dequeue (newVal) {
+    if(curSize > 0) {
+        for(let i=0; i<queue.length; i++) {
+            queue[i] = queue[i+1];
+        }
+        curSize--;
+        queue.length = curSize;
+    } else {
+        console.log("Queue is already empty");
+    }
+}
+
+function display() {
+    console.log(queue);
+}
+
+// enqueue(5);
+// enqueue(10);
+// enqueue(15);
+// enqueue(20);
+// enqueue(25);
+// display();
+
+// dequeue();
+// display();
+// dequeue();
+// display();
+// dequeue();
+// display();
+// dequeue();
+// dequeue();
+// dequeue();
+// display();
 

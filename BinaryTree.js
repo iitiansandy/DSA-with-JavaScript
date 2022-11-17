@@ -640,4 +640,71 @@ Output: [3,2,1]
 /* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
 
+/*
+Prob: Kth Smallest Element in a BST
+Given the root of a binary search tree, and an integer k, return the kth smallest value (1-indexed) of all the values of the nodes in the tree.
 
+Example: Input: root = [3,1,4,null,2], k = 1
+Output: 1
+*/
+
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @param {number} k
+ * @return {number}
+ */
+
+// Method 1
+var kthSmallest = function (root, k) {
+    let values = [];
+    (function dfs(node) {
+        if (node.left) dfs(node.left);
+        values.push(node.val);
+        if (node.right) dfs(node.right);
+    })(root);
+    return values[k - 1];
+};
+
+// Method 2 (RECURSIVE)
+var kthSmallest = function (root, k) {
+    let n = 0;
+    let res;
+    const inorder = (root) => {
+        if (!root) return;
+        inorder(root.left);
+        if (n++ < k) res = root.val;
+        inorder(root.right);
+    }
+    inorder(root);
+    return res;
+};
+
+
+// Method 3
+var kthSmallest = function (root, k) {
+    const stack = [];
+    let count = 1;
+    let node = root;
+
+    while (node || stack.length) {
+        while (node) {
+            stack.push(node)
+            node = node.left;
+        }
+        node = stack.pop();
+        if (count === k) return node.val;
+        else count++;
+        node = node.right;
+    }
+};
+
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */

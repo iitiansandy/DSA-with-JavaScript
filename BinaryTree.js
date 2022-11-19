@@ -708,3 +708,111 @@ var kthSmallest = function (root, k) {
 
 
 /* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
+Prob: Symmetric Tree
+Given the root of a binary tree, check whether it is a mirror of itself (i.e., symmetric around its center).
+
+Example: Input: root = [1,2,2,3,4,4,3]
+Output: true
+*/
+
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {boolean}
+ */
+ var isSymmetric = function(root) {
+    if(!root) return true;
+
+    return symmetryChecker(root.left, root.right);
+};
+
+function symmetryChecker(left, right) {
+    if (left == null && right == null) return true;
+    if (left == null || right == null) return false;
+    if (left.val !== right.val) return false;
+
+    return symmetryChecker(left.left, right.right) &&
+            symmetryChecker(left.right, right.left);
+}
+
+
+// Method 2 (Using Queue)
+var isSymmetric = function(root) {
+    const q = [root, root];
+    while (q.length) {
+        const [l, r] = [q.shift(), q.shift()];
+        if(!l && !r) continue;
+        if(!!l !== !!r || l.val !== r.val) return false;
+        q.push(l.left, r.right, l.right, r.left);
+    }
+    return true;
+};
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
+Prob: Binary Tree Zigzag Level Order Traversal
+Given the root of a binary tree, return the zigzag level order traversal of its nodes' values. (i.e., from left to right, then right 
+to left for the next level and alternate between).
+
+Example: Input: root = [3,9,20,null,null,15,7]
+Output: [[3],[20,9],[15,7]]
+*/
+
+// Method 1 (Recursive)
+var zigzagLevelOrder = function(root) {
+    let res = [];
+
+    const go = (node, level) => {
+        if (node == null) return;
+        if (res[level] == null) res[level] = [];
+
+        if (level % 2 === 0) {
+            res[level].push(node.val);
+        } else {
+            res[level].unshift(node.val);
+        }
+        go(node.left, level+1);
+        go(node.right, level+1);
+    }
+    go(root, 0);
+    return res;
+};
+
+
+// Method 2 (Iterative)
+var zigzagLevelOrder = function(root) {
+    if(!root) return [];
+    let res = [], queue = [root], zigzag = false;
+
+    while (queue.length) {
+        let size = queue.length, curr = [];
+        for (let i=0; i<size; i++) {
+            let top = queue.shift();
+
+            zigzag ? curr.unshift(top.val) : curr.push(top.val);
+            top.left && queue.push(top.left);
+            top.right && queue.push(top.right);
+        }
+        res.push(curr);
+        zigzag = !zigzag;
+    }
+    return res;
+};
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+

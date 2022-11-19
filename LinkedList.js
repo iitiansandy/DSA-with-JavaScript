@@ -336,3 +336,161 @@ console.log(myLinkedList);
 /* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 
 
+/*
+Prob: REVERSE A LINKEDLIST
+*/
+
+// Iterative Method:
+var head;
+
+class Node {
+    constructor(val) {
+        this.data = val;
+        this.next = null;
+    }
+}
+
+// Function to reverse a LL
+function reverse(node) {
+    var prev = null;
+    var curr = node;
+    var next = null;
+
+    while (curr !== null) {
+        next = curr.next;
+        curr.next = prev;
+        prev = curr;
+        curr = next;
+    }
+    node = prev;
+    return node;
+}
+
+// Prints function to print LL
+function printList(node) {
+    let res = [];
+    while (node != null) {
+        res.push(node.data);
+        node = node.next;
+    }
+    return res.join(' ');
+}
+
+// Driver function
+head = new Node(5);
+head.next = new Node(10);
+head.next.next = new Node(15);
+head.next.next.next = new Node(20);
+console.log("Original LinkedList:", printList(head));
+head = reverse(head);
+console.log("Reversed LinkedList:", printList(head));
+
+
+// RECURSIVE METHOD:
+var head;
+class Node {
+    constructor(val) {
+        this.data = val;
+        this.next = null;
+    }
+}
+
+function revLL(head) {
+    if (head == null || head.next == null) {
+        return head;
+    }
+
+    var rest = revLL(head.next);
+    head.next.next = head;
+    head.next = null;
+    return rest;
+}
+
+function print() {
+    var temp = head;
+    var res = [];
+    while (temp != null) {
+        res.push(temp.data);
+        temp = temp.next;
+    }
+    return res;
+}
+
+function pushLL(data) {
+    var temp = new Node(data);
+    temp.next = head;
+    head = temp;
+}
+
+pushLL(20);
+pushLL(4);
+pushLL(15);
+pushLL(9);
+console.log("Original LL:", print(head));
+head = revLL(head);
+console.log("Reversed LL:", print(head));
+
+
+// Method 3 (Using Stack)
+class Node {
+    constructor() {
+        this.data = 0;
+        this.next = null;
+    }
+}
+
+var head = null;
+function revList() {
+    var stack = [];
+    var temp = head;
+    while (temp.next != null) {
+        stack.push(temp);
+        temp = temp.next;
+    }
+    head = temp;
+    while (stack.length != 0) {
+        temp.next = stack.pop();
+        temp = temp.next;
+    }
+    temp.next = null;
+}
+
+function displayList(temp) {
+    let res = [];
+    while (temp != null) {
+        res.push(temp.data);
+        temp = temp.next;
+    }
+    return res;
+}
+
+function insertBack (val) {
+    var temp = new Node();
+    temp.data = val;
+    temp.next = null;
+
+    if(head == null) {
+        head = temp;
+        return;
+    } else {
+        var lastNode = head;
+        while (lastNode.next != null) {
+            lastNode = lastNode.next;
+        }
+        lastNode.next = temp;
+        return;
+    }
+}
+
+insertBack(1);
+insertBack(2);
+insertBack(3);
+insertBack(4);
+insertBack(5);
+console.log("Original LL:", displayList(head));
+revList();
+console.log("Reversed LL:", displayList(head));
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+

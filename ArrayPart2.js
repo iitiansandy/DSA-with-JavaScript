@@ -949,4 +949,93 @@ var countGoodTriplets = function(arr, a, b, c) {
 };
 
 
+/*
+Prob: Longest Increasing Subsequence
+Given an integer array nums, return the length of the longest strictly increasing 
+subsequence
+
+Example:
+Input: nums = [10,9,2,5,3,7,101,18]
+Output: 4
+Explanation: The longest increasing subsequence is [2,3,7,101], therefore the length is 4.
+*/
+
+// Method 1
+var lengthOfLIS = function(nums) {
+    var lis = [];
+    for(var i=0; i<nums.length; i++) {
+        lis.push(1);
+        for(var j=0; j<i; j++) {
+            if(nums[j] < nums[i]) lis[i] = Math.max(lis[i], lis[j]+1);
+        }
+    }
+    return nums.length ? Math.max.apply(null, lis) : 0;
+};
+
+
+// Method 2
+var lengthOfLIS = function(nums) {
+    let dp = new Array(nums.length).fill(1);
+    let longest = 1;
+    for (let i=1; i<nums.length; i++) {
+        for (let j=0; j<i; j++) {
+            if (nums[j] < nums[i]) {
+                dp[i] = Math.max(dp[i], dp[j]+1);
+                longest = Math.max(longest, dp[i]);
+            }
+        }
+    }
+    return longest;
+};
+
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
+Prob: Perfect Squares
+Given an integer n, return the least number of perfect square numbers that sum to n.
+
+A perfect square is an integer that is the square of an integer; in other words, it is the product of some integer with itself. For example, 
+1, 4, 9, and 16 are perfect squares while 3 and 11 are not.
+Example 1:
+
+Input: n = 12
+Output: 3
+Explanation: 12 = 4 + 4 + 4.
+*/
+
+// Method 1
+var numSquares = function(n) {
+    const dp = [0];
+    for (let i=1; i<=n; i++) {
+        dp[i] = Number.MAX_VALUE;
+        for (let j=1; j*j <= i; j++) {
+            dp[i] = Math.min(dp[i], dp[i-j*j] + 1);
+        }
+    }
+    return dp[n];
+};
+
+
+// Method 2
+var numSquares = function(n) {
+    let dp = [];
+    var recur = function (num) {
+        if(dp[num]) return dp[num];
+        if (num == 0) return 0;
+        let min = Number.MAX_VALUE;
+
+        for(let i=1; i<=Math.floor(Math.sqrt(num)); i++) {
+            min = Math.min(1 + recur(num - i*i), min);
+            dp[num] = min;
+        }
+        return min;
+    }
+    return recur(n);
+};
+
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
 

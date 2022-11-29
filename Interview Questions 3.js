@@ -215,24 +215,96 @@ var findMin = function(nums) {
 
 
 /*
-Prob: 
+Prob: Contains Duplicate
+Given an integer array nums, return true if any value appears at least twice in the array, and return false if every element is distinct.
+
+Example:
+
+Input: nums = [1,2,3,1]
+Output: true
 */
+
+var containsDuplicate = function(nums) {
+    let check = [];
+    for(let i=0; i<nums.length; i++){
+        if(check.includes(nums[i])){
+            return true;
+        }else check.push(nums[i]); 
+    }
+    return false;
+};
+
+
+// Method 2
+// Time complexity: O(n)
+// Space complexity: O(n)
+var containsDuplicate = function(nums) {
+    const s = new Set(nums); return s.size !== nums.length
+};
 
 
 /* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 
 
 /*
-Prob: 
+Prob: Product of Array Except Self
+Example:
+Input: nums = [1,2,3,4]
+Output: [24,12,8,6]
 */
+
+var productExceptSelf = function(nums) {
+    let res = [];
+    let product = 1;
+    
+    for(let i=0; i<nums.length; i++){
+        res.push(product);
+        product = product * nums[i];
+    }
+    
+    product = 1;
+    for(let i=nums.length-1; i>=0; i--){
+        res[i] = res[i] * product;
+        product = product * nums[i];
+    }
+    return res;
+};
 
 
 /* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 
 
 /*
-Prob: 
+Prob: Longest Substring Without Repeating Characters
+Given a string s, find the length of the longest 
+substring without repeating characters.
+Example:
+Input: s = "abcabcbb"
+Output: 3
+Explanation: The answer is "abc", with the length of 3.
 */
+
+var lengthOfLongestSubstring = function(s) {
+    if(!s){
+        return 0;
+    }
+    let start = 0;
+    let end = 0;
+    let maxLength = 0;
+    
+    const uniqueChars = new Set();
+    while(end < s.length){
+        if(!uniqueChars.has(s[end])){
+            uniqueChars.add(s[end]);
+            end++;
+            maxLength = Math.max(maxLength, uniqueChars.size);
+        } else {
+            uniqueChars.delete(s[start]);
+            start++;
+        }
+    }
+    return maxLength;
+};
 
 
 /* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */

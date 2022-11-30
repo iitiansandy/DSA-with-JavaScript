@@ -344,6 +344,224 @@ var increasingTriplet = function(nums) {
 
 
 /*
+Prob: Valid Parentheses
+Example:
+Input: s = "()"
+Output: true
+*/
+
+var isValid = function(s) {
+    let obj = {
+        "(": ")",
+        "[": "]",
+        "{": "}"
+    };
+    
+    let ans = [];
+    
+    for(let char of s){
+        if(obj[char]){
+            ans.push(obj[char]);
+        } else {
+            if(ans.pop() !== char) return false;
+        }
+    }
+    return (!ans.length);
+};
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
+Prob: Remove Nth Node From End of List
+Ex: Input: head = [1,2,3,4,5], n = 2
+Output: [1,2,3,5]
+*/
+
+var removeNthFromEnd = function(head, n) {
+    let fast = head, slow = head;
+    for(let i=0; i<n; i++){
+        fast = fast.next;
+    }
+    if(!fast){
+        return head.next;
+    }
+    while(fast.next){
+        fast = fast.next;
+        slow = slow.next;
+    }
+    slow.next = slow.next.next;
+    return head;
+};
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
+Prob: Group Anagrams
+Given an array of strings strs, group the anagrams together. You can return the answer in any order.
+
+An Anagram is a word or phrase formed by rearranging the letters of a different word or phrase, typically using all the original letters 
+exactly once.
+
+Example:
+
+Input: strs = ["eat","tea","tan","ate","nat","bat"]
+Output: [["bat"],["nat","tan"],["ate","eat","tea"]]
+*/
+
+var groupAnagrams = function(strs) {
+    let map = {};
+    for(let s of strs){
+        let array = Array(26).fill(0);
+        for(let i=0; i<s.length; i++){
+            let ascii = s.charCodeAt(i);
+            array[ascii-97] +=1;
+        }
+        let key=array.join('-');
+        if(map[key]){
+            map[key].push(s);
+        } else {
+            map[key] = [s];
+        }
+    }
+    return Object.values(map);
+};
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
+Prob: Minimum Window Substring
+Given two strings s and t of lengths m and n respectively, return the minimum window 
+substring of s such that every character in t (including duplicates) is included in the window. If there is no such substring, return the 
+empty string "".
+
+The testcases will be generated such that the answer is unique.
+Example:
+
+Input: s = "ADOBECODEBANC", t = "ABC"
+Output: "BANC"
+Explanation: The minimum window substring "BANC" includes 'A', 'B', and 'C' from string t.
+*/
+
+var minWindow = function(s, t) {
+    let min = "", left = 0, right = -1;
+    let map = {};
+    t.split('').forEach(element => {
+        if(map[element] == null) map[element] = 1;
+        else map[element] = map[element] + 1;
+    });
+
+    let count = Object.keys(map).length;
+    while (right <= s.length) {
+        if (count == 0) {
+            let current = s[left];
+            if(map[current] != null) map[current]++;
+            if(map[current] > 0) count++;
+
+            let temp = s.substring(left, right+1);
+            if(min == "") min = temp;
+            else min = min.length < temp.length ? min : temp;
+            left++;
+        } else {
+            right++;
+            let current = s[right];
+            if (map[current] != null) map[current]--;
+            if (map[current] == 0) count--;
+        }
+    }
+    return min;
+};
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
+Prob: 
+*/
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
+Prob: 
+*/
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
+Prob: 
+*/
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
+Prob: 
+*/
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
+Prob: 
+*/
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
+Prob: 
+*/
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
+Prob: 
+*/
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
+Prob: 
+*/
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
+Prob: 
+*/
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
+Prob: 
+*/
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
 Prob: 
 */
 

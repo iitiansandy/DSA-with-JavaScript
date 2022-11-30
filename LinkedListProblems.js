@@ -843,3 +843,38 @@ var sortList = function (head) {
 
 
 /* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+
+
+/*
+PROB: Odd Even Linked List
+Given the head of a singly linked list, group all the nodes with odd indices together followed by the nodes with even indices, and return 
+the reordered list.
+
+The first node is considered odd, and the second node is even, and so on.
+Input: head = [1,2,3,4,5]
+Output: [1,3,5,2,4]
+*/
+
+var oddEvenList = function(head) {
+    if(!head) return head;
+    var odd = head;
+    var even = head.next;
+    while (odd.next && odd.next.next) {
+        var temp = odd.next;
+        odd.next = odd.next.next;
+        odd = odd.next;
+        temp.next = odd.next;
+    }
+    odd.next = even;
+    return head;
+};
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+
+
+/*
+PROB: 
+*/
+
+

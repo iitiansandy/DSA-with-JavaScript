@@ -88,3 +88,95 @@ var deleteNode = function(root, key) {
 
 /* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 
+
+/*
+Prob: Recover Binary Search Tree
+You are given the root of a binary search tree (BST), where the values of exactly two nodes of the tree were swapped by mistake. Recover the 
+tree without changing its structure.
+Input: root = [1,3,null,null,2]
+Output: [3,1,null,null,2]
+Explanation: 3 cannot be a left child of 1 because 3 > 1. Swapping 1 and 3 makes the BST valid.
+*/
+
+// ITERATIVE SOLUTION
+var recoverTree = function (root) {
+    const stack = [];
+    let node = root;
+    let prev = null;
+    let x = null, y = null;
+
+    while (stack.length || node) {
+        if (node) {
+            stack.push(node);
+            node = node.left;
+            continue;
+        }
+        node = stack.pop();
+        if (prev && prev.val > node.val) {
+            y = node;
+            if (!x) x = prev;
+            else break;
+        }
+        prev = node;
+        node = node.right;
+    }
+    [x.val, y.val] = [y.val, x.val];
+};
+
+// RECURSIVE SOLUTION
+var recoverTree = function (root) {
+    let x = null;
+    let y = null;
+    let prev = null;
+    const dfs = (node) => {
+        if (!node) return;
+        dfs(node.left);
+        if (prev && node.val < prev.val) {
+            if (x == null) x = prev;
+            y = node;
+        }
+        prev = node;
+        dfs(node.right);
+    };
+    dfs(root);
+    [x.val, y.val] = [y.val, x.val];
+};
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
+Prob: Same Tree
+Given the roots of two binary trees p and q, write a function to check if they are the same or not.
+
+Two binary trees are considered the same if they are structurally identical, and the nodes have the same value.
+Input: p = [1,2,3], q = [1,2,3]
+Output: true
+*/
+
+// Method 1
+var isSameTree = function(p, q) {
+    if(!p && !q) return true;
+    if(!p || !q || p.val !== q.val) return false;
+
+    return isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
+};
+
+// Method 2
+var isSameTree = function(p, q) {
+    return JSON.stringify(p) === JSON.stringify(q);
+};
+
+
+// Method 3
+var isSameTree = function(p, q) {
+    if(!p && !q) return true;
+    if((!p && q) || (p && !q) || p.val !== q.val) return false;
+    return isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
+};
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+

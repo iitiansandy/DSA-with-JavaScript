@@ -557,24 +557,121 @@ var subarraySum = function(nums, k) {
 
 
 /*
-Prob: 
+Prob: Rotate Image
+You are given an n x n 2D matrix representing an image, rotate the image by 90 degrees (clockwise).
+Input: matrix = [[1,2,3],[4,5,6],[7,8,9]]
+Output: [[7,4,1],[8,5,2],[9,6,3]]
 */
+
+var rotate = function(matrix) {
+    for(let rows=0; rows<matrix.length; rows++){
+        for(let col=rows; col<matrix[0].length; col++){
+            [matrix[rows][col], matrix[col][rows]] = [matrix[col][rows], matrix[rows][col]];
+        }
+    }
+    for(let row of matrix){
+        row.reverse();
+    }
+};
+
 
 
 /* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 
 
 /*
-Prob: 
+Prob: Spiral Matrix
+Given an m x n matrix, return all elements of the matrix in spiral order.
+
+Example: Input: matrix = [[1,2,3],[4,5,6],[7,8,9]]
+Output: [1,2,3,6,9,8,7,4,5]
 */
+
+var spiralOrder = function(matrix) {
+    let result = [];
+    let left = 0;
+    let top = 0;
+    let right = matrix[0].length - 1;
+    let bottom = matrix.length - 1;
+    
+    let direction = 'right';
+    while(left<=right && top<=bottom){
+        
+        if(direction === 'right'){
+            for(let i=left; i<=right; i++){
+                result.push(matrix[top][i]);
+            }
+            top++;
+            direction = 'down';
+        }
+        
+        else if(direction === 'down'){
+            for(let i=top; i<=bottom; i++){
+                result.push(matrix[i][right]);
+            }
+            right--;
+            direction = 'left';
+        }
+        
+        else if(direction === 'left'){
+            for(let i=right; i>=left; i--){
+                result.push(matrix[bottom][i]);
+            }
+            bottom--;
+            direction = 'up';
+        }
+        
+        else if(direction === 'up'){
+            for(let i=bottom; i>=top; i--){
+                result.push(matrix[i][left]);
+            }
+            left++;
+            direction = 'right';
+        }
+    }
+    return result;
+};
 
 
 /* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 
 
 /*
-Prob: 
+Prob: Set Matrix Zeroes
+Given an m x n integer matrix matrix, if an element is 0, set its entire row and column to 0's.
+
+You must do it in place.
+
+Example: Input: matrix = [[1,1,1],[1,0,1],[1,1,1]]
+Output: [[1,0,1],[0,0,0],[1,0,1]]
 */
+
+var setZeroes = function(matrix) {
+    const xIndexes = new Set();
+    const yIndexes = new Set();
+    const rowLength = matrix.length;
+    const columnLength = matrix[0].length;
+    for(let i=0; i<rowLength; i++) {
+        for(let j=0; j<columnLength; j++){
+            if(matrix[i][j] === 0){
+               xIndexes.add(i);
+               yIndexes.add(j);
+            }   
+        }
+    }
+    
+    for(const value of xIndexes) {
+        for(j=0; j<columnLength; j++){
+            matrix[value][j] = 0;
+        }
+    }
+    for(const value of yIndexes) {
+        for(j=0; j<rowLength; j++){
+            matrix[j][value] = 0;
+        }
+    }
+};
+
 
 
 /* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */

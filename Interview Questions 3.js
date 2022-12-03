@@ -678,8 +678,34 @@ var setZeroes = function(matrix) {
 
 
 /*
-Prob: 
+Prob: Find Minimum in Rotated Sorted Array
+Suppose an array of length n sorted in ascending order is rotated between 1 and n times. For example, the array nums = [0,1,2,4,5,6,7] might 
+become:
+[4,5,6,7,0,1,2] if it was rotated 4 times.
+[0,1,2,4,5,6,7] if it was rotated 7 times.
+
+Example:
+Input: nums = [3,4,5,1,2]
+Output: 1
+Explanation: The original array was [1,2,3,4,5] rotated 3 times.
 */
+
+var findMin = function(nums) {
+    let start = 0, end = nums.length-1;
+    let min = nums[start];
+    while(start <= end){
+        let mid = parseInt((start + end)/2);
+        if(nums[mid] < nums[start]){
+            min = Math.min(nums[mid], min);
+            end = mid - 1;
+        } else {
+            min = Math.min(nums[start], min);
+            start = mid + 1;
+        }
+    }
+    return min;
+};
+
 
 
 /* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */

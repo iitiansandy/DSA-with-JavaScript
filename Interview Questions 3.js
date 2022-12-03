@@ -482,8 +482,75 @@ var minWindow = function(s, t) {
 
 
 /*
-Prob: 
+Prob: Maximum Subarray
+Given an integer array nums, find the subarray which has the largest sum and return its sum.
+
+Example:
+
+Input: nums = [-2,1,-3,4,-1,2,1,-5,4]
+Output: 6
+Explanation: [4,-1,2,1] has the largest sum = 6.
 */
+
+// Method 1
+var maxSubArray = function(nums) {
+    let max = nums[0];
+    let sum = nums[0];
+    
+    for(let i=1; i<nums.length; i++){
+        if(sum + nums[i]>nums[i]){
+            sum += nums[i];
+        } else {
+            sum = nums[i];
+        }
+        max = Math.max(max, sum);
+    }
+    return max;
+};
+
+
+// Method 2
+var maxSubArray = function(nums) {
+    let prev = 0;
+    let max = -Number.MAX_VALUE;
+
+    for(let i=0; i<nums.length; i++) {
+        prev = Math.max(prev + nums[i], nums[i]);
+        max = Math.max(max, prev);
+    }
+    return max;
+};
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
+Prob: Subarray Sum Equals K
+Given an array of integers nums and an integer k, return the total number of subarrays whose sum equals to k.
+
+A subarray is a contiguous non-empty sequence of elements within an array.
+
+Example:
+
+Input: nums = [1,1,1], k = 2
+Output: 2
+*/
+
+var subarraySum = function(nums, k) {
+    let map = new Map();
+    let sum = 0;
+    let count = 0;
+    map.set(0,1);
+
+    for (let i=0; i<nums.length; i++) {
+        sum += nums[i];
+        if (map.has(sum - k)) count += map.get(sum - k);
+        if (map.has(sum)) map.set(sum, map.get(sum) + 1);
+        else map.set(sum, 1);
+    }
+    return count;
+};
 
 
 /* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */

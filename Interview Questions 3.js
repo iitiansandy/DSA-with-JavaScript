@@ -712,8 +712,131 @@ var findMin = function(nums) {
 
 
 /*
-Prob: 
+Prob: Partition Equal Subset Sum
+Given a non-empty array nums containing only positive integers, find if the array can be partitioned into two subsets such that the sum of 
+elements in both subsets is equal.
+
+Example:
+
+Input: nums = [1,5,11,5]
+Output: true
+Explanation: The array can be partitioned as [1, 5, 5] and [11].
 */
+
+var canPartition = function(nums) {
+    let sum = nums.reduce((a,b)=>a+b,0);
+
+    if(sum%2 !== 0) {
+        return false;
+    }
+    let half = sum/2;
+    let dp = [];
+    dp[0] = true;
+
+    for (let index=0; index<nums.length; index++){
+        let num = nums[index];
+        for(let i=half; i>=num; i--) {
+            dp[i] = dp[i] || dp[i-num];
+        }
+    }
+    return dp[half] || false;
+};
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
+Prob: Word Break
+Given a string s and a dictionary of strings wordDict, return true if s can be segmented into a space-separated sequence of one or more dictionary
+words.
+
+Note that the same word in the dictionary may be reused multiple times in the segmentation.
+
+Example:
+
+Input: s = "leetcode", wordDict = ["leet","code"]
+Output: true
+Explanation: Return true because "leetcode" can be segmented as "leet code".
+
+*/
+
+// Using DFS
+var wordBreak = function(s, wordDict) {
+    if(wordDict == null || wordDict.length === 0) return false;
+    const set = new Set(wordDict);
+
+    const visited = new Set();
+    const q = [0];
+    while (q.length) {
+        const start = q.shift();
+        if (!visited.has(start)) {
+            for(let end = start+1; end <= s.length; end++) {
+                if(set.has(s.slice(start, end))) {
+                    if (end === s.length) return true;
+                    q.push(end);
+                }
+            }
+            visited.add(start);
+        }
+    }
+    return false;
+};
+
+
+// Using DP
+var wordBreak = function(s, wordDict) {
+    if(wordDict == null || wordDict.length === 0) return false;
+    const set = new Set(wordDict);
+    const dp = Array(s.length+1).fill(false);
+    dp[0] = true;
+    for (let end=1; end<=s.length; end++) {
+        for(let start=0; start<end; start++) {
+            const w = s.slice(start, end);
+            if(dp[start] == true && set.has(w)) {
+                dp[end] = true;
+                break;
+            }
+        }
+    }
+    return dp[s.length];
+};
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
+Prob: Sqrt(x)
+Given a non-negative integer x, return the square root of x rounded down to the nearest integer. The returned integer should be non-negative as 
+well.
+
+You must not use any built-in exponent function or operator.
+
+For example, do not use pow(x, 0.5) in c++ or x ** 0.5 in python.
+
+Example:
+
+Input: x = 4
+Output: 2
+Explanation: The square root of 4 is 2, so we return 2.
+*/
+
+var mySqrt = function(x) {
+    let left = 1, right = Math.floor(x/2) + 1;
+    let mid;
+    while (left <= right) {
+        mid = Math.floor((left + right)/2);
+        if(mid * mid > x) {
+            right = mid - 1;
+        } else if(mid * mid < x) {
+            left = mid + 1;
+        } else {
+            return mid;
+        }
+    }
+    return right;
+};
 
 
 /* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */

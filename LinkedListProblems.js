@@ -874,7 +874,187 @@ var oddEvenList = function(head) {
 
 
 /*
-PROB: 
+Prob: Count Nodes of Linked List
 */
+
+/*
+class Node{
+    constructor(data){
+        this.data = data;
+        this.next = null;
+    }
+}
+*/
+
+class Solution {
+    //Function to count nodes of a linked list.
+    getCount(head)
+    {
+        //your code here
+        if(!head) return 0;
+        let count = 0;
+        let curr = head;
+        
+        while (curr !== null) {
+            count++;
+            curr = curr.next;
+        }
+        return count;
+    }
+}
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
+Prob: Delete Alternate Nodes
+*/
+
+/*LINKED LIST NODE
+class Node {
+  constructor(x){
+    this.data = x;
+    this.next = null;
+  }
+}
+*/
+
+
+/**
+ * @param {Node} head
+*/
+
+class Solution {
+    deleteAlt(head){
+      //code 
+      let slow = head;
+      let fast = head.next;
+      while (slow != null && fast != null) {
+          slow.next = fast.next;
+          slow = slow.next;
+          if(slow != null) {
+              fast = slow.next;
+          }
+      }
+      return head;
+    }
+  }
+  
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
+Prob: Insert node in doubly linked list at end
+*/
+
+class Node{
+    constructor(val) {
+        this.prev = null;
+        this.val = val;
+        this.next = null;
+    }
+}
+
+class DoublyLinkedList{
+    constructor() {
+        this.head = null;
+        this.tail = this.head;
+        this.size = 0;
+    }
+
+    insertNode(val) {
+        let newNode = new Node(val);
+        if(!this.head) {
+            this.head = newNode;
+            this.tail = this.head;
+            this.size++;
+        } else {
+            this.tail.next = newNode;
+            newNode.prev = this.tail;
+            this.tail = newNode;
+            this.size++;
+        }
+    }
+}
+
+function solution(a, listE1, lastNode) {
+    let dll = new DoublyLinkedList();
+    if(a != 0) {
+        for (let ele of listE1) {
+            dll.insertNode(ele);
+        }
+    }
+    dll.insertNode(lastNode);
+    let lhead = dll.head;
+
+    let res = "";
+
+    while (lhead != null) {
+        res += lhead.val + " ";
+        lhead = lhead.next;
+    }
+
+    res += "\n";
+    let ltail = dll.tail;
+
+    while (ltail != null) {
+        res += ltail.val + " ";
+        ltail = ltail.prev;
+    }
+    return res;
+}
+
+function main() {
+    var a = parseInt(readLine());
+    var listE1 = readLine().split(" ").map(Number);
+    var lastNode = parseInt(readLine());
+    var res = solution(a, listE1, lastNode);
+    console.log(res);
+}
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
+Prob: Nth node from end of linked list
+*/
+
+class Solution {
+    //Function to find the data of nth node from the end of a linked list
+    getNthFromLast(head, n)
+    {
+        //your code here
+        
+        let curr = head;
+        let prev = null;
+        let len = 0;
+        while (curr != null) {
+            let temp = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = temp;
+            len++;
+        }
+        head = prev;
+        if(n>len) return -1;
+        else if(n == 1) return head.data;
+        else {
+            let res = head;
+            while(n-1 > 1) {
+                res = res.next;
+                n--;
+            }
+            return res.next.data;
+        }
+    }
+}
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
 
 

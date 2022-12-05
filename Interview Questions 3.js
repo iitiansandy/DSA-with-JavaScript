@@ -843,6 +843,55 @@ var mySqrt = function(x) {
 
 
 /*
+Prob: Find the subarray whose sum is equal to zero.
+*/
+
+function subArr(arr) {
+    let map = new Map();
+    let sum = 0;
+    for(let ele of arr) {
+        sum += ele; // 2, 2+3, 2+3+1,
+        if(!map.has(sum)) {
+            map.set(sum, 1);
+        } else {
+            return "Yes"
+        }
+    }
+    return "No"
+}
+// let arr = [2,3,1,-4,5];
+// console.log(subArr(arr));
+// TC --> O(n)
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
+Prob: 
+*/
+
+function countFreq(str) {
+    str = str.replace(/\s+/g, "");
+    str = str.split("").sort();
+    let obj = {};
+    for(ele of str) {
+        obj[ele] = (obj[ele] || 0) + 1;
+    }
+    let arr = Object.entries(obj);
+    let res = "";
+    for (let i=0; i<arr.length; i++) {
+        res = res + arr[i][0] + " " + arr[i][1];
+    }
+    console.log(res);
+}
+let str = "hello world";
+countFreq(str);
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
 Prob: 
 */
 

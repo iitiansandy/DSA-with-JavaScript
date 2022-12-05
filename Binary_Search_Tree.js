@@ -180,3 +180,99 @@ var isSameTree = function(p, q) {
 /* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 
 
+/*
+Prob: Unique Binary Search Trees II
+Given an integer n, return all the structurally unique BST's (binary search trees), which has exactly n nodes of unique values from 1 to n. 
+Return the answer in any order.
+
+Example: Input: n = 3
+Output: [[1,null,2,null,3],[1,null,3,2],[2,1,3],[3,1,null,null,2],[3,2,null,1]]
+*/
+
+// Method 1
+var generateTrees = function(n) {
+    if(n == 0) return [];
+    return findAllUniqTrees(1, n);
+    function findAllUniqTrees(start, end) {
+        const ans = [];
+        if (start > end) {
+            ans.push(null);
+            return ans;
+        };
+        if (start == end) {
+            ans.push(new TreeNode(start));
+            return ans;
+        }
+
+        for(let i=start; i<=end; i++) {
+            const leftSubTrees = findAllUniqTrees(start, i-1);
+            const rightSubTrees = findAllUniqTrees(i+1, end);
+
+            for(const leftSubTree of leftSubTrees) {
+                for(const rightSubTree of rightSubTrees) {
+                    const root = new TreeNode(i);
+                    root.left = leftSubTree;
+                    root.right = rightSubTree;
+                    ans.push(root);
+                }
+            }
+        }
+        return ans;
+    }
+};
+
+
+// Method 2
+
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
+Prob: Binary Search Tree Iterator
+Implement the BSTIterator class that represents an iterator over the in-order traversal of a binary search tree (BST):
+Ex: Input
+["BSTIterator", "next", "next", "hasNext", "next", "hasNext", "next", "hasNext", "next", "hasNext"]
+[[[7, 3, 15, null, null, 9, 20]], [], [], [], [], [], [], [], [], []]
+Output
+[null, 3, 7, true, 9, true, 15, true, 20, false]
+
+Explanation
+BSTIterator bSTIterator = new BSTIterator([7, 3, 15, null, null, 9, 20]);
+bSTIterator.next();    // return 3
+bSTIterator.next();    // return 7
+bSTIterator.hasNext(); // return True
+bSTIterator.next();    // return 9
+bSTIterator.hasNext(); // return True
+bSTIterator.next();    // return 15
+bSTIterator.hasNext(); // return True
+bSTIterator.next();    // return 20
+bSTIterator.hasNext(); // return False
+*/
+
+function BSTIterator(root) {
+    var stack = [];
+    return {hasNext, next};
+  
+    function hasNext() {
+      return root || stack.length;
+    }
+  
+    function next() {
+      while (root) {
+        stack.push(root);
+        root = root.left;
+      }
+      root = stack.pop();
+      var result = root.val;
+      root = root.right;
+      return result;
+    }
+  }
+
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+

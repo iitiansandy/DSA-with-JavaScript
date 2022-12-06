@@ -892,55 +892,78 @@ countFreq(str);
 
 
 /*
-Prob: 
+Prob: Minimum Size Subarray Sum
+Given an array of positive integers nums and a positive integer target, return the minimal length of a subarray whose sum is greater than or 
+equal to target. If there is no such subarray, return 0 instead.
+
+Example: Input: target = 7, nums = [2,3,1,2,4,3]
+Output: 2
+Explanation: The subarray [4,3] has the minimal length under the problem constraint.
 */
 
+// Method 1
+var minSubArrayLen = function(target, nums) {
+    let left = 0, right = 0;
+    let sum = 0;
+    let res = 0;
 
-/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+    while (right < nums.length) {
+        sum += nums[right];
+
+        while(sum >= target) {
+            let len = right - left + 1;
+            if(res === 0 || len < res) res = len;
+            sum -= nums[left];
+            left++;
+        }
+        right++;
+    }
+    return res;
+};
+
+
+// Method 2
+var minSubArrayLen = function(target, nums) {
+    let dist = Number.MAX_SAFE_INTEGER;
+    let left=0;
+    let sum=0;
+
+    for(let right=0; right < nums.length; right++) {
+        sum += nums[right];
+        while(sum >= target) {
+            dist = Math.min(dist, right-left+1);
+            sum -= nums[left];
+            left++;
+        }
+    }
+    return dist === Number.MAX_SAFE_INTEGER ? 0 : dist;
+};
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 
 
 /*
-Prob: 
+Prob: Best Time to Buy and Sell Stock with Cooldown
+You are given an array prices where prices[i] is the price of a given stock on the ith day.
+Find the maximum profit you can achieve.
+Ex: Input: prices = [1,2,3,0,2]
+Output: 3
+Explanation: transactions = [buy, sell, cooldown, buy, sell]
 */
 
-
-/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
-
-
-/*
-Prob: 
-*/
-
-
-/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
-
-
-/*
-Prob: 
-*/
+var maxProfit = function(prices) {
+    let [coolDown, sell, hold] = [0, 0, Number.NEGATIVE_INFINITY];
+    for(let stockPrice of prices) {
+        let [prevCoolDown, prevSell, prevHold] = [coolDown, sell, hold];
+        coolDown = Math.max(prevCoolDown, prevSell);
+        sell = prevHold + stockPrice;
+        hold = Math.max(prevHold, prevCoolDown - stockPrice);
+    }
+    return Math.max(sell, coolDown);
+};
 
 
-/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
-
-
-/*
-Prob: 
-*/
-
-
-/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
-
-
-/*
-Prob: 
-*/
-
-
-/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
-
-
-/*
-Prob: 
-*/
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 
 

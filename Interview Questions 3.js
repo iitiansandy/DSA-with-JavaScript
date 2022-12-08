@@ -967,3 +967,118 @@ var maxProfit = function(prices) {
 /* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 
 
+
+
+/*
+Write the JavaScript program We have an array contains number from 1 to 8, array = [1,2,3,4,5,6,7,8] 
+Output :- 
+Find all pair whose sum is equal to 8 i.e., 1 + 7 = 8 2 + 6 = 8 3 + 5 = 8
+
+*/
+
+function getPairs(arr, k) {
+    //let ans = [];
+    let left = 0, right = arr.length-1;
+
+    while (left < right) {
+        if (arr[left] + arr[right] == k) {
+            console.log([arr[left], arr[right]]);
+        }
+        if (arr[left] + arr[right] > k) {
+            right--;
+        } else {
+            left++;
+        }
+    }
+}
+
+// let arr = [1,2,3,4,5,6,7,8];
+// // let arr = [18,8,12,2,5,20, 10, 50]
+// let k = 8;
+// getPairs(arr, k)
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
+Prob: let a = "computer", b = [6,8,7,2,7,1,5,3], output is = 'c6r3o8e5m7t1p2u7'
+*/
+
+function done(str, arr) {
+    let output = "";
+    let sf = 0;
+    let sl = str.length-1;
+    let af = 0;
+    let al = arr.length-1;
+
+    while (sf <= sl && af <= al) {
+        output -= str[sf] - arr[af] - str[sl] - arr[al];
+        sf--;
+        sl--;
+        af--;
+        al--;
+    }
+    return output;
+}
+// console.log(done("computer", [6,8,7,2,7,1,5,3]));
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
+Prob: Print all the pairs which sums to equal to k (unsorted array)
+*/
+
+function printPairs(arr, sum) {
+    let lo = 0, hi = arr.length-1;
+    while (lo < hi) {
+        if (arr[lo] + arr[hi] == sum) {
+            console.log([arr[lo], arr[hi]]);
+        }
+        if(arr[lo] + arr[hi] > sum) {
+            hi--;
+        } else {
+            lo++;
+        }
+    }
+}
+
+// let arr = [2, 3, 4, -2, 6, 8, 9, 11];
+// let sum = 6;
+// arr.sort(function(a,b){return a-b;});
+// printPairs(arr, sum);
+
+
+// Method 2
+function getAllPairs(arr, sum) {
+    let map = new Map();
+    for (let i=0; i<arr.length; i++) {
+        let num = sum - arr[i];
+
+        if (map.hasOwnProperty(num)) {
+            let count = map[num];
+
+            for (let j=0; j<count; j++) {
+                console.log([num, arr[i]]);
+            }
+        }
+        if (map.hasOwnProperty(arr[i])) {
+            map[arr[i]]++;
+        } else {
+            map[arr[i]] = 1;
+        }
+    }
+}
+
+// var arr = [18,8,12,2,5,20, 10, 50];
+// let sum = 20;
+// getAllPairs(arr, sum);
+
+//time complexity of this solution is O(c + n) where c is the count of pairs with a given sum.
+
+
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */

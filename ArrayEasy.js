@@ -1004,4 +1004,84 @@ var countMatches = function(items, ruleKey, ruleValue) {
 };
 
 
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
+Prob: Longest Substring with At Least K Repeating Characters
+Given a string s and an integer k, return the length of the longest substring of s such that the frequency of each character in this substring 
+is greater than or equal to k.
+
+Example:
+
+Input: s = "aaabb", k = 3
+Output: 3
+Explanation: The longest substring is "aaa", as 'a' is repeated 3 times.
+*/
+
+var longestSubstring = function(s, k) {
+    let maxUniq = new Set(s).size;
+    let max = 0;
+    for (let curUniq=1; curUniq<=maxUniq; curUniq++) {
+        let start=0, end=0, atLeastK=0, uniq=0, map = new Map();
+        while (end < s.length) {
+            map.set(s[end], map.get(s[end]) + 1 || 1);
+            if (map.get(s[end]) == 1) uniq++;
+            if(map.get(s[end]) == k) atLeastK++;
+
+            while (uniq > curUniq) {
+                map.set(s[start], map.get(s[start]) - 1);
+                if (map.get(s[start]) == k-1) atLeastK--;
+                if (map.get(s[start]) == 0) uniq--;
+                start++;
+            }
+            if (uniq == curUniq && uniq == atLeastK) {
+                max = Math.max(max, end - start + 1);
+            }
+            end++;
+        }
+    }
+    return max;
+};
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
+Prob: Longest Repeating Character Replacement
+You are given a string s and an integer k. You can choose any character of the string and change it to any other uppercase English character. 
+You can perform this operation at most k times.
+
+Return the length of the longest substring containing the same letter you can get after performing the above operations.
+
+Example:
+
+Input: s = "ABAB", k = 2
+Output: 4
+Explanation: Replace the two 'A's with two 'B's or vice versa.
+*/
+
+var characterReplacement = function(s, k) {
+    let left = 0, right = 0;
+    let maxCharCount = 0;
+    const visited = {};
+
+    while (right < s.length) {
+        const char = s[right];
+        visited[char] = visited[char] ? visited[char] + 1 : 1;
+        if(visited[char] > maxCharCount) maxCharCount = visited[char];
+
+        if(right-left+1-maxCharCount > k) {
+            visited[s[left]]--;
+            left++;
+        }
+        right++;
+    }
+    return right-left;
+};
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
 

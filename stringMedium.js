@@ -363,6 +363,89 @@ var findAnagrams = function(s, p) {
 /* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 
 
+/*
+Prob: Decode String
+Input: s = "3[a]2[bc]"
+Output: "aaabcbc"
+*/
+
+var decodeString = function(s) {
+    const stack = [];
+    for (const char of s) {
+        if (char !== "]") {
+            stack.push(char);
+            continue;
+        }
+        let cur = stack.pop();
+        let str = '';
+        while (cur !== '[') {
+            str = cur + str;
+            cur = stack.pop();
+        }
+        let num = '';
+        cur = stack.pop();
+        while (!Number.isNaN(Number(cur))) {
+            num = cur + num;
+            cur = stack.pop();
+        }
+        stack.push(cur);
+        stack.push(str.repeat(Number(num)));
+    }
+    return stack.join('');
+};
+
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
+Prob: Zigzag Conversion
+Example:
+Input: s = "PAYPALISHIRING", numRows = 3
+Output: "PAHNAPLSIIGYIR"
+*/
+
+// Method 1
+var convert = function(s, numRows) {
+    if (numRows === 1 || s.length < numRows) return s;
+
+    let rows = [];
+    let converted = '';
+    let reverse = false;
+    let count = 0;
+
+    for (let i=0; i<numRows; i++) {
+        rows[i] = [];
+    }
+    for (let i=0; i<s.length; i++) {
+        rows[count].push(s[i]);
+        reverse ? count-- : count++;
+        if (count === numRows - 1 || count === 0) reverse = !reverse;
+    }
+    return rows.reduce((converted, cur) => converted + cur.join(''), '');
+};
+
+
+// Method 2
+var convert = function(s, numRows) {
+    // 1. Make an array with the zigzag sequence
+    const zigzag = [...new Array(numRows).keys()];
+    zigzag.push(...zigzag.slice(1,-1).reverse());
+
+    // 2. Make an array with as many strings as we need rows
+    const rows = new Array(numRows).fill('');
+
+    // 3. Append the characters to the row strings in zigzag sequence
+    [...s].forEach((c,i) => (rows[zigzag[i%zigzag.length]] += c));
+
+    // 4. Join the row strings in the array together
+    return rows.join('');
+};
+
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
 
 
 

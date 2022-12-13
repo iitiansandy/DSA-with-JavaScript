@@ -84,5 +84,80 @@ var trap = function(height) {
 /* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 
 
+/*
+Prob: Jump Game II
+You are given a 0-indexed array of integers nums of length n. You are initially positioned at nums[0].
+
+Each element nums[i] represents the maximum length of a forward jump from index i. In other words, if you are at nums[i], you can jump to any 
+nums[i + j] where:
+
+0 <= j <= nums[i] and
+i + j < n
+Return the minimum number of jumps to reach nums[n - 1]. The test cases are generated such that you can reach nums[n - 1].
+
+Example:
+Input: nums = [2,3,1,1,4]
+Output: 2
+Explanation: The minimum number of jumps to reach the last index is 2. Jump 1 step from index 0 to 1, then 3 steps to the last index.
+*/
+
+var jump = function(nums) {
+    const size = nums.length;
+    let destination = size-1;
+    let curCoverage = 0, lastJumpIdx = 0;
+    let timesOfJump = 0;
+    if (size == 1) {
+        return 0;
+    }
+
+    for (let i=0; i<size; i++) {
+        curCoverage = Math.max(curCoverage, i + nums[i]);
+
+        if(i == lastJumpIdx) {
+            lastJumpIdx = curCoverage;
+            timesOfJump++;
+
+            if (curCoverage >= destination) {
+                return timesOfJump;
+            }
+        }
+    }
+    return timesOfJump;
+};
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
+Prob: Unique Paths II
+You are given an m x n integer array grid. There is a robot initially located at the top-left corner (i.e., grid[0][0]). The robot tries to move 
+to the bottom-right corner (i.e., grid[m - 1][n - 1]). The robot can only move either down or right at any point in time.
+Input: obstacleGrid = [[0,0,0],[0,1,0],[0,0,0]]
+Output: 2
+Explanation: There is one obstacle in the middle of the 3x3 grid above.
+There are two ways to reach the bottom-right corner:
+1. Right -> Right -> Down -> Down
+2. Down -> Down -> Right -> Right
+*/
+
+var uniquePathsWithObstacles = function(obstacleGrid) {
+    if(obstacleGrid[0][0]) return 0;
+    let m = obstacleGrid.length, n = obstacleGrid[0].length;
+    let dp = Array.from({length: m}, el => new Uint32Array(n));
+    dp[0][0] = 1;
+    for (let i=0; i<m; i++) {
+        for (let j=0; j<n; j++) {
+        if (obstacleGrid[i][j] || (!i && !j)) continue;
+        else dp[i][j] = (i ? dp[i-1][j] : 0) + (j ? dp[i][j-1] : 0);
+        }
+    }
+    return dp[m-1][n-1];
+};
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
 
 

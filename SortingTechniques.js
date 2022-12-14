@@ -3,20 +3,18 @@
 PROB - SELECTION SORT METHOD
 */
 
-var selectionSort = function (arr){
-    for(let i=0; i<arr.length - 1; i++){
-        let min = arr[i];
-        let minIndex = i;
-
-        for (let j = i + 1; j < arr.length; j++){
-            if(arr[j] < min){
-                min = arr[j];
-                minIndex = j;
+function selectionSort(arr){
+    for(let i=0; i<arr.length; i++){
+        let min = i;
+        for(let j=i+1; j<arr.length; j++){
+            if(arr[j] < arr[min]){
+                min = j;
             }
         }
-        if(minIndex != i){
-            arr[minIndex] = arr[i];
-            arr[i] = min;
+        if(i !== min){
+            let temp = arr[i];
+            arr[i] = arr[min];
+            arr[min] = temp;
         }
     }
     return arr;
@@ -54,13 +52,13 @@ PROB - INSERTION SORT METHOD
 var insertionSort = function(arr){
     for(let i=1; i<arr.length; i++){
         let j = i-1;
-        let temp = arr[i];
+        let curVal = arr[i];
 
-        while(j >= 0 && arr[j]>temp){
+        while(j >= 0 && arr[j] > curVal){
             arr[j+1] = arr[j];
             j--;
         }
-        arr[j+1]=temp;
+        arr[j+1] = curVal;
     }
     return arr;
 }

@@ -1079,6 +1079,35 @@ function getAllPairs(arr, sum) {
 //time complexity of this solution is O(c + n) where c is the count of pairs with a given sum.
 
 
-
-
 /* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
+Prob: Write a function which accepts an array of integers and a number. The function should calculate the maximum sum of n consecutive elements 
+in the aray
+Ex: Input: arr = [1,2,5,2,8,1,5], num = 4
+Output: 17
+*/
+
+function maxSubArray(arr, num) {
+    let maxSum = 0, curSum = 0;
+    if (arr.length < num) return null;
+
+    for (let i=0; i<num; i++) {
+        maxSum += arr[i];
+    }
+    curSum = maxSum;
+    for (let i=num; i<arr.length; i++) {
+        curSum = curSum - arr[i-num] + arr[i];
+        maxSum = Math.max(maxSum, curSum);
+    }
+    return maxSum;
+}
+
+// let arr = [1,2,5,2,8,1,5], num = 3;
+// console.log(maxSubArray(arr, num));  // TC --> O(n);
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+

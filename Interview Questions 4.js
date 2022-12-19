@@ -156,3 +156,57 @@ function findLongestSubstring(str){
 
 /* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 
+
+
+/*
+Prob: Combinations
+Given two integers n and k, return all possible combinations of k numbers chosen from the range [1, n].
+
+You may return the answer in any order.
+
+Example:
+Input: n = 4, k = 2
+Output: [[1,2],[1,3],[1,4],[2,3],[2,4],[3,4]]
+Explanation: There are 4 choose 2 = 6 total combinations.
+Note that combinations are unordered, i.e., [1,2] and [2,1] are considered to be the same combination.
+*/
+
+// Method 1
+var combine = function(n, k) {
+    function* comb(start, curComb) {
+        if (curComb.length == k) {
+            yield curComb;
+            return;
+        }
+        for (let i=start; i<=n; i++) {
+            yield* comb(i+1, [...curComb, i]);
+        }
+        return;
+    }
+    return [...comb(start=1, curComb=[])];
+};
+
+
+// Method 2
+var combine = function(n, k) {
+    let result = [];
+    let comb = function(start, curComb) {
+        if (curComb.length == k) {
+            result.push([...curComb]);
+            return;
+        }
+        for (let i=start; i<=n; i++) {
+            curComb.push(i);
+            comb(i+1, curComb);
+            curComb.pop();
+        }
+        return;
+    }
+    comb(start=1, curComb=[]);
+    return result;
+};
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+

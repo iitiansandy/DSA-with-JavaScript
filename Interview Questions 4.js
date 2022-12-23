@@ -210,3 +210,47 @@ var combine = function(n, k) {
 /* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 
 
+/*
+Prob: Longest Common Prefix
+Write a function to find the longest common prefix string amongst an array of strings.
+If there is no common prefix, return an empty string "".
+Example:
+Input: strs = ["flower","flow","flight"]
+Output: "fl"
+*/
+
+var longestCommonPrefix = function(strs) {
+    'use strict';
+    if(strs === undefined || strs.length === 0) return '';
+    return strs.reduce((prev, next) => {
+        let i=0;
+        while (prev[i] && next[i] && prev[i] === next[i]) i++;
+        return prev.slice(0, i);
+    });
+};
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
+Prob: Minimum Depth of Binary Tree
+Given a binary tree, find its minimum depth.
+The minimum depth is the number of nodes along the shortest path from the root node down to the nearest leaf node.
+Example: Input: root = [3,9,20,null,null,15,7]
+Output: 2
+*/
+
+var minDepth = function(root) {
+    if (root == null) return 0;
+    if (root.left == null && root.right == null) return 1;
+
+    if (root.left == null) return 1 + minDepth(root.right);
+    if (root.right == null) return 1 + minDepth(root.left);
+    return Math.min(minDepth(root.left), minDepth(root.right)) + 1;
+};
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+

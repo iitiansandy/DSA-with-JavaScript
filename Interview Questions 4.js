@@ -344,3 +344,108 @@ var pathSum = function(root, targetSum) {
 
 /* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 
+
+
+/*
+Prob: Clone Graph
+Given a reference of a node in a connected undirected graph.
+Return a deep copy (clone) of the graph.
+Example: Input: adjList = [[2,4],[1,3],[2,4],[1,3]]
+Output: [[2,4],[1,3],[2,4],[1,3]]
+*/
+
+// BFS Method
+var cloneGraph = function(node) {
+    let start = node;
+    if(start === null) return null;
+    const vertexMap = new Map();
+ 
+    const queue = [start];
+    vertexMap.set(start, new Node(start.val));
+ 
+    while (queue.length) {
+        const currentVertex = queue.shift();
+        for (const neighbor of currentVertex.neighbors) {
+            if (!vertexMap.has(neighbor)) {
+                vertexMap.set(neighbor, new Node(neighbor.val));
+                queue.push(neighbor);
+            }
+            vertexMap.get(currentVertex).neighbors.push(vertexMap.get(neighbor));
+        }
+    }
+    return vertexMap.get(start);
+ };
+
+
+ // DFS Method
+ var cloneGraph = function(node) {
+    if (!node) return null;
+ 
+    const map = new Map();
+    const clone = root => {
+        if (!map.has(root.val)) {
+        map.set(root.val, new Node(root.val));
+        map.get(root.val).neighbors = root.neighbors.map(clone);
+        }
+        return map.get(root.val);
+    }
+    return clone(node);
+ };
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
+Prob:Evaluate Reverse Polish Notation
+You are given an array of strings tokens that represents an arithmetic expression in a Reverse Polish Notation.
+Evaluate the expression. Return an integer that represents the value of the expression.
+Example:
+Input: tokens = ["2","1","+","3","*"]
+Output: 9
+Explanation: ((2 + 1) * 3) = 9
+*/
+
+// Method 1
+var evalRPN = function(tokens) {
+    let stack = [];
+    let ops = {
+        '+': (a,b) => a + b,
+        '-': (a,b) => a - b,
+        '*': (a,b) => a * b,
+        '/': (a,b) => a / b >= 0 ? Math.floor(a / b) : Math.ceil(a / b),
+    };
+    for (let t of tokens) {
+        if (ops[t]) {
+            let top = stack.pop();
+            let second = stack.pop();
+            stack.push(ops[t](second, top));
+        } else {
+            stack.push(Number(t));
+        }
+    }
+    return stack.pop();
+};
+
+
+// Method 2
+let a, b;
+const evaluate = {"+": ()=>a+b, "-": ()=>a-b, "*": ()=>a*b, "/": ()=>~~(a/b)};
+var evalRPN = function(tokens) {
+    let stack = [];
+    for (let t of tokens) {
+        if (evaluate[t]) {
+            b = stack.pop();
+            a = stack.pop();
+            stack.push(evaluate[t]());
+        } else {
+            stack.push(~~t);
+        }
+    }
+    return stack[0];
+};
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+

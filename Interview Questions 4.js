@@ -449,3 +449,135 @@ var evalRPN = function(tokens) {
 /* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 
 
+
+/*
+Prob: Course Schedule
+There are a total of numCourses courses you have to take, labeled from 0 to numCourses - 1. You are given an array prerequisites where 
+prerequisites[i] = [ai, bi] indicates that you must take course bi first if you want to take course ai.
+For example, the pair [0, 1], indicates that to take course 0 you have to first take course 1.
+Return true if you can finish all courses. Otherwise, return false.
+
+Example:
+Input: numCourses = 2, prerequisites = [[1,0]]
+Output: true
+Explanation: There are a total of 2 courses to take. 
+To take course 1 you should have finished course 0. So it is possible.
+*/
+
+// Method 1 (Topological Sort)
+var canFinish = function(numCourses, prerequisites) {
+    const order = [];
+    const queue = [];
+    const graph = new Map();
+    const indegree = Array(numCourses).fill(0);
+
+    for (const [e,v] of prerequisites) {
+        if (graph.has(v)) {
+            graph.get(v).push(e);
+        } else {
+            graph.set(v, [e]);
+        }
+        indegree[e]++;
+    }
+    for (let i=0; i<indegree.length; i++) {
+        if (indegree[i] === 0) queue.push(i);
+    }
+    while (queue.length) {
+        const v = queue.shift();
+        if (graph.has(v)) {
+            for (const e of graph.get(v)) {
+                indegree[e]--;
+                if (indegree[e] === 0) queue.push(e);
+            }
+        }
+        order.push(v);
+    }
+    return numCourses === order.length;
+};
+
+
+// Method 2 (DFS)
+let visiting;
+let visited;
+let graph;
+
+var canFinish = function(numCourses, prerequisites) {
+    graph = new Map();
+    visiting = new Set();
+    visited = new Set();
+
+    for (let [v, e] of prerequisites) {
+        if (graph.has(v)) {
+            let edges = graph.get(v);
+            edges.push(e);
+            graph.set(v, edges);
+        } else {
+            graph.set(v, [e]);
+        }
+    }
+    for (const [v, e] of graph) {
+        if (DFS(v)) {
+            return false;
+        }
+    }
+    return true;
+};
+
+var DFS = function(v) {
+    visiting.add(v);
+    let edges = graph.get(v);
+    if (edges) {
+        for (let e of edges) {
+            if (visited.has(e)) {
+                continue;
+            }
+            if (visiting.has(e)) {
+                return true;
+            }
+            if (DFS(e)) {
+                return true;
+            }
+        }
+    }
+    visiting.delete(v);
+    visited.add(v);
+    return false;
+};
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
+Prob: 
+
+*/
+
+// Method 1 (Dynamic Programming)
+var coinChange = function(coins, amount) {
+    const dp = Array(amount+1).fill(Infinity);
+    dp[0] = 0;
+    for (let i=1; i<=amount; i++) {
+        for (const coin of coins) {
+            if (i - coin >= 0) {
+                dp[i] = Math.min(dp[i], dp[i-coin] + 1);
+            }
+        }
+    }
+    return dp[amount] === Infinity ? -1 : dp[amount];
+};
+
+
+// Method 2 (DFS + Greedy + Pruning)
+var coinChange = function(coins, amount) {
+    const dp = Array(amount + 1).fill(Infinity); // This arr tells us how many coins we need for each amount.
+    dp[0] = 0; // To make 0, we need 0 coins.
+    for (let coin of coins) { // Check each coin
+    for (let i = coin; i <= amount; i++) { // Iterate through the entire amount from coin
+      dp[i] = Math.min(dp[i], dp[i - coin] + 1); // Update minimum number of needed coins.
+    }
+  }
+  return dp[amount] === Infinity ? -1 : dp[amount]; // If the last element is Infinity, then we cannot make the amount.
+};
+
+

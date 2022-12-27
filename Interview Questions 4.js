@@ -581,3 +581,157 @@ var coinChange = function(coins, amount) {
 };
 
 
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
+Prob: Rotting Oranges
+You are given an m x n grid where each cell can have one of three values:
+0 representing an empty cell,
+1 representing a fresh orange, or
+2 representing a rotten orange.
+Every minute, any fresh orange that is 4-directionally adjacent to a rotten orange becomes rotten.
+Return the minimum number of minutes that must elapse until no cell has a fresh orange. If this is impossible, return -1.
+
+Example: Input: grid = [[2,1,1],[1,1,0],[0,1,1]]
+Output: 4
+*/
+
+// Method 1 (BFS)
+var orangesRotting = function(grid) {
+    const height = grid.length;
+    const width = grid[0].length;
+    let fresh = 0;
+    const queue = [];
+    for (let i=0; i<height; i++) {
+        for (let j=0; j<width; j++) {
+            if (grid[i][j] === 2) queue.push([i, j]);
+            if (grid[i][j] === 1) fresh++;
+        }
+    }
+
+    let minute = 0;
+    while (queue.length) {
+        const size = queue.length;
+        for (let i=0; i<size; i++) {
+            const [ x, y] = queue.shift();
+            if (x - 1 >= 0 && grid[x-1][y] === 1) {
+                grid[x-1][y] = 2;
+                fresh--;
+                queue.push([x-1, y]);
+            }
+            if (x+1 < height && grid[x+1][y] === 1) {
+                grid[x+1][y] = 2;
+                fresh--;
+                queue.push([x+1, y]);
+            }
+            if (y-1 >= 0 && grid[x][y-1] === 1) {
+                grid[x][y-1] = 2;
+                fresh--;
+                queue.push([x, y-1]);
+            }
+            if (y+1 < width && grid[x][y+1] === 1) {
+                grid[x][y+1] = 2;
+                fresh--;
+                queue.push([x,y+1]);
+            }
+        }
+        if (queue.length > 0) minute++;
+    }
+    return fresh === 0 ? minute : -1;
+};
+
+
+// Method 1 (DFS)
+var orangesRotting = function(grid) {
+    let r = grid.length, c = grid[0].length;
+    const traverse = (i, j) => {
+        if(i<0 || j<0 || i>=r || j>=c || grid[i][j] === 0) {
+            return Infinity;
+        }
+        if (grid[i][j] === 2) return 0;
+        grid[i][j] = 0;
+        let down = traverse(i+1, j);
+        let up = traverse(i-1, j);
+        let right = traverse(i, j+1);
+        let left = traverse(i, j-1);
+        let min = Math.min(left, right, up, down);
+        grid[i][j] = 1;
+        let res = min === Infinity ? min : min + 1;
+        return res;
+    }
+    let ans = 0;
+    for (let i = 0; i<r; i++) {
+        for (let j=0; j<c; j++) {
+            if (grid[i][j] === 1) {
+                ans = Math.max(traverse(i, j), ans);
+            }
+        }
+    }
+    return ans === Infinity ? -1 : ans;
+};
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
+Prob: Time Based Key-Value Store
+Design a time-based key-value data structure that can store multiple values for the same key at different time stamps and retrieve the key's 
+value at a certain timestamp. Implement the TimeMap class:
+TimeMap() Initializes the object of the data structure.
+void set(String key, String value, int timestamp) Stores the key key with the value value at the given time timestamp.
+String get(String key, int timestamp) Returns a value such that set was called previously, with timestamp_prev <= timestamp. If there are 
+multiple such values, it returns the value associated with the largest timestamp_prev. If there are no values, it returns "".
+ 
+Example:
+
+Input
+["TimeMap", "set", "get", "get", "set", "get", "get"]
+[[], ["foo", "bar", 1], ["foo", 1], ["foo", 3], ["foo", "bar2", 4], ["foo", 4], ["foo", 5]]
+Output
+[null, null, "bar", "bar", null, "bar2", "bar2"]
+
+Explanation
+TimeMap timeMap = new TimeMap();
+timeMap.set("foo", "bar", 1);  // store the key "foo" and value "bar" along with timestamp = 1.
+timeMap.get("foo", 1);         // return "bar"
+timeMap.get("foo", 3);         // return "bar", since there is no value corresponding to foo at timestamp 3 and timestamp 2, then the only value 
+is at timestamp 1 is "bar".
+timeMap.set("foo", "bar2", 4); // store the key "foo" and value "bar2" along with timestamp = 4.
+timeMap.get("foo", 4);         // return "bar2"
+timeMap.get("foo", 5);         // return "bar2"
+*/
+
+class TimeMap {
+    constructor() {             // O(1)
+        this.map = new Map();   // SC: O(T)
+    }
+    set(key, value, timestamp) {    // O(1)
+        const keyVals = this.map.has(key) ? this.map.get(key) : [];
+        keyVals.push([timestamp, value]);
+        this.map.set(key, keyVals);
+    }
+    get(key, timestamp) {           // O(logT)
+        const keyTimestamps = this.map.has(key) ? this.map.get(key) : [];
+        let left = 0,
+            right = keyTimestamps.length - 1,
+            mid, ts = null
+        
+		// using binary search to find the ts <= timestamp
+        while(left <= right) {
+            mid = left + Math.floor((right - left) / 2);
+            if(keyTimestamps[mid][0] <= timestamp) {
+                ts = keyTimestamps[mid][1];
+                left = mid + 1;
+            } else {
+                right = mid - 1;
+            }
+        }
+        return ts === null ? "" : ts;
+    }
+}
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+

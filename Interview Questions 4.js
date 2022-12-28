@@ -735,3 +735,108 @@ class TimeMap {
 
 /* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 
+
+
+/*
+Prob: Accounts Merge
+Given a list of accounts where each element accounts[i] is a list of strings, where the first element accounts[i][0] is a name, and the rest of 
+the elements are emails representing emails of the account.
+After merging the accounts, return the accounts in the following format: the first element of each account is the name, and the rest of the elements 
+are emails in sorted order. The accounts themselves can be returned in any order.
+
+Example:
+Input: accounts = [["John","johnsmith@mail.com","john_newyork@mail.com"],["John","johnsmith@mail.com","john00@mail.com"],["Mary","mary@mail.com"],["John","johnnybravo@mail.com"]]
+Output: [["John","john00@mail.com","john_newyork@mail.com","johnsmith@mail.com"],["Mary","mary@mail.com"],["John","johnnybravo@mail.com"]]
+*/
+
+var accountsMerge = function(accounts) {
+    let graph = {};
+    let nameDict = {};
+
+    for (let acc of accounts) {
+        let name = acc[0];
+        nameDict[acc[1]] = name;
+        for (let i=1; i<acc.length; i++) {
+            if (!graph[acc[i]]) graph[acc[i]] = new Set();
+            nameDict[acc[i]] = name;
+            if (i != 1) {
+                graph[acc[1]].add(acc[i]);
+                graph[acc[i]].add(acc[1]);
+            }
+        }
+    }
+
+    let res = [];
+    let visited = new Set();
+    let dfs = function(key) {
+        visited.add(key);
+        let emails = [key];
+        graph[key].forEach((e) => {
+            if (!visited.has(e)) {
+                emails.push(...dfs(e));
+            }
+        });
+        return emails;
+    };
+
+    for (let key in graph) {
+        if (!visited.has(key)) {
+            let temp = dfs(key);
+            temp.sort();
+            temp.unshift(nameDict[temp[0]]);
+            res.push(temp);
+        }
+    }
+    return res;
+};
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+
+/*
+Prob: Minimum Height Trees
+Given a tree of n nodes labelled from 0 to n - 1, and an array of n - 1 edges where edges[i] = [ai, bi] indicates that there is an undirected 
+edge between the two nodes ai and bi in the tree, you can choose any node of the tree as the root. When you select a node x as the root, the 
+result tree has height h. Among all possible rooted trees, those with minimum height (i.e. min(h))  are called minimum height trees (MHTs).
+Return a list of all MHTs' root labels. You can return the answer in any order.
+The height of a rooted tree is the number of edges on the longest downward path between the root and a leaf.
+Example:
+Input: n = 4, edges = [[1,0],[1,2],[1,3]]
+Output: [1]
+Explanation: As shown, the height of the tree is 1 when the root is the node with label 1 which is the only MHT.
+*/
+
+var findMinHeightTrees = function(n, edges) {
+    if (!edges || n < 2) return [0];
+    let graph = [];
+	// parse edges
+    for (let [x, y] of edges) {
+        graph[x] = graph[x] || [];
+        graph[y] = graph[y] || [];
+        graph[x].push(y);
+        graph[y].push(x);
+    }
+    let leaves = [];
+	// init leaf nodes
+    graph.map((pts,i) => pts.length === 1 && leaves.push(i));
+    while (n > 2) {
+        n = n - leaves.length;
+        let nxt_leaves = [];
+        for (let leave of leaves) {
+		    // remove leaf node and itself in related nodes
+            tmp = graph[leave].pop();
+            graph[tmp].splice(graph[tmp].indexOf(leave),1);
+			// save new leaf node
+            graph[tmp].length === 1 && nxt_leaves.push(tmp);
+        }
+        leaves = nxt_leaves;
+    }
+    return leaves;
+};
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+

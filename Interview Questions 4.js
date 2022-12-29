@@ -840,3 +840,152 @@ var findMinHeightTrees = function(n, edges) {
 /* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 
 
+
+/*
+Prob: LRU Cache
+Design a data structure that follows the constraints of a Least Recently Used (LRU) cache.
+
+Implement the LRUCache class:
+
+LRUCache(int capacity) Initialize the LRU cache with positive size capacity.
+int get(int key) Return the value of the key if the key exists, otherwise return -1.
+void put(int key, int value) Update the value of the key if the key exists. Otherwise, add the key-value pair to the cache. If the number of 
+keys exceeds the capacity from this operation, evict the least recently used key.
+The functions get and put must each run in O(1) average time complexity.
+
+Example:
+Input
+["LRUCache", "put", "put", "get", "put", "get", "put", "get", "get", "get"]
+[[2], [1, 1], [2, 2], [1], [3, 3], [2], [4, 4], [1], [3], [4]]
+Output
+[null, null, null, 1, null, -1, null, -1, 3, 4]
+*/
+
+class LRUCache {
+    constructor(capacity) {
+      this.cache = new Map();
+      this.capacity = capacity;
+    }
+  
+    get(key) {
+      if (!this.cache.has(key)) return -1;
+  
+      const v = this.cache.get(key);
+      this.cache.delete(key);
+      this.cache.set(key, v);
+      return this.cache.get(key);
+    };
+  
+    put(key, value) {
+      if (this.cache.has(key)) {
+        this.cache.delete(key);
+      }
+      this.cache.set(key, value);
+      if (this.cache.size > this.capacity) {
+        this.cache.delete(this.cache.keys().next().value);
+      }
+    };
+  };
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
+Prob: Serialize and Deserialize Binary Tree
+Serialization is the process of converting a data structure or object into a sequence of bits so that it can be stored in a file or memory buffer,
+or transmitted across a network connection link to be reconstructed later in the same or another computer environment.
+
+Design an algorithm to serialize and deserialize a binary tree. There is no restriction on how your serialization/deserialization algorithm should 
+work. You just need to ensure that a binary tree can be serialized to a string and this string can be deserialized to the original tree structure.
+Example:
+Input: root = [1,2,3,null,null,4,5]
+Output: [1,2,3,null,null,4,5]
+*/
+
+function serialize(root) {
+    let data = [];
+  
+    function go(node) {
+      if (node == null) {
+        data.push(null);
+        return;
+      }
+  
+      data.push(node.val);
+      go(node.left);
+      go(node.right);
+    }
+  
+    go(root);
+    return data;
+  }
+  
+  function deserialize(data) {
+    function go() {
+      if (data.length === 0) return;
+  
+      const val = data.shift();
+      if (val == null) return null;
+  
+      const node = new TreeNode(val);
+      node.left = go();
+      node.right = go();
+      return node;
+    }
+  
+    return go();
+  }
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
+Prob: Find Median from Data Stream
+The median is the middle value in an ordered integer list. If the size of the list is even, there is no middle value, and the median is the mean 
+of the two middle values.
+
+For example, for arr = [2,3,4], the median is 3.
+For example, for arr = [2,3], the median is (2 + 3) / 2 = 2.5.
+Implement the MedianFinder class:
+
+MedianFinder() initializes the MedianFinder object.
+void addNum(int num) adds the integer num from the data stream to the data structure.
+double findMedian() returns the median of all elements so far. Answers within 10-5 of the actual answer will be accepted.
+ 
+Example:
+Input
+["MedianFinder", "addNum", "addNum", "findMedian", "addNum", "findMedian"]
+[[], [1], [2], [], [3], []]
+Output
+[null, null, null, 1.5, null, 2.0]
+
+*/
+
+MedianFinder.prototype.addNum = function(num) {
+    const bs = n => {
+        let start = 0;
+        let end = this.arr.length;
+        while (start < end){
+            let mid = Math.floor((start+end)/2);
+            if (n > this.arr[mid]) start = mid+1;
+            else end = mid;
+        }
+        this.arr.splice(start,0,n);
+    }
+    if (this.arr.length === 0) this.arr.push(num);
+    else bs(num);
+};
+
+/**
+ * @return {number}
+ */
+MedianFinder.prototype.findMedian = function() {
+    const mid = Math.floor(this.arr.length/2);
+    return (this.arr.length%2===0) ? (this.arr[mid-1]+this.arr[mid])/2 : this.arr[mid];
+};
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+

@@ -989,3 +989,101 @@ MedianFinder.prototype.findMedian = function() {
 
 /* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 
+
+
+/*
+Prob: Word Ladder
+A transformation sequence from word beginWord to word endWord using a dictionary wordList is a sequence of words beginWord -> s1 -> s2 -> ... -> sk such
+that:
+Every adjacent pair of words differs by a single letter.
+Every si for 1 <= i <= k is in wordList. Note that beginWord does not need to be in wordList.
+sk == endWord
+Given two words, beginWord and endWord, and a dictionary wordList, return the number of words in the shortest transformation sequence from beginWord to 
+endWord, or 0 if no such sequence exists.
+
+Example:
+Input: beginWord = "hit", endWord = "cog", wordList = ["hot","dot","dog","lot","log","cog"]
+Output: 5
+Explanation: One shortest transformation sequence is "hit" -> "hot" -> "dot" -> "dog" -> cog", which is 5 words long.
+*/
+
+var ladderLength = function(beginWord, endWord, wordList) {
+    const dict = new Set(wordList);
+    let step = 1;
+    let q = [beginWord];
+    while (q.length) {
+        const next = [];
+        for (let w of q) {
+            if (w === endWord) return step;
+
+            for (let i=0; i<w.length; i++) {
+                for (let j=0; j<26; j++) {
+                    const w2 = w.slice(0, i) + String.fromCharCode(97 + j) + w.slice(i+1);
+                    if (dict.has(w2)) {
+                        next.push(w2);
+                        dict.delete(w2);
+                    }
+                }
+            }
+        }
+        q = next;
+        step++;
+    }
+    return 0;
+};
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
+Prob: Basic Calculator
+Given a string s representing a valid expression, implement a basic calculator to evaluate it, and return the result of the evaluation.
+Note: You are not allowed to use any built-in function which evaluates strings as mathematical expressions, such as eval().
+
+Example:
+Input: s = "1 + 1"
+Output: 2
+*/
+
+var calculate = function(s) {
+    s = "("+s+")";
+    let stack = [];
+    let temp = [];
+    for (let i=0; i<s.length; i++) {
+        if (s[i] === " ") continue;
+        if (s[i] === ")") {
+            while(stack[stack.length-1] !== "(") temp.push(stack.pop());
+            stack.pop();
+            stack.push(count(temp));
+            continue;
+        }
+        if (isNum(stack[stack.length-1]) && isNum(s[i])) {
+            stack[stack.length-1] += s[i];
+            continue;
+        }
+        if (s[i] === "-" || s[i] === "+") {
+            if (stack.length === 0 || stack[stack.length-1] === "(") stack.push("0");
+        }
+        stack.push(s[i]);
+    }
+    return stack[0];
+};
+
+function count(temp) {
+    temp = temp.reverse();
+    while (temp.length !== 1) {
+        if (temp[1] === "+") temp[0] = (+temp[0]) + (+temp[2]);
+        if (temp[1] === "-") temp[0] = (+temp[0]) - (+temp[2]);
+        temp.splice(1,2);
+    }
+    return temp.pop();
+};
+function isNum(str) {
+    return /[0-9]+/.test(str);
+};
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+

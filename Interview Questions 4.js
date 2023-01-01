@@ -1087,3 +1087,151 @@ function isNum(str) {
 /* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 
 
+
+/*
+Prob: Largest Rectangle in Histogram
+Given an array of integers heights representing the histogram's bar height where the width of each bar is 1, return the area of the largest rectangle 
+in the histogram.
+
+Example: Input: heights = [2,1,5,6,2,3]
+Output: 10
+Explanation: The above is a histogram where width of each bar is 1.
+The largest rectangle is shown in the red area, which has an area = 10 units.
+*/
+
+var largestRectangleArea = function(heights) {
+    let maxArea = 0;
+    const stack = [];
+    // Append shadow rectangle (height = 0) to both side
+    heights = [0].concat(heights).concat([0]);
+    for (let i = 0; i < heights.length; i++) {
+	while (stack && heights[stack[stack.length - 1]] > heights[i]) {
+            const j = stack.pop();
+            maxArea = Math.max((i - stack[stack.length - 1]-1) * heights[j], maxArea);
+        }
+        stack.push(i);
+    }
+    return maxArea;
+};
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+
+/*
+Prob: Implement Trie (Prefix Tree)
+A trie (pronounced as "try") or prefix tree is a tree data structure used to efficiently store and retrieve keys in a dataset of strings. There are 
+various applications of this data structure, such as autocomplete and spellchecker.
+
+Implement the Trie class:
+
+Trie() Initializes the trie object.
+void insert(String word) Inserts the string word into the trie.
+boolean search(String word) Returns true if the string word is in the trie (i.e., was inserted before), and false otherwise.
+boolean startsWith(String prefix) Returns true if there is a previously inserted string word that has the prefix prefix, and false otherwise.
+ 
+Example:
+
+Input
+["Trie", "insert", "search", "search", "startsWith", "insert", "search"]
+[[], ["apple"], ["apple"], ["app"], ["app"], ["app"], ["app"]]
+Output
+[null, null, true, false, true, null, true]
+
+Explanation
+Trie trie = new Trie();
+trie.insert("apple");
+trie.search("apple");   // return True
+trie.search("app");     // return False
+trie.startsWith("app"); // return True
+trie.insert("app");
+trie.search("app");     // return True
+
+*/
+
+class Trie {
+    constructor() {
+      this.root = {};
+    }
+  
+    insert(word) {
+      let node = this.root;
+      for (let c of word) {
+        if (node[c] == null) node[c] = {};
+        node = node[c];
+      }
+      node.isWord = true;
+    }
+  
+    traverse(word) {
+      let node = this.root;
+      for (let c of word) {
+        node = node[c];
+        if (node == null) return null;
+      }
+      return node;
+    }
+  
+    search(word) {
+      const node = this.traverse(word);
+      return node != null && node.isWord === true;
+    }
+  
+    startsWith(prefix) {
+      return this.traverse(prefix) != null;
+    }
+  }
+  
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
+Prob: Text Justification
+Given an array of strings words and a width maxWidth, format the text such that each line has exactly maxWidth characters and is fully (left and right) 
+justified.
+Example: Input: words = ["This", "is", "an", "example", "of", "text", "justification."], maxWidth = 16
+Output:
+[
+   "This    is    an",
+   "example  of text",
+   "justification.  "
+]
+*/
+
+var fullJustify = function(words, maxWidth) {
+    const res = [[]];
+    res[0].letters = 0;
+    for (let word of words) {
+        let row = res[res.length - 1];
+        if (row.length && row.letters + row.length + word.length > maxWidth) {
+            res.push([]);
+            row = res[res.length - 1];
+            row.letters = 0;
+        }
+        row.push(word);
+        row.letters += word.length;
+    }
+    for (let r = 0; r < res.length; r++) {
+        let row = res[r];
+        if (row.length === 1 || r === res.length - 1) {
+            res[r] = row.join(' ') + ' '.repeat(maxWidth - row.letters - row.length + 1);
+            continue;
+        }
+        let line = row[0];
+        let spaces = maxWidth - row.letters;
+        let minSpaces = ' '.repeat(Math.floor(spaces / (row.length - 1)));
+        let addSpace = spaces % (row.length - 1);
+        for (let w = 1; w < row.length; w++) {
+            line += minSpaces + (w <= addSpace ? ' ' : '') + row[w];
+        }
+        res[r] = line;
+    }
+    return res;
+};
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+

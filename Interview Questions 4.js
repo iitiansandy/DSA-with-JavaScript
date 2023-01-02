@@ -1235,3 +1235,79 @@ var fullJustify = function(words, maxWidth) {
 /* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 
 
+
+/*
+Prob: Edit Distance
+Given two strings word1 and word2, return the minimum number of operations required to convert word1 to word2.
+You have the following three operations permitted on a word:
+Insert a character
+Delete a character
+Replace a character
+
+Example:
+
+Input: word1 = "horse", word2 = "ros"
+Output: 3
+Explanation: 
+horse -> rorse (replace 'h' with 'r')
+rorse -> rose (remove 'r')
+rose -> ros (remove 'e')
+
+*/
+
+var minDistance = function(word1, word2) {
+    let dp = Array(word1.length+1).fill(null).map(() =>(Array(word2.length+1).fill(0)));
+    for (let i=0; i<dp.length; i++) {
+        dp[i][0] = i;
+    }
+    for (let i=0; i<dp[0].length; i++) {
+        dp[0][i] = i;
+    }
+    for (let i=1; i<dp.length; i++) {
+        for (let j=1; j<dp[0].length; j++) {
+            dp[i][j] = Math.min(
+                dp[i-1][j]+1, dp[i][j-1]+1, dp[i-1][j-1] + (word1[i-1] != word2[j-1] ? 1 : 0)
+            );
+        }
+    }
+    return dp[dp.length-1][dp[0].length-1];
+};
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
+Prob: Maximal Rectangle
+Given a rows x cols binary matrix filled with 0's and 1's, find the largest rectangle containing only 1's and return its area.
+Example: Input: matrix = [["1","0","1","0","0"],["1","0","1","1","1"],["1","1","1","1","1"],["1","0","0","1","0"]]
+Output: 6
+Explanation: The maximal rectangle is shown in the above picture.
+*/
+
+var maximalRectangle = function(matrix) {
+    const n = matrix.length;
+    if (n === 0) return 0;
+    const m = matrix[0].length;
+    const h = new Array(n).fill(0);
+    let max = 0;
+    for (let j=0; j<m; j++) {
+        for (let i=0; i<n; i++) {
+            if (matrix[i][j] === '1') h[i]++;
+            else h[i] = 0;
+        }
+        for (let i=0; i<n; i++) {
+            let k1 = i-1;
+            while (k1>=0 && h[i]<=h[k1]) k1--;
+            let k2 = i+1;
+            while(k2<n && h[i]<=h[k2]) k2++;
+            max = Math.max(max, h[i] * (k2-k1-1));
+        }
+    }
+    return max;
+};
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+

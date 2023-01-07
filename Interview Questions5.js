@@ -264,6 +264,6 @@ function traverseMatrix(n) {
     }
     return arr.reverse().flat();
 }
-// console.log(traverseMatrix(3));
+console.log(traverseMatrix(3));
 
 

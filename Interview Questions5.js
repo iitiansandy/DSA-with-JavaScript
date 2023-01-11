@@ -433,3 +433,54 @@ var findLadders = function(beginWord, endWord, wordList) {
 /* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 
 
+
+/*
+Prob: Sum Root to Leaf Numbers
+You are given the root of a binary tree containing digits from 0 to 9 only.
+Each root-to-leaf path in the tree represents a number.
+For example, the root-to-leaf path 1 -> 2 -> 3 represents the number 123.
+Return the total sum of all root-to-leaf numbers. Test cases are generated so that the answer will fit in a 32-bit integer.
+A leaf node is a node with no children.
+Example: Input: root = [1,2,3]
+Output: 25
+Explanation:
+The root-to-leaf path 1->2 represents the number 12.
+The root-to-leaf path 1->3 represents the number 13.
+Therefore, sum = 12 + 13 = 25.
+*/
+
+// Method 1
+var sumNumbers = function(root) {
+    function traverse(node, num) {
+        if (!node) return null;
+        num += node.val;
+        if (!node.left && !node.right) return num++;
+        return traverse(node.left, num) + traverse(node.right, num);
+    }
+    return traverse(root, '');
+};
+
+
+// Method 2
+var sumNumbers = function(root) {
+    if(!root) return null;
+    let sum = 0;
+
+    function traverse(node, num) {
+        num += node.val;
+        if(!node.left && !node.right) sum += num++;
+        if(node.left) traverse(node.left, num);
+        if(node.right) traverse(node.right, num);
+    }
+    traverse(root, ' ');
+    return sum;
+};
+
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+/*
+Prob: 
+*/
+
+

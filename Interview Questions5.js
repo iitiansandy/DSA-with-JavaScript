@@ -479,8 +479,34 @@ var sumNumbers = function(root) {
 
 /* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 
+
 /*
-Prob: 
+Prob: Delete Operation for Two Strings
+Given two strings word1 and word2, return the minimum number of steps required to make word1 and word2 the same.
+In one step, you can delete exactly one character in either string.
+
+Example:
+Input: word1 = "sea", word2 = "eat"
+Output: 2
+Explanation: You need one step to make "sea" to "ea" and another step to make "eat" to "ea".
 */
+
+var minDistance = function(word1, word2) {
+    let m = word1.length, n = word2.length;
+    if (m < n) [word1, word2, m, n] = [word2, word1, n, m];
+    let wordArr1 = word1.split(""), wordArr2 = word2.split("");
+    let dpLast = new Uint16Array(n+1);
+    let dpCurr = new Uint16Array(n+1);
+
+    for (let i=0; i<m; i++) {
+        for (let j=0; j<n; j++) {
+            dpCurr[j+1] = wordArr1[i] === wordArr2[j] ? dpLast[j]+1 : Math.max(dpCurr[j], dpLast[j+1]);
+        }
+        [dpLast, dpCurr] = [dpCurr, dpLast];
+    }
+    return m + n - 2 * dpLast[n];
+};
+
+
 
 

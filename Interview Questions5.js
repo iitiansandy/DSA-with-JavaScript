@@ -630,3 +630,61 @@ var detectCycle = function(head) {
 /* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 
 
+
+/*
+Prob: Palindrome Partitioning II
+Given a string s, partition s such that every substring of the partition is a palindrome
+Return the minimum cuts needed for a palindrome partitioning of s.
+
+Example: Input: s = "aab"
+Output: 1
+Explanation: The palindrome partitioning ["aa","b"] could be produced using 1 cut.
+*/
+
+const minCut = s => {
+    if (s.length === 1) return 0;
+    const palindromes = buildPalindromes(s);
+    const cuts = buildCuts(s, palindromes);
+    return cuts[cuts.length - 1];
+}
+
+const buildPalindromes = string => {
+  let len = string.length;
+  const palindromes = Array(len).fill(0).map(el => Array(len).fill(false));
+  for (let i = 0; i < len; i++) {
+    palindromes[i][i] = true;
+  }
+  for (let length = 2; length < len + 1; length++) {
+    for (let i = 0; i < len - length + 1; i++) {
+      j = i + length - 1;
+      if (length === 2) {
+        palindromes[i][j] = string[i] === string[j]; 
+      } else {
+        palindromes[i][j] = string[i] === string[j] && palindromes[i + 1][j - 1];
+      }
+    }
+  }
+  return palindromes;
+}
+
+const buildCuts = (string, palindromes) => {
+    const cuts = Array(string.length).fill(Infinity);
+    for (let i = 0; i < string.length; i++) {
+        if (palindromes[0][i]) {
+            cuts[i] = 0
+        } else {
+            cuts[i] = cuts[i - 1] + 1;
+            for (let j = 1; j < i; j++) {
+                if (palindromes[j][i] && cuts[j - 1] + 1 < cuts[i]) {
+                    cuts[i] = cuts[j - 1] + 1;
+                }
+            }
+        }
+    }
+    return cuts;
+}
+
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+

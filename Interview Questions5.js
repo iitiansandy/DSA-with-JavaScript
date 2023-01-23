@@ -800,3 +800,171 @@ var maximumGap = function(nums) {
 /* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 
 
+/*
+Prob: Fraction to Recurring Decimal
+Given two integers representing the numerator and denominator of a fraction, return the fraction in string format.
+If the fractional part is repeating, enclose the repeating part in parentheses.
+If multiple answers are possible, return any of them.
+It is guaranteed that the length of the answer string is less than 104 for all the given inputs.
+
+Example: Input: numerator = 1, denominator = 2
+Output: "0.5"
+*/
+var fractionToDecimal = function(numerator, denominator) {
+    if(!numerator) return '0';
+    
+    let str = '';
+    
+    if(Math.sign(numerator) !== Math.sign(denominator)) str += '-';
+    
+    const numer = Math.abs(numerator)
+    const denom = Math.abs(denominator)
+    
+    str += Math.floor(numer/denom);
+    let rem = numer%denom;
+    if(!rem) return str;
+    str += '.'
+    
+    const map = new Map();
+    
+    while(rem !== 0) {
+        map.set(rem, str.length);
+        
+        rem *= 10;
+        str += Math.floor(rem/denom);
+        rem %= denom
+        
+        if(map.has(rem)) {
+            const idx = map.get(rem);
+            return str.slice(0, idx) + `(${str.slice(idx)})`; 
+        }
+    }
+    return str;
+};
+
+
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
+Prob: Excel Sheet Column Title
+Given an integer columnNumber, return its corresponding column title as it appears in an Excel sheet.
+For example:
+
+A -> 1
+B -> 2
+C -> 3
+...
+Z -> 26
+AA -> 27
+AB -> 28 
+...
+
+Example: Input: columnNumber = 1
+Output: "A"
+*/
+
+var convertToTitle = function(n) {
+    if (n == 0) return null;
+    let result = '';
+    while (n > 0) {
+        let r = n%26;
+        let d = parseInt(n/26);
+        if (r == 0) {
+            r = 26;
+            d = d - 1;
+        }
+        result += String.fromCharCode(64 + r);
+        n = d;
+    }
+    return result.split('').reverse().join("");
+};
+
+
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
+Prob: Factorial Trailing Zeroes
+Given an integer n, return the number of trailing zeroes in n!.
+
+Note that n! = n * (n - 1) * (n - 2) * ... * 3 * 2 * 1.
+
+Example: Input: n = 3
+Output: 0
+Explanation: 3! = 6, no trailing zero.
+*/
+
+var trailingZeroes = function(n) {
+    let numZeroes = 0;
+    for (let i=5; i<=n; i*=5) {
+        numZeroes += Math.floor(n/i);
+    }
+    return numZeroes;
+};
+
+
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
+Prob: Best Time to Buy and Sell Stock IV
+You are given an integer array prices where prices[i] is the price of a given stock on the ith day, and an integer k.
+Find the maximum profit you can achieve. You may complete at most k transactions.
+Note: You may not engage in multiple transactions simultaneously (i.e., you must sell the stock before you buy again).
+
+Example: Input: k = 2, prices = [2,4,1]
+Output: 2
+Explanation: Buy on day 1 (price = 2) and sell on day 2 (price = 4), profit = 4-2 = 2.
+*/
+
+var maxProfit = function(k, prices) {
+    if (prices.length === 0) return 0;
+    if (k > (prices.length/2)) {
+        let profit = 0;
+        for (let i=1; i<prices.length; i++) {
+            if (prices[i] > prices[i-1]) {
+                profit += prices[i] - prices[i-1];
+            }
+        }
+        return profit;
+    } else {
+        let dp = new Array(prices.length).fill(0);
+        let size = prices.length;
+        for (let t=1; t<=k; t++) {
+            let min = prices[0];
+            let max = 0;
+            for (let i=0; i<size; i++) {
+                min = Math.min(min, prices[i] - dp[i]);
+                max = Math.max(max, prices[i]-min);
+                dp[i] = max;
+            }
+        }
+        return dp.pop();
+    }
+};
+
+
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
+Prob: 
+
+*/
+
+
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
+Prob: 
+
+*/
+
+

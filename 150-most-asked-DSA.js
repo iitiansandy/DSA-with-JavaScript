@@ -176,3 +176,59 @@ var maxProfit = function(prices) {
 /* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 
 
+/*
+Prob: Remove duplicates from an array
+Example: Input : = [1,2,3,4,5,4]; Output: [1,2,3,4,5]
+*/
+
+// Method 1 (Using filter)
+function removeDuplicates(arr) {
+    return arr.filter((item, 
+        index) => arr.indexOf(item) === index);
+}
+let arr = [1,2,3,4,5,4,3,2];
+console.log(removeDuplicates(arr));
+
+
+// Method 2 (Using filter)
+function removeDuplicates(arr) {
+    return [...new Set(arr)];
+}
+
+// Method 3 (Using filter)
+function removeDuplicates(arr) {
+    var unique = [];
+    arr.forEach(element => {
+        if (!unique.includes(element)) {
+            unique.push(element);
+        }
+    });
+    return unique;
+};
+
+// Method 4
+function removeDuplicates(arr) {
+    var unique = arr.reduce(function (acc, curr) {
+        if (!acc.includes(curr))
+            acc.push(curr);
+        return acc;
+    }, []);
+    return unique;
+};
+
+
+// Method 5
+function removeDuplicates(arr) {
+    var unique = [];
+    for(i=0; i < arr.length; i++){  
+        if(unique.indexOf(arr[i]) === -1) {  
+            unique.push(arr[i]);  
+        }  
+    }
+    return unique;
+};
+
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+

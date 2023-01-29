@@ -232,3 +232,24 @@ function removeDuplicates(arr) {
 /* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 
 
+/*
+Prob: Intersection of the two Arrays
+Ex: Input: arr1 = [1,2,2,1], arr2 = [2,2]
+Output: [2]
+*/
+
+function intersec(arr1, arr2) {
+    let map = new Map();
+    arr1 = [...new Set(arr1)];
+    arr2 = [...new Set(arr2)];
+
+    for (let i=0; i<arr1.length; i++) {
+        map.set(arr1[i], 1);
+    }
+
+    return arr2.filter((n) => {
+        if(map.get(n)) return true;
+    });
+};
+// let arr1 = [1,2,2,1], arr2 = [2,2];
+// console.log(intersec(arr1, arr2));

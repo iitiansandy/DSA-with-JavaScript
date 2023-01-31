@@ -253,3 +253,60 @@ function intersec(arr1, arr2) {
 };
 // let arr1 = [1,2,2,1], arr2 = [2,2];
 // console.log(intersec(arr1, arr2));
+
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
+Prob: Contains Duplicate
+Given an integer array nums, return true if any value appears at least twice in the array, and return false if every element is distinct.
+
+Example:
+Input: nums = [1,2,3,1]
+Output: true
+*/
+
+function checkDuplicates(arr) {
+    let ans = [];
+    for (let i=0; i<arr.length; i++) {
+        if (ans.includes(arr[i])){
+            return true;
+        } else {
+            ans.push(arr[i]);
+        }
+    }
+    return false;
+}
+// let arr = [1,2,3,4];
+// console.log(checkDuplicates(arr));
+
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
+Prob: Single Number
+Given a non-empty array of integers nums, every element appears twice except for one. Find that single one.
+You must implement a solution with a linear runtime complexity and use only constant extra space.
+
+Example: Input: nums = [2,2,1], Output: 1
+*/
+
+function singleNum(arr) {
+    let obj = {};
+    for (let ele of arr) {
+        obj[ele] = obj[ele] + 1 || 1;
+    }
+    for (key in obj) {
+        if (obj[key] === 1) {
+            return key;
+        }
+    }
+}
+// let arr = [2,1,1];
+// console.log(singleNum(arr));
+
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+

@@ -117,7 +117,7 @@ function removeElement(arr, ele) {
 
 
 /*
-Prob: Best Time to Buy and Sell Stock
+Prob 5: Best Time to Buy and Sell Stock
 You are given an array prices where prices[i] is the price of a given stock on the ith day.
 You want to maximize your profit by choosing a single day to buy one stock and choosing a different day in the future to sell that stock.
 Return the maximum profit you can achieve from this transaction. If you cannot achieve any profit, return 0.
@@ -142,7 +142,7 @@ function maxProfit (prices) {
 
 
 /*
-Prob: Best Time to Buy and Sell Stock II
+Prob 6: Best Time to Buy and Sell Stock II
 You are given an integer array prices where prices[i] is the price of a given stock on the ith day.
 On each day, you may decide to buy and/or sell the stock. You can only hold at most one share of the stock at any time. However, you can 
 buy it then immediately sell it on the same day.
@@ -177,7 +177,7 @@ var maxProfit = function(prices) {
 
 
 /*
-Prob: Remove duplicates from an array
+Prob 7: Remove duplicates from an array
 Example: Input : = [1,2,3,4,5,4]; Output: [1,2,3,4,5]
 */
 
@@ -233,7 +233,7 @@ function removeDuplicates(arr) {
 
 
 /*
-Prob: Intersection of the two Arrays
+Prob 8: Intersection of the two Arrays
 Ex: Input: arr1 = [1,2,2,1], arr2 = [2,2]
 Output: [2]
 */
@@ -259,7 +259,7 @@ function intersec(arr1, arr2) {
 
 
 /*
-Prob: Contains Duplicate
+Prob 9: Contains Duplicate
 Given an integer array nums, return true if any value appears at least twice in the array, and return false if every element is distinct.
 
 Example:
@@ -286,7 +286,7 @@ function checkDuplicates(arr) {
 
 
 /*
-Prob: Single Number
+Prob 10: Single Number
 Given a non-empty array of integers nums, every element appears twice except for one. Find that single one.
 You must implement a solution with a linear runtime complexity and use only constant extra space.
 
@@ -306,6 +306,67 @@ function singleNum(arr) {
 }
 // let arr = [2,1,1];
 // console.log(singleNum(arr));
+
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
+Prob 11: Plus One
+You are given a large integer represented as an integer array digits, where each digits[i] is the ith digit of the integer.
+Increment the large integer by one and return the resulting array of digits.
+
+Example:
+Input: digits = [1,2,3]
+Output: [1,2,4]
+Explanation: The array represents the integer 123.
+Incrementing by one gives 123 + 1 = 124.
+Thus, the result should be [1,2,4].
+*/
+
+function plusOne (digits) {
+    for (let i=digits.length-1; i>=0; i--) {
+        digits[i]++;
+        if (digits[i] < 10) {
+            return digits;
+        } else {
+            digits[i] = 0;
+        }
+    }
+    digits.unshift(1);
+    return digits;
+}
+// let digits = [1,2,3];
+// console.log(plusOne(digits));
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
+Prob 12: Move Zeroes
+Given an integer array nums, move all 0's to the end of it while maintaining the relative order of the non-zero elements.
+
+Example:
+Input: nums = [0,1,0,3,12]
+Output: [1,3,12,0,0]
+*/
+
+function moveZeros (arr) {
+    let index = 0;
+    for (let i=0; i<arr.length; i++) {
+        let num = arr[i];
+        if (num !== 0) {
+            arr[index] = num;
+            index++;
+        }
+    }
+    for (let i=index; i<arr.length; i++) {
+        arr[i] = 0;
+    }
+    return arr;
+}
+// let arr = [0,1,0,3,12];
+// console.log(moveZeros(arr));
 
 
 /* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */

@@ -400,3 +400,106 @@ var rotate = function(M) {
 
 /* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 
+
+/*
+Prob: 3Sum
+iven an integer array nums, return all the triplets [nums[i], nums[j], nums[k]] such that i != j, i != k, and j != k, and nums[i] + nums[j] + 
+nums[k] == 0.
+Notice that the solution set must not contain duplicate triplets.
+Example:
+Input: nums = [-1,0,1,2,-1,-4]
+Output: [[-1,-1,2],[-1,0,1]]
+*/
+
+var threeSum = function(nums) {
+    let result = [];
+    if(nums.length<3) return result;
+    nums.sort((a,b)=>a-b);
+    
+    for(let i=0; i<nums.length; i++){
+        if(nums[i]>0) break;
+        if(i>0 && nums[i] === nums[i-1]) continue;
+        let start = i+1;
+        let end = nums.length-1;
+        while(start<end){
+            let sum = nums[i] + nums[start] + nums[end];
+            if(sum === 0){
+                result.push([nums[i], nums[start], nums[end]]);
+                start++;
+                end--;
+                while(start<end && nums[start] === nums[start-1]) start++;
+                while(start<end && nums[end]===nums[end+1]) end--;
+            }
+            else if(sum<0) start++;
+            else if(sum>0) end--;
+        }
+    }
+    return result;
+};
+
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
+Prob: 4Sum
+Given an array nums of n integers, return an array of all the unique quadruplets [nums[a], nums[b], nums[c], nums[d]] such that:
+0 <= a, b, c, d < n
+a, b, c, and d are distinct.
+nums[a] + nums[b] + nums[c] + nums[d] == target
+You may return the answer in any order.
+Example:
+Input: nums = [1,0,-1,0,-2,2], target = 0
+Output: [[-2,-1,1,2],[-2,0,0,2],[-1,0,0,1]]
+*/
+
+const fourSum = function(nums, target) {
+    const outputArray = [];
+    nums = nums.sort((a, b) => a - b);
+    for (let k = 0; k < nums.length - 3; ++k) {
+      const currEleOne = nums[k];
+      if (k > 0 && nums[k] === nums[k - 1]) {
+        continue;
+      }
+      search_triplets(nums, k + 1, target - currEleOne, currEleOne, outputArray);
+    }
+    return outputArray;
+  };
+  
+  // one layer deep
+  const search_triplets = function(nums, startIndexOne, targetOne, eleOne, outputArray) {
+    for (let i = startIndexOne; i < nums.length - 2; ++i) {
+      const currEleTwo = nums[i];
+      if (i > startIndexOne && nums[i] === nums[i - 1]) {
+        continue;
+      }
+      search_doubles(nums, i + 1, targetOne - currEleTwo, eleOne, currEleTwo, outputArray);
+    }
+  }
+  
+  // two layers deep
+  const search_doubles = function(nums, startIndexTwo, targetTwo, eleOne, eleTwo, outputArray) {
+    let left = startIndexTwo,
+      right = nums.length - 1;
+    while (left < right) {
+      if (nums[left] + nums[right] === targetTwo) {
+        outputArray.push([eleOne, eleTwo, nums[left], nums[right]]);
+        ++left;
+        --right;
+        while (left < right && nums[left] === nums[left - 1]) {
+          ++left;
+        }
+        while (left < right && nums[right] === nums[right + 1]) {
+          --right;
+        }
+      } else if (nums[left] + nums[right] < targetTwo) {
+        ++left;
+      } else if (nums[left] + nums[right] > targetTwo) {
+        --right;
+      }
+    }
+  }
+
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+

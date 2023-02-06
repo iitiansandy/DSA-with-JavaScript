@@ -541,3 +541,34 @@ var searchRange = function(nums, target) {
 /* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 
 
+/*
+Prob: Group Anagrams
+Given an array of strings strs, group the anagrams together. You can return the answer in any order.
+An Anagram is a word or phrase formed by rearranging the letters of a different word or phrase, typically using all the original letters exactly once.
+
+Example: Input: strs = ["eat","tea","tan","ate","nat","bat"]
+Output: [["bat"],["nat","tan"],["ate","eat","tea"]]
+*/
+
+var groupAnagrams = function(strs) {
+    let map = {};
+    for(let s of strs){
+        let array = Array(26).fill(0);
+        for(let i=0; i<s.length; i++){
+            let ascii = s.charCodeAt(i);
+            array[ascii-97] +=1;
+        }
+        let key=array.join('-');
+        if(map[key]){
+            map[key].push(s);
+        } else {
+            map[key] = [s];
+        }
+    }
+    return Object.values(map);
+};
+
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+

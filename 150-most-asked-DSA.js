@@ -601,3 +601,48 @@ var minSetSize = function(arr) {
 /* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 
 
+/*
+Prob: Delete Node in a Linked List
+There is a singly-linked list head and we want to delete a node node in it.
+Ex: Input: head = [4,5,1,9], node = 5
+Output: [4,1,9]
+Explanation: You are given the second node with value 5, the linked list should become 4 -> 1 -> 9 after calling your function.
+*/
+
+var deleteNode = function(node) {
+    node.val = node.next.val;
+    node.next = node.next.next;
+};
+
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
+Prob: Remove Nth Node From End of List
+Given the head of a linked list, remove the nth node from the end of the list and return its head.
+
+Example: Input: head = [1,2,3,4,5], n = 2
+Output: [1,2,3,5]
+*/
+
+var removeNthFromEnd = function(head, n) {
+    let fast = head, slow = head;
+    while(n--){
+        fast = fast.next;
+    }
+    while (fast && fast.next) {
+        slow = slow.next;
+        fast = fast.next;
+    }
+    if(!fast){
+        head = head.next;
+    } else {
+        slow.next = slow.next ? slow.next.next : null;
+    }
+    return head;
+};
+
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+

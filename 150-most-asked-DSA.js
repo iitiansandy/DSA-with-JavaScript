@@ -682,3 +682,33 @@ var mergeTwoLists = function(list1, list2) {
 /* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 
 
+/*
+Prob: Palindrome Linked List
+Given the head of a singly linked list, return true if it is a palindrome or false otherwise.
+Example: Input: head = [1,2,2,1]
+Output: true
+*/
+
+var isPalindrome = function(head) {
+    let stack = [];
+    let curr = head;
+    
+    while (curr) {
+        stack.push(curr.val);
+        curr = curr.next;
+    }
+
+    let res = head;
+    while (res) {
+        if(res.val !== stack.pop()) {
+            return false;
+        }
+        res = res.next;
+    }
+    return true;
+};
+
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+

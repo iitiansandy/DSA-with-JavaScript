@@ -740,4 +740,24 @@ var hasCycle = function(head) {
 /* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 
 
+/*
+Prob: Intersection of Two Linked Lists
+Given the heads of two singly linked-lists headA and headB, return the node at which the two lists intersect. If the two linked lists have no 
+intersection at all, return null.
+Ex: Input: intersectVal = 8, listA = [4,1,8,4,5], listB = [5,6,1,8,4,5], skipA = 2, skipB = 3
+Output: Intersected at '8'
+*/
+
+var getIntersectionNode = function(headA, headB) {
+    let a = headA, b = headB;
+    while (a !== b) {
+        a = !a ? headB : a.next;
+        b = !b ? headA : b.next;
+    }
+    return a;
+};
+
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
 

@@ -110,3 +110,9 @@ function getDatas(){
     
 // }
 // createData({name: "Vivek", Profession: "Software Engineer"}).then(getData).catch(err => console.log("Error"));
+
+
+// Get Date in IST (Indian Standard Time)
+let date = Math.floor(new Date().getTime() / 1000);
+let time= new Date(date*1000).toString()
+console.log(time)

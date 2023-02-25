@@ -886,3 +886,32 @@ var intersection = function(nums1, nums2) {
 
 /* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 
+
+/*
+Prob: Kth Smallest Element in a BST
+Given the root of a binary search tree, and an integer k, return the kth smallest value (1-indexed) of all the values of the nodes in 
+the tree.
+Example: Input: root = [3,1,4,null,2], k = 1
+Output: 1
+*/
+
+var kthSmallest = function(root, k) {
+    const stack = [];
+    let count = 1;
+    let node = root;
+ 
+    while(node || stack.length) {
+        while (node) {
+             stack.push(node)
+             node = node.left;
+        }
+        node = stack.pop();
+        if(count === k) return node.val;
+        else count++;
+        node = node.right;
+    }
+  };
+
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+

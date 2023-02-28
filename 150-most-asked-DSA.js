@@ -950,3 +950,69 @@ var search = function(nums, target) {
 
 /* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 
+
+/*
+Prob: First Bad Version
+Example: Input: n = 5, bad = 4
+Output: 4
+Explanation:
+call isBadVersion(3) -> false
+call isBadVersion(5) -> true
+call isBadVersion(4) -> true
+Then 4 is the first bad version.
+*/
+
+var solution = function(isBadVersion) {
+    /**
+     * @param {integer} n Total versions
+     * @return {integer} The first bad version
+     */
+    return function(n) {
+        let start = 1, end = n;
+        while(start < end) {
+            let mid = Math.floor(start + (end - start) / 2);
+            if(isBadVersion(mid)) {
+                end = mid;   // look on left side of mid
+            } else {
+                start = mid + 1; // look on the right side of mid
+            }
+        }
+        return start;
+    };
+};
+
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
+Prob: Search Insert Position
+Given a sorted array of distinct integers and a target value, return the index if the target is found. If not, return the index where 
+it would be if it were inserted in order.
+You must write an algorithm with O(log n) runtime complexity.
+Example: Input: nums = [1,3,5,6], target = 5
+Output: 2
+*/
+
+var searchInsert = function(nums, target) {
+    if(target < nums[0]) return 0;
+    if(target > nums[nums.length-1]) return nums.length;
+    let left = 0;
+    let right = nums.length-1;
+    
+    while(left <= right){
+        let mid = Math.floor((left + right)/2);
+        
+        if(nums[mid] === target) return mid;
+        
+        if(nums[mid]>target && nums[mid-1]<target) return mid;
+        
+        if(nums[mid] < target) left = mid+1;
+        
+        else if(nums[mid] > target) right = mid-1;
+    }
+};
+
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+

@@ -1016,3 +1016,36 @@ var searchInsert = function(nums, target) {
 
 /* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 
+
+/*
+Prob: Find Peak Element
+Given a 0-indexed integer array nums, find a peak element, and return its index. If the array contains multiple peaks, return the index 
+to any of the peaks.
+Example: Input: nums = [1,2,3,1]
+Output: 2
+Explanation: 3 is a peak element and your function should return the index number 2.
+*/
+
+var findPeakElement = function(nums) {
+    let start = 0, end = nums.length-1, mid;
+    
+    while(start <= end){
+        mid = Math.floor((start + end)/2);
+        const val = nums[mid];
+        const left = nums[mid-1] || -Infinity;
+        const right = nums[mid+1] || -Infinity;
+        
+        if(val > left && val > right) return mid;
+        if(left > val){
+            end = mid-1;
+        } else {
+            start = mid + 1;
+        }
+    }
+    return 0;
+};
+
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+

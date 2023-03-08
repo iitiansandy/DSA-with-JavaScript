@@ -83,9 +83,49 @@ var findAnagrams = function(s, p) {
 
 
 /*
-Prob: 
+Prob: Minimum Window Substring
+Given two strings s and t of lengths m and n respectively, return the minimum window 
+substring of s such that every character in t (including duplicates) is included in the window. If there is no such substring, return the 
+empty string "". The testcases will be generated such that the answer is unique.
 
+Example 1: Input: s = "ADOBECODEBANC", t = "ABC"
+Output: "BANC"
+Explanation: The minimum window substring "BANC" includes 'A', 'B', and 'C' from string t.
 */
+
+var minWindow = function(s, t) {
+    let min = "", left = 0, right = -1;
+    let map = {};
+    t.split('').forEach(element => {
+        if(map[element] == null) map[element] = 1;
+        else map[element] = map[element] + 1;
+    });
+
+    let count = Object.keys(map).length;
+    while (right <= s.length) {
+        if (count == 0) {
+            let current = s[left];
+            if(map[current] != null) map[current]++;
+            if(map[current] > 0) count++;
+
+            let temp = s.substring(left, right+1);
+            if(min == "") min = temp;
+            else min = min.length < temp.length ? min : temp;
+            left++;
+        } else {
+            right++;
+            let current = s[right];
+            if (map[current] != null) map[current]--;
+            if (map[current] == 0) count--;
+        }
+    }
+    return min;
+};
+
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
 
 
 /* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */

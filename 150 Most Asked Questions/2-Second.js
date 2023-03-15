@@ -123,7 +123,25 @@ var minWindow = function(s, t) {
 };
 
 
-/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++ TWO POINTER +++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
+Prob: Arranging Coins
+Given the integer n, return the number of complete rows of the staircase you will build.
+Example: Input: n = 5
+Output: 2
+Explanation: Because the 3rd row is incomplete, we return 2.
+*/
+
+var arrangeCoins = function(n) {
+    let stairs = 0;
+    while(stairs <= n) { n -= stairs; stairs++; }
+    return stairs-1;
+};
+
+
+/* +++++++++++++++++++++++++++++++++++++++++++ TWO POINTER +++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 
 
 /*

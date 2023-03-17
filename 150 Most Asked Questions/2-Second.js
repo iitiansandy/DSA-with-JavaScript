@@ -168,6 +168,65 @@ var intersection = function(nums1, nums2) {
 /* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 
 
+/*
+Prob: 1800. Maximum Ascending Subarray Sum
+Given an array of positive integers nums, return the maximum possible sum of an ascending subarray in nums.
+Example : Input: nums = [10,20,30,5,10,50]
+Output: 65
+Explanation: [5,10,50] is the ascending subarray with the maximum sum of 65.
+*/
+
+var maxAscendingSum = function(nums) {
+    let max = nums[0], sum = nums[0]
+  for(let i=1;i<nums.length;i++){
+    const curr = nums[i]
+    if(curr <= nums[i-1]){
+      sum = 0
+    }
+    sum+=curr
+    max = Math.max(max, sum)
+  }
+  return max
+};
+
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
+Prob: 844. Backspace String Compare
+Given two strings s and t, return true if they are equal when both are typed into empty text editors. '#' means a backspace character.
+Note that after backspacing an empty text, the text will continue empty.
+
+Example : Input: s = "ab#c", t = "ad#c"
+Output: true
+Explanation: Both s and t become "ac".
+*/
+
+var backspaceCompare = function(s, t) {
+    return edit(s) === edit(t);
+
+    function edit(str) {
+        let result = '';
+        let backspaces = 0;
+
+        for (let i=str.length-1; i>=0; i--) {
+            if (str[i] === '#') {
+                backspaces++;
+            } else if (backspaces > 0) {
+                backspaces--;
+            } else {
+                result = str[i] + result;
+            }
+        }
+        return result;
+    }
+};
+
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
 
 
 /* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */

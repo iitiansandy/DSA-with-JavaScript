@@ -227,6 +227,75 @@ var backspaceCompare = function(s, t) {
 /* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 
 
+/*
+Prob: 925. Long Pressed Name
+Your friend is typing his name into a keyboard. Sometimes, when typing a character c, the key might get long pressed, and the character will 
+be typed 1 or more times.
+
+You examine the typed characters of the keyboard. Return True if it is possible that it was your friends name, with some characters (possibly 
+none) being long pressed.
+
+Example 1: Input: name = "alex", typed = "aaleex"
+Output: true
+Explanation: 'a' and 'e' in 'alex' were long pressed.
+*/
+
+var isLongPressedName = function(name, typed) {
+    let j=0;
+    for (let i=0; i<typed.length; i++) {
+        if (typed[i] === name[j]) {
+            j++;
+        } else if (typed[i] === name[j-1]) {
+            continue;
+        } else {
+            return false;
+        }
+    }
+    return j === name.length;
+};
+
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
+Prob: 904. Fruit Into Baskets
+You are visiting a farm that has a single row of fruit trees arranged from left to right. The trees are represented by an integer array fruits 
+where fruits[i] is the type of fruit the ith tree produces.
+You want to collect as much fruit as possible. However, the owner has some strict rules that you must follow:
+
+You only have two baskets, and each basket can only hold a single type of fruit. There is no limit on the amount of fruit each basket can hold.
+Starting from any tree of your choice, you must pick exactly one fruit from every tree (including the start tree) while moving to the right. 
+The picked fruits must fit in one of your baskets.
+Once you reach a tree with fruit that cannot fit in your baskets, you must stop.
+Given the integer array fruits, return the maximum number of fruits you can pick.
+
+Example : Input: fruits = [1,2,1]
+Output: 3
+Explanation: We can pick from all 3 trees.
+*/
+
+const totalFruit = array => {
+    let map = new Map(), max = -1
+    for(let start = 0, end = 0; end < array.length; end++){
+        let currElement = array[end]
+        map.set(currElement, map.get(currElement)+1 || 1 )
+        while(map.size > 2){
+            let char = array[start]
+            let charCount = map.get(char)
+            if(charCount-1 === 0)map.delete(char)
+            else map.set(char, charCount-1)
+            start++
+        }
+        if(map.size >= 1)max = Math.max(max, end + 1 - start)
+    }
+    return max
+};
+
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
 
 
 /* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */

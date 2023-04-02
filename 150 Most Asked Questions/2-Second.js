@@ -328,7 +328,88 @@ var searchInsert = function(nums, target) {
 /* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 
 
+/*
+Prob: Valid Parentheses
+Given a string s containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input 
+string is valid.
+An input string is valid if:
+Open brackets must be closed by the same type of brackets.
+Open brackets must be closed in the correct order.
+Every close bracket has a corresponding open bracket of the same type.
+Example : Input: s = "()"
+Output: true
+*/
+Prob: var isValid = function(s) {
+    let obj = {
+        "(": ")",
+        "[": "]",
+        "{": "}"
+    };
+    
+    let ans = [];
+    
+    for(let char of s){
+        if(obj[char]){
+            ans.push(obj[char]);
+        } else {
+            if(ans.pop() !== char) return false;
+        }
+    }
+    return (!ans.length);
+};
 
 
 /* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 
+
+/*
+Prob: Max Consecutive Ones III
+Given a binary array nums and an integer k, return the maximum number of consecutive 1's in the array if 
+you can flip at most k 0's.
+
+Example : Input: nums = [1,1,1,0,0,0,1,1,1,1,0], k = 2
+Output: 6
+Explanation: [1,1,1,0,0,1,1,1,1,1,1]
+Bolded numbers were flipped from 0 to 1. The longest subarray is underlined.
+*/
+
+var longestOnes = function(nums, k) {
+    let left = 0, right = 0;
+
+    while (right < nums.length) {
+        if (nums[right] === 0) k--;
+        if (k < 0) {
+            if (nums[left] === 0) k++;
+            left++
+        }
+        right++;
+    }
+    return right - left;
+};
+
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
+Prob:
+
+*/
+
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
+Prob:
+
+*/
+
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+/*
+Prob:
+
+*/
